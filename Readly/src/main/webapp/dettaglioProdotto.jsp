@@ -7,10 +7,12 @@
 List<ImmagineBean> listaImmagini = (List<ImmagineBean>) request.getAttribute("listaImmagine");
 String immaginePrincipale = (String) request.getAttribute("immaginePrincipale");
 
-if(libro == null){
+if(libro == null) {
     request.setAttribute("messaggioErrore", "Accesso non valido alla pagina del prodotto.");
-    request.getRequestDispatcher("/erroreProdotto.jsp").forward(request,response);
+    request.getRequestDispatcher("/erroreProdotto.jsp").forward(request, response);
 }
+%>
+
 <!DOCTYPE html>
     <html lang="it">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +20,6 @@ if(libro == null){
     <title><%= libro.getTitolo() %> - Readly</title>
     <link rel="icon" type="image/png" href="<%= request.getContextPath() %>/img/small_logo.png">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/DettaglioProdotto.css">
-    </head>
+    </html>
 
  <jsp:include page="header.jsp" />
