@@ -19,7 +19,7 @@ public class CarrelloDAO {
         ResultSet resultSet = null;
         CarrelloBean carrello = null;
 
-        String sql = "SELECT ID_Carrello, email, FROM Carrello WHERE email = ?";
+        String sql = "SELECT ID_Carrello, email FROM Carrello WHERE email = ?";
 
         try {
             connection = ConnectionPool.getConnection();
@@ -41,7 +41,7 @@ public class CarrelloDAO {
         return carrello;
     }
 
-    public void doSave(CarrelloBean carrello) throws SQLException {
+    public void doSave(CarrelloBean carrello, String emailUtente) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -51,7 +51,7 @@ public class CarrelloDAO {
             connection = ConnectionPool.getConnection();
             statement = connection.prepareStatement(sql);
             statement.setString(1, carrello.getIdCarrello());
-            statement.setString(2, carrello.getUtente().getEmail());
+            statement.setString(2, emailUtente);
             statement.executeUpdate();
         } finally {
             try { if (statement != null) statement.close(); } finally {
