@@ -17,7 +17,6 @@ public class FatturaBean implements Serializable{
     }
 
     public FatturaBean (int id, String metodoPagamento, Timestamp dataEmissione, double totale, int numeroOrdine){
-        this.id = id;
         this.metodoPagamento = metodoPagamento;
         this.dataEmissione = dataEmissione;
         this.totale = totale;
