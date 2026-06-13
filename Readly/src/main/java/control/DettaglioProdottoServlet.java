@@ -35,8 +35,8 @@ public class DettaglioProdottoServlet extends HttpServlet {
         try {
             ProdottoBean libro = prodottoDAO.doRetrieveByKey(isbnParam);
             if (libro == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Libro non trovato.");
-                return;
+              request.setAttribute("messaggioErrore", "Il libro richiesto non esiste o non è più disponibile");
+              request.getRequestDispatcher("/erroreProdotto.jsp").forward(request,response);
             }
             List<ImmagineBean> listaImmagini = immagineDAO.doRetrieveByProdotto(isbnParam);
             String immaginePrincipale = "default_book.png";
