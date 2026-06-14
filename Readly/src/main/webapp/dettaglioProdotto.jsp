@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 
 <% ProdottoBean libro = (ProdottoBean) request.getAttribute("libro");
-List<ImmagineBean> listaImmagini = (List<ImmagineBean>) request.getAttribute("listaImmagine");
+List<ImmagineBean> listaImmagini = (List<ImmagineBean>) request.getAttribute("listaImmagini");
 String immaginePrincipale = (String) request.getAttribute("immaginePrincipale");
 
 if(libro == null) {
@@ -15,12 +15,14 @@ if(libro == null) {
 
 <!DOCTYPE html>
     <html lang="it">
+    <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title><%= libro.getTitolo() %> Readly</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/DettaglioProdotto.css">
-    </html>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css">
+    </head>
 
+    <body>
  <%-- <jsp:include page="header.jsp" /> --%>
 <div class="contenitore-dettaglio">
     <div class="sezione-immagini">
@@ -44,6 +46,7 @@ if(libro == null) {
         <p class="autore-editore">di <strong><%= libro.getAutore() %></strong> | Categoria: <%= libro.getCategoria() %></p>
         <p class="descrizione-libro"><%= libro.getDescrizione() %></p>
         <p class="prezzo-libro">€ <%= String.format("%.2f", libro.getPrezzo()) %></p>
+        <div class="riga-bottoni-finali">
         <form action="<%= request.getContextPath() %>/AggiungiAlCarrelloServlet" method="post" style="margin: 0;">
             <input type="hidden" name="action" value="aggiungi">
             <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
@@ -53,7 +56,7 @@ if(libro == null) {
                     <input type="number" id="quantita" name="quantita" value="1" min="1" max="<%= libro.getDisponibilita() %>" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %>>
                 </div>
                 <button type="submit" class="bottone-carrello" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
-                    🛍️ +
+                    Aggiungi al carrello <span class="icona-carrello">🛒</span>
                 </button>
             </div>
         </form>
@@ -63,6 +66,7 @@ if(libro == null) {
                 ❤️
             </button>
         </form>
+        </div>
         <div class="stato-disponibilita <%= (libro.getDisponibilita() <= 0) ? "esaurito" : "" %>">
             <% if (libro.getDisponibilita() > 0) { %>
                  Disponibilità: <%= libro.getDisponibilita() %> copie
