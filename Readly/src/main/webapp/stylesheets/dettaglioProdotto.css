@@ -1,11 +1,8 @@
 body {
     margin: 0;
-    padding: 40px 20px;
+    padding: 0;
     background-color: #eadfbc;
     font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100vw;
     min-height: 100vh;
     box-sizing: border-box;
@@ -18,7 +15,7 @@ body {
     max-width: 1400px;
     width: 70%;
     display: flex;
-    margin: 30px 0;
+    margin: 30px auto;
     flex-direction: row;
     gap: 60px;
     box-sizing: border-box;

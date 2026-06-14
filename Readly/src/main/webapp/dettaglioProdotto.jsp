@@ -20,11 +20,11 @@ if(libro == null) {
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <meta charset="UTF-8">
     <title><%= libro.getTitolo() %> Readly</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=2">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=5">
     </head>
 
     <body>
- <%-- <jsp:include page="header.jsp" /> --%>
+  <jsp:include page="header.jsp"/>
 <div class="contenitore-dettaglio">
     <div class="sezione-immagini">
         <div class="colonna-miniature">
@@ -48,7 +48,7 @@ if(libro == null) {
         <p class="descrizione-libro"><%= libro.getDescrizione() %></p>
         <p class="prezzo-libro">€ <%= String.format("%.2f", libro.getPrezzo()) %></p>
         <div class="riga-bottoni-finali">
-        <form action="<%= request.getContextPath() %>/AggiungiAlCarrelloServlet" method="post" style="margin: 0;">
+        <form action="<%= request.getContextPath() %>/CarrelloServlet" method="get" style="margin: 0;">
             <input type="hidden" name="action" value="aggiungi">
             <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
             <div class="blocco-azioni">
