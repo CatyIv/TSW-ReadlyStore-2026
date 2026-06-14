@@ -29,6 +29,7 @@ public class CarrelloServlet extends HttpServlet {
         super();
     }
 
+    @SuppressWarnings({"CallToPrintStackTrace", "override"})
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
@@ -107,6 +108,7 @@ public class CarrelloServlet extends HttpServlet {
         response.sendRedirect("carrello.jsp");
     }
 
+    @SuppressWarnings("override")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         doGet(request, response);

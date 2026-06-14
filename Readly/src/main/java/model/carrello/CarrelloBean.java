@@ -68,7 +68,7 @@ public class CarrelloBean implements Serializable {
         return items.values();
     }
 
-    public double getPrezzoComplessivo() {
+    public double getPrezzoTotaleComplessivo() {
         double totale = 0.0;
         for (ItemCarrelloBean item : items.values()) {
             totale += item.getProdotto().getPrezzo() * item.getQuantita();
