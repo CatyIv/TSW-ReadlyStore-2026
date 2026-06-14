@@ -27,6 +27,15 @@ public class DettaglioProdottoServlet extends HttpServlet {
         immagineDAO = new ImmagineDAO();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!model.ConnectionPool.isInitialized()) {
+            try {
+                model.ConnectionPool.init(10);
+                System.out.println("[Servlet] Connection Pool inizializzato al volo!");
+            } catch (java.sql.SQLException e) {
+                System.err.println("[Servlet] Errore critico di inizializzazione del pool!");
+                e.printStackTrace();
+            }
+        }
         String isbnParam = request.getParameter("isbn");
         if (isbnParam == null || isbnParam.isEmpty()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ISBN mancante.");

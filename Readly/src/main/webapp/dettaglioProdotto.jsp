@@ -17,9 +17,63 @@ if(libro == null) {
     <html lang="it">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title><%= libro.getTitolo() %> - Readly</title>
-    <link rel="icon" type="image/png" href="<%= request.getContextPath() %>/img/small_logo.png">
+    <title><%= libro.getTitolo() %> Readly</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/DettaglioProdotto.css">
     </html>
 
- <jsp:include page="header.jsp" />
+ <%-- <jsp:include page="header.jsp" /> --%>
+<div class="contenitore-dettaglio">
+    <div class="sezione-immagini">
+        <div class="colonna-miniature">
+            <%
+                if (listaImmagini != null) {
+                    for (ImmagineBean img : listaImmagini) {
+            %>
+            <img class="miniatura" src="<%= request.getContextPath() %>/img/copertine/<%= img.getUrl() %>" alt="Anteprima">
+            <%
+                    }
+                }
+            %>
+        </div>
+        <div class="copertina-principale">
+            <img src="<%= request.getContextPath() %>/img/copertine/<%= immaginePrincipale %>" alt="<%= libro.getTitolo() %>">
+        </div>
+    </div>
+    <div class="sezione-info">
+        <h1 class="titolo-libro"><%= libro.getTitolo() %></h1>
+        <p class="autore-editore">di <strong><%= libro.getAutore() %></strong> | Categoria: <%= libro.getCategoria() %></p>
+        <p class="descrizione-libro"><%= libro.getDescrizione() %></p>
+        <p class="prezzo-libro">€ <%= String.format("%.2f", libro.getPrezzo()) %></p>
+        <form action="<%= request.getContextPath() %>/AggiungiAlCarrelloServlet" method="post" style="margin: 0;">
+            <input type="hidden" name="action" value="aggiungi">
+            <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
+            <div class="blocco-azioni">
+                <div class="selettore-quantita">
+                    <label for="quantita">Quantità:</label>
+                    <input type="number" id="quantita" name="quantita" value="1" min="1" max="<%= libro.getDisponibilita() %>" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %>>
+                </div>
+                <button type="submit" class="bottone-carrello" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
+                    🛍️ +
+                </button>
+            </div>
+        </form>
+        <form action="<%= request.getContextPath() %>/AggiungiAllaWishlistServlet" method="post" style="margin: 0;">
+            <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
+            <button type="submit" class="bottone-wishlist" title="Aggiungi alla Wishlist">
+                ❤️
+            </button>
+        </form>
+        <div class="stato-disponibilita <%= (libro.getDisponibilita() <= 0) ? "esaurito" : "" %>">
+            <% if (libro.getDisponibilita() > 0) { %>
+                 Disponibilità: <%= libro.getDisponibilita() %> copie
+            <% } else { %>
+                 Esaurito
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%-- <jsp:include page="footer.jsp" /> --%>
+
+</body>
+</html>
