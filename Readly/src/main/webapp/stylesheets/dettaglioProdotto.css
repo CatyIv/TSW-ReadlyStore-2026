@@ -1,0 +1,229 @@
+body {
+    margin: 0;
+    padding: 40px 20px;
+    background-color: #eadfbc;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.contenitore-dettaglio {
+    background-color: #F6F0D7;
+    border-radius: 24px;
+    padding: 50px;
+    max-width: 1400px;
+    width: 70%;
+    display: flex;
+    margin: 30px 0;
+    flex-direction: row;
+    gap: 60px;
+    box-sizing: border-box;
+    align-items: stretch;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.sezione-immagini {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+.colonna-miniature {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.miniatura {
+    width: 60px;
+    border: 1px solid #677351;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+.miniatura {
+    width: 60px;
+    border: 1px solid #677351;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+.miniatura:hover {
+    transform: scale(1.05);
+}
+
+.copertina-principale {
+    background: white;
+    border: 2px solid #677351;
+    border-radius: 20px;
+    width: 340px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.copertina-principale img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: .3s ease;
+}
+
+.copertina-principale img:hover {
+    transform: scale(1.03);
+}
+
+.sezione-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.titolo-libro {
+    font-family: 'Cabin', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    color: #677351;
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.autore-editore {
+    font-family: 'Segoe UI', sans-serif;
+    color: #89986D;
+    margin: 0 0 20px 0;
+    font-size: 15px;
+}
+
+.descrizione-libro {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #89986D;
+    margin: 0 0 20px 0;
+}
+
+
+.prezzo-libro {
+    font-family: 'Cabin', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #677351;
+    margin: 0 0 10px 0;
+}
+.selettore-quantita {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #89986D;
+    font-weight: bold;
+    font-size: 16px;
+}
+.selettore-quantita input[type="number"] {
+    background-color:#FFFFFF;
+    width: 65px;
+    padding: 6px 10px;
+    border: 2px solid #EADFBC;
+    border-radius: 20px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+    color: #000000;
+    outline: none;
+}
+
+.riga-bottoni-finali {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+.bottone-carrello {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 10px 24px;
+    background-color: #89986D;
+    color: #ffffff;
+    border: 2px solid #677351;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    transition: .2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+.bottone-carrello:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+}
+
+
+.bottone-wishlist {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #677351;
+    background-color: #89986D;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+    transition: .2s ease;
+}
+
+.bottone-wishlist:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+}
+
+.stato-disponibilita {
+    font-family: 'Segoe UI', sans-serif;
+    color: #89986D;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.stato-disponibilita.esaurito {
+    color: #c94c4c;
+}
+
+.blocco-azioni {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* simbolo shopping bag */
+ .material-symbols-outlined {
+     font-variation-settings:
+             'FILL' 0,
+             'wght' 400,
+             'GRAD' 0,
+             'opsz' 20
+ }
+
+ /*simbolo cuore wishlist*/
+
+ .material-symbols-outlined {
+     font-variation-settings:
+             'FILL' 0,
+             'wght' 400,
+             'GRAD' 0,
+             'opsz' 20
+ }

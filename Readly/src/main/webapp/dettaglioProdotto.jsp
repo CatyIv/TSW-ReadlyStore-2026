@@ -16,10 +16,11 @@ if(libro == null) {
 <!DOCTYPE html>
     <html lang="it">
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+        <meta charset="UTF-8">
     <title><%= libro.getTitolo() %> Readly</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=2">
     </head>
 
     <body>
@@ -56,14 +57,14 @@ if(libro == null) {
                     <input type="number" id="quantita" name="quantita" value="1" min="1" max="<%= libro.getDisponibilita() %>" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %>>
                 </div>
                 <button type="submit" class="bottone-carrello" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
-                    Aggiungi al carrello <span class="icona-carrello">🛒</span>
+                    Aggiungi al carrello <span class="material-symbols-outlined">shopping_bag</span>
                 </button>
             </div>
         </form>
         <form action="<%= request.getContextPath() %>/AggiungiAllaWishlistServlet" method="post" style="margin: 0;">
             <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
             <button type="submit" class="bottone-wishlist" title="Aggiungi alla Wishlist">
-                ❤️
+               <span class="material-symbols-outlined">bookmark</span>
             </button>
         </form>
         </div>
