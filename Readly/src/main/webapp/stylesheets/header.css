@@ -10,10 +10,10 @@
     background:#677351;
     display:flex;
     align-items:center;
-    padding:12px 40px;
+    padding:0.83% 2.77%; /* Convertito da 12px 40px */
 }
 .sinistra-superiore-intestazione{
-    width:180px;
+    width:12.5%; /* Convertito da 180px su base 1440px */
 }
 .messaggio-intestazione{
     flex:1;
@@ -23,13 +23,13 @@
     font-weight:600;
 }
 .icone-intestazione{
-    width:180px;
+    width:12.5%; /* Convertito da 180px su base 1440px */
     display:flex;
     justify-content:flex-end;
-    gap:15px;
+    gap:8.3%; /* Spazio relativo alla larghezza del blocco icone */
 }
 .collegamento-icona{
-    width:38px;
+    width:38px; /* Mantenuto in px per garantire la forma circolare */
     height:38px;
     border-radius:50%;
     border:1px solid rgba(255,255,255,.7);
@@ -59,7 +59,7 @@
     padding:2px 6px;
 }
 .barra-navigazione-intestazione{
-    padding:20px 40px;
+    padding:1.38% 2.77%; /* Convertito da 20px 40px */
     display:flex;
     align-items:center;
     justify-content: space-around;
@@ -67,12 +67,12 @@
 .sezione-sinistra{
     display:flex;
     align-items:center;
-    gap:400px;
+    gap:27.7%; /* Convertito da 400px su base 1440px */
 }
 .logo-intestazione{
     display:flex;
     align-items:center;
-    gap:30px;
+    gap:16.6%; /* Spazio proporzionale interno al logo */
     text-decoration:none;
     color:#677351;
 }
@@ -89,17 +89,18 @@
     align-items:center;
 }
 .input-ricerca{
-    width:340px;
+    width:100%; /* Spesso è meglio metterlo al 100% del suo form container */
+    max-width:340px; /* Mantiene il limite massimo originale */
     background:#F6F0D7;
     border:2px solid #89986D;
     border-radius:25px;
-    padding:10px 45px 10px 20px;
+    padding:2.9% 13.2% 2.9% 5.8%; /* Convertito in base alle dimensioni dell'input stesso */
     outline:none;
     color:#677351;
 }
 .invia-ricerca{
     position:absolute;
-    right:15px;
+    right:4.4%;
     background:none;
     border:none;
     cursor:pointer;
@@ -107,13 +108,13 @@
 }
 .menu-navigazione{
     display:flex;
-    gap:15px;
+    gap:1.04%;
 }
 .bottone-navigazione{
     background:#F6F0D7;
     border:2px solid #89986D;
     border-radius:20px;
-    padding:8px 24px;
+    padding:0.55% 1.66%;
     text-decoration:none;
     color:#677351;
     font-weight:bold;
