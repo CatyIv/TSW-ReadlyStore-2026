@@ -26,18 +26,22 @@ function chiudiPopup() {
 
 function eseguiAzioneConfermata() {
     if (azioneCorrente === "svuota") {
-        window.location.href = "CarrelloServlet?azione=svuota";
+        window.location.href = "CarrelloServlet?action=svuota";
     } else if (azioneCorrente === "elimina") {
-        window.location.href = "CarrelloServlet?azione=rimuovi&isbn=" + isbnDaEliminare;
+        window.location.href = "CarrelloServlet?action=rimuovi&isbn=" + isbnDaEliminare;
     }
 }
 
 function aggiornaQuantita(isbn, nuovaQta) {
     if (nuovaQta <= 0) {
-        let h3Element = event.target.closest('.prodotto-card').querySelector('.prodotto-dettagli-testo h3');
-        let titolo = h3Element ? h3Element.innerText : "questo libro";
+        let card = event.target.closest('.prodotto-card');
+        let titolo = "questo libro";
+        if (card) {
+            let h3 = card.querySelector('.prodotto-dettagli-testo h3');
+            if (h3) titolo = h3.innerText;
+        }
         chiediConfermaElimina(isbn, titolo);
     } else {
-        window.location.href = "CarrelloServlet?azione=aggiornaQta&isbn=" + isbn + "&qta=" + nuovaQta;
+        window.location.href = "CarrelloServlet?action=modifica&isbn=" + isbn + "&quantita=" + nuovaQta;
     }
 }
