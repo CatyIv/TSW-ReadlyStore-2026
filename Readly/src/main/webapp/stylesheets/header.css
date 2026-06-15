@@ -62,17 +62,17 @@
     padding:20px 40px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content: space-around;
 }
 .sezione-sinistra{
     display:flex;
     align-items:center;
-    gap:30px;
+    gap:400px;
 }
 .logo-intestazione{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:30px;
     text-decoration:none;
     color:#677351;
 }
@@ -81,7 +81,7 @@
     font-weight:bold;
 }
 .icona-logo{
-    font-size:30px;
+    font-size:50px;
 }
 .contenitore-ricerca form{
     position:relative;
