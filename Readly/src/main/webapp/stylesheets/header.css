@@ -67,12 +67,14 @@
 }
 
 /* --- BARRA DI NAVIGAZIONE --- */
-.barra-navigazione-intestazione{
-    padding: 20px 4%;
+.barra-navigazione-intestazione {
+    padding: 20px 4%; /* Ripristinato uno spazio sano per i bottoni e la ricerca */
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
+    position: relative; /* CRUCIALE: fa da recinto per il logo assoluto */
+    height: 80px;       /* Blocchiamo l'altezza della barra per non farla ballare */
 }
 .sezione-sinistra {
     display: flex;
@@ -81,21 +83,26 @@
     max-width: 70%;
 }
 
-.header-logo{
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
+.header-logo {
+    position: absolute;  /* Sgancia il logo dal flusso: non spingerà più nulla verso il basso */
+    top: 50%;            /* Lo posiziona al centro verticale della barra */
+    transform: translateY(-50%); /* Centratura verticale perfetta */
+    left: 4%;            /* Lo allinea perfettamente a sinistra con il padding della barra */
+    z-index: 10;         /* Lo tiene sopra agli altri elementi se serve */
 }
 .logo-img {
-    height: 50px; /* Regola l'altezza in base al tuo logo.png */
+    height: 140px; /* <--- Alza questo valore finché non ha la grandezza che desideri */
+    width: auto;
     object-fit: contain;
+    display: block;
 }
-
-.contenitore-ricerca{
+.contenitore-ricerca {
     flex: 1;
     max-width: 450px;
     min-width: 200px;
-    margin-left: auto;
+    /* Poiché il logo ora è "volante", dobbiamo spingere la ricerca verso destra
+       per evitare che si sovrapponga al logo. Aumenta questo valore se il logo è molto largo */
+    margin-left: 220px;
     margin-right: 5%;
 }
 .contenitore-ricerca form{
