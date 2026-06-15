@@ -2,125 +2,148 @@
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
 }
 .intestazione-sito{
-    width:100%;
-    background:#eadfbc;
-    font-family:'Segoe UI',sans-serif;
+    width: 100%;
+    background: #eadfbc;
+    font-family: 'Segoe UI', sans-serif;
 }
+
+/* --- BARRA SUPERIORE MODIFICATA ED EQUILIBRATA --- */
 .barra-superiore-intestazione{
-    background:#677351;
-    display:flex;
-    align-items:center;
-    padding:0.83% 2.77%; /* Convertito da 12px 40px */
+    background: #677351;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 4%;
+    box-sizing: border-box;
 }
 .sinistra-superiore-intestazione{
-    width:12.5%; /* Convertito da 180px su base 1440px */
+    flex: 1 1 25%;
+    min-width: 120px;
 }
 .messaggio-intestazione{
-    flex:1;
-    text-align:center;
-    color:white;
-    font-size:16px;
-    font-weight:600;
+    flex: 1 1 50%;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
 }
 .icone-intestazione{
-    width:12.5%; /* Convertito da 180px su base 1440px */
-    display:flex;
-    justify-content:flex-end;
-    gap:8.3%; /* Spazio relativo alla larghezza del blocco icone */
+    flex: 1 1 25%;
+    min-width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
 }
 .collegamento-icona{
-    width:38px; /* Mantenuto in px per garantire la forma circolare */
-    height:38px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,.7);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    color:white;
-    position:relative;
-    transition:.2s;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    position: relative;
+    transition: .2s;
+    overflow: hidden; /* Blocca scritte lunghe se il font scazza */
 }
 .collegamento-icona:hover{
-    background:rgba(255,255,255,.15);
+    background: rgba(255,255,255,.15);
 }
 .collegamento-icona .material-symbols-outlined{
-    font-size:20px;
+    font-size: 20px;
 }
 .conteggio-badge{
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:#c94c4c;
-    color:white;
-    border-radius:50%;
-    font-size:10px;
-    font-weight:bold;
-    padding:2px 6px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #c94c4c;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
 }
+
+/* --- BARRA DI NAVIGAZIONE --- */
 .barra-navigazione-intestazione{
-    padding:1.38% 2.77%; /* Convertito da 20px 40px */
-    display:flex;
-    align-items:center;
-    justify-content: space-around;
+    padding: 20px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
-.sezione-sinistra{
-    display:flex;
-    align-items:center;
-    gap:27.7%; /* Convertito da 400px su base 1440px */
+.sezione-sinistra {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 70%;
 }
-.logo-intestazione{
-    display:flex;
-    align-items:center;
-    gap:16.6%; /* Spazio proporzionale interno al logo */
-    text-decoration:none;
-    color:#677351;
+
+.header-logo{
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
-.testo-logo{
-    font-size:24px;
-    font-weight:bold;
+.logo-img {
+    height: 50px; /* Regola l'altezza in base al tuo logo.png */
+    object-fit: contain;
 }
-.icona-logo{
-    font-size:50px;
+
+.contenitore-ricerca{
+    flex: 1;
+    max-width: 450px;
+    min-width: 200px;
+    margin-left: auto;
+    margin-right: 5%;
 }
 .contenitore-ricerca form{
-    position:relative;
-    display:flex;
-    align-items:center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 .input-ricerca{
-    width:100%; /* Spesso è meglio metterlo al 100% del suo form container */
-    max-width:340px; /* Mantiene il limite massimo originale */
-    background:#F6F0D7;
-    border:2px solid #89986D;
-    border-radius:25px;
-    padding:2.9% 13.2% 2.9% 5.8%; /* Convertito in base alle dimensioni dell'input stesso */
-    outline:none;
-    color:#677351;
+    width: 100%;
+    background: #F6F0D7;
+    border: 2px solid #89986D;
+    border-radius: 25px;
+    padding: 10px 45px 10px 20px;
+    outline: none;
+    color: #677351;
+    font-size: 0.95rem;
 }
 .invia-ricerca{
-    position:absolute;
-    right:4.4%;
-    background:none;
-    border:none;
-    cursor:pointer;
-    color:#89986D;
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #89986D;
+    display: flex;
+    align-items: center;
 }
+
+/* --- MENU NAVIGAZIONE --- */
 .menu-navigazione{
-    display:flex;
-    gap:1.04%;
+    display: flex;
+    gap: 15px;
+    flex-shrink: 0;
 }
 .bottone-navigazione{
-    background:#F6F0D7;
-    border:2px solid #89986D;
-    border-radius:20px;
-    padding:0.55% 1.66%;
-    text-decoration:none;
-    color:#677351;
-    font-weight:bold;
-    transition:.2s;
+    background: #F6F0D7;
+    border: 2px solid #89986D;
+    border-radius: 20px;
+    padding: 8px 24px;
+    text-decoration: none;
+    color: #677351;
+    font-weight: bold;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition: .2s;
 }
 .bottone-navigazione:hover{
-    background:#89986D;
-    color:white;
+    background: #89986D;
+    color: white;
 }

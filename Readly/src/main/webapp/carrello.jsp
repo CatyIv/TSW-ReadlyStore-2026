@@ -8,7 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Il Tuo Carrello - Readly</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css? v=2">
 </head>
 <body>
 <jsp:include page="header.jsp" />

@@ -4,8 +4,10 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/header.css">
 </head>
+<body>
 <div class="intestazione-sito">
     <div class="barra-superiore-intestazione">
         <div class="sinistra-superiore-intestazione"></div>
@@ -61,3 +63,5 @@
         </nav>
     </div>
 </div>
+</body>
+</html>
