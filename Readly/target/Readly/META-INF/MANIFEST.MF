@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
 Built-By: hahal
 Build-Jdk: Microsoft OpenJDK 11.0.31
-=======
-Built-By: Alessia
-Build-Jdk: Oracle OpenJDK 11.0.29
->>>>>>> 4f60610c936bd214170c0c103eb8488cc96328aa
 
