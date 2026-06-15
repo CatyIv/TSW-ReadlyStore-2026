@@ -36,12 +36,7 @@ public class CarrelloServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("utente");
-        
-        if (utenteLoggato == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        
+
         CarrelloBean carrello = (CarrelloBean) session.getAttribute("carrello");
         if (carrello == null) {
             carrello = new CarrelloBean();
