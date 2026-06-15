@@ -2,124 +2,155 @@
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
 }
 .intestazione-sito{
-    width:100%;
-    background:#eadfbc;
-    font-family:'Segoe UI',sans-serif;
+    width: 100%;
+    background: #eadfbc;
+    font-family: 'Segoe UI', sans-serif;
 }
+
+/* --- BARRA SUPERIORE MODIFICATA ED EQUILIBRATA --- */
 .barra-superiore-intestazione{
-    background:#677351;
-    display:flex;
-    align-items:center;
-    padding:12px 40px;
+    background: #677351;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 4%;
+    box-sizing: border-box;
 }
 .sinistra-superiore-intestazione{
-    width:180px;
+    flex: 1 1 25%;
+    min-width: 120px;
 }
 .messaggio-intestazione{
-    flex:1;
-    text-align:center;
-    color:white;
-    font-size:16px;
-    font-weight:600;
+    flex: 1 1 50%;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
 }
 .icone-intestazione{
-    width:180px;
-    display:flex;
-    justify-content:flex-end;
-    gap:15px;
+    flex: 1 1 25%;
+    min-width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
 }
 .collegamento-icona{
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,.7);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    color:white;
-    position:relative;
-    transition:.2s;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    position: relative;
+    transition: .2s;
+    overflow: hidden; /* Blocca scritte lunghe se il font scazza */
 }
 .collegamento-icona:hover{
-    background:rgba(255,255,255,.15);
+    background: rgba(255,255,255,.15);
 }
 .collegamento-icona .material-symbols-outlined{
-    font-size:20px;
+    font-size: 20px;
 }
 .conteggio-badge{
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:#c94c4c;
-    color:white;
-    border-radius:50%;
-    font-size:10px;
-    font-weight:bold;
-    padding:2px 6px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #c94c4c;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
 }
-.barra-navigazione-intestazione{
-    padding:20px 40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+
+/* --- BARRA DI NAVIGAZIONE --- */
+.barra-navigazione-intestazione {
+    padding: 20px 4%; /* Ripristinato uno spazio sano per i bottoni e la ricerca */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: relative; /* CRUCIALE: fa da recinto per il logo assoluto */
+    height: 80px;       /* Blocchiamo l'altezza della barra per non farla ballare */
 }
-.sezione-sinistra{
-    display:flex;
-    align-items:center;
-    gap:30px;
+.sezione-sinistra {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 70%;
 }
-.logo-intestazione{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    text-decoration:none;
-    color:#677351;
+
+.header-logo {
+    position: absolute;  /* Sgancia il logo dal flusso: non spingerà più nulla verso il basso */
+    top: 50%;            /* Lo posiziona al centro verticale della barra */
+    transform: translateY(-50%); /* Centratura verticale perfetta */
+    left: 4%;            /* Lo allinea perfettamente a sinistra con il padding della barra */
+    z-index: 10;         /* Lo tiene sopra agli altri elementi se serve */
 }
-.testo-logo{
-    font-size:24px;
-    font-weight:bold;
+.logo-img {
+    height: 140px; /* <--- Alza questo valore finché non ha la grandezza che desideri */
+    width: auto;
+    object-fit: contain;
+    display: block;
 }
-.icona-logo{
-    font-size:30px;
+.contenitore-ricerca {
+    flex: 1;
+    max-width: 450px;
+    min-width: 200px;
+    /* Poiché il logo ora è "volante", dobbiamo spingere la ricerca verso destra
+       per evitare che si sovrapponga al logo. Aumenta questo valore se il logo è molto largo */
+    margin-left: 220px;
+    margin-right: 5%;
 }
 .contenitore-ricerca form{
-    position:relative;
-    display:flex;
-    align-items:center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 .input-ricerca{
-    width:340px;
-    background:#F6F0D7;
-    border:2px solid #89986D;
-    border-radius:25px;
-    padding:10px 45px 10px 20px;
-    outline:none;
-    color:#677351;
+    width: 100%;
+    background: #F6F0D7;
+    border: 2px solid #89986D;
+    border-radius: 25px;
+    padding: 10px 45px 10px 20px;
+    outline: none;
+    color: #677351;
+    font-size: 0.95rem;
 }
 .invia-ricerca{
-    position:absolute;
-    right:15px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    color:#89986D;
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #89986D;
+    display: flex;
+    align-items: center;
 }
+
+/* --- MENU NAVIGAZIONE --- */
 .menu-navigazione{
-    display:flex;
-    gap:15px;
+    display: flex;
+    gap: 15px;
+    flex-shrink: 0;
 }
 .bottone-navigazione{
-    background:#F6F0D7;
-    border:2px solid #89986D;
-    border-radius:20px;
-    padding:8px 24px;
-    text-decoration:none;
-    color:#677351;
-    font-weight:bold;
-    transition:.2s;
+    background: #F6F0D7;
+    border: 2px solid #89986D;
+    border-radius: 20px;
+    padding: 8px 24px;
+    text-decoration: none;
+    color: #677351;
+    font-weight: bold;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition: .2s;
 }
 .bottone-navigazione:hover{
-    background:#89986D;
-    color:white;
+    background: #89986D;
+    color: white;
 }

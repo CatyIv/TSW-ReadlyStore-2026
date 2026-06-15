@@ -4,8 +4,10 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/header.css">
 </head>
+<body>
 <div class="intestazione-sito">
     <div class="barra-superiore-intestazione">
         <div class="sinistra-superiore-intestazione"></div>
@@ -57,8 +59,9 @@
         </div>
         <nav class="menu-navigazione">
             <a href="chiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
-            <a href="catalogo.jsp" class="bottone-navigazione">Catalogo</a>
             <a href="contatti.jsp" class="bottone-navigazione">Contatti</a>
         </nav>
     </div>
 </div>
+</body>
+</html>

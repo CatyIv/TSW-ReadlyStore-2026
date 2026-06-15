@@ -1,10 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Cabin', sans-serif;
     color: #9BAE73;
     background-color: #EADFBC;
-    margin: 40px;
+    margin: 0;
+}
+
+.contenitore-principale-carrello {
+    padding: 40px !important;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 h1 {
@@ -116,14 +126,21 @@ h1 {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 18px;
-    color: #9BAE73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 5px;
-    transition: color 0.2s;
 }
 
-.btn-cestino:hover {
-    color: #dc3545;
+.btn-trash-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transition: filter 0.2s;
+}
+
+.btn-cestino:hover .btn-trash-icon {
+    filter: invert(38%) sepia(58%) saturate(4320%) hue-rotate(344deg) brightness(87%) contrast(87%); /* Cambia in rosso l'immagine */
 }
 
 .prodotto-prezzo-lato {
