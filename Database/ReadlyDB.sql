@@ -102,7 +102,7 @@ CREATE TABLE ProdottoOrdinato (
 
 
 INSERT INTO Utente (email, password, nome, cognome, telefono, Admin) VALUES
-('admin@readlyadmin.com', 'adminpassword', 'Admin', 'Readly', '3562541782', TRUE);
+('admin@readlyadmin.com', 'adminpassword', 'Admin', 'Readly', '+393562541782', TRUE);
 
 INSERT INTO Prodotto (ISBN, titolo, autore, prezzo, IVA, descrizione, categoria, disponibilita, idUtentePubblica) VALUES
 ('9780000000001', '1984', 'George Orwell', 9.99, 22, 'Pubblicato nel 1949, 1984 di George Orwell è un capolavoro della letteratura distopica. Ambientato in un futuro totalitario, il romanzo segue Winston Smith nella sua lotta per mantenere il libero arbitrio in una società oppressa dal Grande Fratello, dalla sorveglianza costante e dalla manipolazione della verità', 'Classici', 100, 'admin@readlyadmin.com'),
