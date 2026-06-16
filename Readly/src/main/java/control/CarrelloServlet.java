@@ -250,7 +250,6 @@ public class CarrelloServlet extends HttpServlet {
 
                     ProdottoBean prodotto = pDao.doRetrieveByKey(isbn);
                     if (prodotto != null) {
-                        // Utilizza la tua doSave reale che gestisce autonomamente l'ON DUPLICATE KEY UPDATE!
                         iDao.doSave(userCarrello.getIdCarrello(), isbn, qtaGuest);
                     }
                 }
