@@ -60,7 +60,8 @@ if(libro == null) {
                 </button>
             </div>
         </form>
-        <form action="<%= request.getContextPath() %>/AggiungiAllaWishlistServlet" method="post" style="margin: 0;">
+        <form action="<%= request.getContextPath() %>/WishlistServlet" method="post" style="margin: 0;">
+            <input type="hidden" name="action" value="aggiungi">
             <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
             <button type="submit" class="bottone-wishlist" title="Aggiungi alla Wishlist">
                <span class="material-symbols-outlined">bookmark</span>

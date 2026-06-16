@@ -36,7 +36,7 @@
                 <span class="conteggio-badge"><%= cartCount %></span>
                 <% } %>
             </a>
-            <a href="#" class="collegamento-icona" title="Preferiti">
+            <a href=${pageContext.request.contextPath}/WishlistServlet" class="collegamento-icona" title="Preferiti">
                 <span class="material-symbols-outlined">bookmark</span>
             </a>
         </div>

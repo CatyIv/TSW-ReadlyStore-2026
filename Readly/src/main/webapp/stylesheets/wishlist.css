@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Cabin', sans-serif;
+    color: #9BAE73;
+    background-color: #EADFBC;
+    margin: 0;
+}
+
+.contenitore-principale-wishlist{
+    padding: 60px 4%;
+    max-width: 1300px;
+    margin: 0 auto;
+    min-height: 70vh;
+}
+
+.wishlist-layout-verticale{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+h1{
+    font-family: 'Source Sans 3', sans-serif;
+    color: #677351;
+    font-size: 45px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.wishlist-griglia-prodotti{
+    background-color: #F6F0D7;
+    padding: 25px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.prodotto-card-wish{
+    background-color: #EADFBC;
+    border-radius: 12px;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #677351;
+    width: 100%;
+    transition: transform 0.2s ease;
+}
+
+.libro-copertina-placeholder{
+    width: 85px;
+    height: 120px;
+    background-color: #F6F0D7;
+    border: 1px solid #9BAE73;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.libro-copertina-placeholder img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prodotto-dettagli-testo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+    padding-left: 25px;
+}
+
+.prodotto-dettagli-testo h3{
+    font-family: 'Source Sans 3', sans-serif;
+    margin: 0 0 4px 0;
+    font-size: 20px;
+}
+
+.prodotto-dettagli-testo h3 a{
+    color: #677351;
+    text-decoration: none;
+}
+
+.prodotto-dettagli-testo h3 a:hover{
+    text-decoration: underline;
+}
+
+.autore-libro{
+    font-size: 15px;
+    color: #89986D;
+    margin: 0 0 8px 0;
+    font-weight: bold;
+}
+
+.categoria-badge{
+    font-size: 12px;
+    background-color: #F6F0D7;
+    color: #677351;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    border: 1px solid #9BAE73;
+}
+
+.stato-disponibilita{
+    font-size: 12px;
+    color: #677351;
+    font-weight: bold;
+}
+
+.stato-disponibilita.esaurito{
+    color: #c94c4c;
+}
+
+.prodotto-azioni-lato{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    padding-left: 20px;
+    flex-shrink: 0;
+}
+
+.prezzo-wish{
+    font-family: 'Source Sans 3', sans-serif;
+    color: #677351;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.blocco-pulsanti{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-aggiungi-carrello{
+    font-family: 'Cabin', sans-serif;
+    background-color: #89986D;
+    color: #FFFFFF;
+    border: 2px solid #677351;
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color .2s, transform .2s;
+}
+
+.btn-aggiungi-carrello:hover:not(:disabled){
+    background-color: #677351;
+    transform: translateY(-1px);
+}
+
+.btn-aggiungi-carrello:disabled{
+    background-color: #cbd4be;
+    border-color: #a3af92;
+    color: white;
+    cursor: not-allowed;
+}
+
+.btn-rimuovi-cuore{
+    background-color: #F6F0D7;
+    color: #677351;
+    border: 2px solid #677351;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s;
+}
+
+.btn-rimuovi-cuore:hover{
+    background-color: #c94c4c;
+    color: white;
+    border-color: #b03a3a;
+}
+
+.barra-inferiore-azioni{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-svuota-wishlist{
+    background: none;
+    border: none;
+    color: #677351;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: .8;
+}
+
+.btn-svuota-wishlist:hover{
+    opacity: 1;
+    color: #c94c4c;
+}
+
+.wishlist-vuota-wrapper{
+    width: 100%;
+    display: flex;
+}
+
+.wishlist-vuota{
+    text-align: center;
+    padding: 70px;
+    background-color: #F6F0D7;
+    color: #89986D;
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.wishlist-vuota h2{
+    color: #677351;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.wishlist-vuota a{
+    color: #677351;
+    font-weight: bold;
+    text-decoration: underline;
+}

@@ -21,9 +21,9 @@
         </div>
 
         <div class="footer-sezione social">
-            <a href="#" title="Condividi" aria-label="Share"><span class="material-symbols-outlined">share</span></a>
-            <a href="#" title="Lingua" aria-label="Language"><span class="material-symbols-outlined">language</span></a>
-            <a href="#" title="Il mio profilo" aria-label="Profile"><span class="material-symbols-outlined">account_circle</span></a>
+            <span class="material-symbols-outlined">share</span>
+           <span class="material-symbols-outlined">language</span>
+            <a href="profiloUtente.jsp" title="Il mio profilo" aria-label="Profile"><span class="material-symbols-outlined">account_circle</span></a>
         </div>
     </div>
 
