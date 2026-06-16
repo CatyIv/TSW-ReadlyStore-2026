@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-            request.setAttribute("error", "Inserire email e password.");
+            request.setAttribute("errorMessage", "Inserire email e password.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
@@ -49,9 +49,7 @@ public class LoginServlet extends HttpServlet {
                 if (utente.getPassword().equals(hashedInputPassword)) {
 
                     HttpSession session = request.getSession(true);
-
                     session.setAttribute("utente", utente);
-
                     logger.info("Utente autenticato con successo: " + email);
 
                     if (utente.isAdmin()) {
@@ -62,15 +60,15 @@ public class LoginServlet extends HttpServlet {
                     return;
 
                 } else {
-                    request.setAttribute("error", "Credenziali non valide. Riprova.");
+                    request.setAttribute("errorMessage", "Credenziali non valide. Riprova.");
                 }
             } else {
-                request.setAttribute("error", "Credenziali non valide. Riprova.");
+                request.setAttribute("errorMessage", "Credenziali non valide. Riprova.");
             }
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Errore SQL durante la fase di login per l'utente: " + email, e);
-            request.setAttribute("error", "Si è verificato un errore interno del server. Riprova più tardi.");
+            request.setAttribute("errorMessage", "Si è verificato un errore interno del server. Riprova più tardi.");
         }
 
         request.getRequestDispatcher("/login.jsp").forward(request, response);

@@ -20,6 +20,8 @@ public class RegistrazioneServlet extends HttpServlet {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
     private static final Pattern TELEFONO_PATTERN = Pattern.compile("^\\+\\d{1,13}$");
 
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrazioneServlet.class.getName());
+
     public RegistrazioneServlet() {
         super();
     }
@@ -33,7 +35,6 @@ public class RegistrazioneServlet extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String password = request.getParameter("password");
         String confermaPassword = request.getParameter("confermaPassword");
-
 
         if (nome == null || nome.trim().isEmpty()) {
             errorMessages.add("Campo obbligatorio.");
@@ -63,8 +64,7 @@ public class RegistrazioneServlet extends HttpServlet {
             errorMessages.add("Le password non corrispondono.");
         }
 
-        UtenteDAO utenteDAO = null;
-        utenteDAO = new UtenteDAO();
+        UtenteDAO utenteDAO = new UtenteDAO();
 
         if (errorMessages.isEmpty()) {
             try {
@@ -78,18 +78,17 @@ public class RegistrazioneServlet extends HttpServlet {
         }
 
         if (!errorMessages.isEmpty()) {
-            request.setAttribute("errorMessages", String.join("<br>", errorMessages));
+            request.setAttribute("errorMessage", String.join("<br>", errorMessages));
             request.getRequestDispatcher("registrazione.jsp").forward(request, response);
             return;
         }
 
-        try{
+        try {
             UtenteBean nuovoUtente = new UtenteBean();
             nuovoUtente.setNome(nome);
             nuovoUtente.setCognome(cognome);
             nuovoUtente.setEmail(email);
             nuovoUtente.setTelefono(telefono);
-            nuovoUtente.setPassword(password);
 
             String hashedPassword = Security.hashPassword(password);
             nuovoUtente.setPassword(hashedPassword);
@@ -97,12 +96,11 @@ public class RegistrazioneServlet extends HttpServlet {
             nuovoUtente.setAdmin(false);
 
             utenteDAO.doSave(nuovoUtente);
-            String success = "Registrazione avvenuta con successo!";
+            String success = "Registrazione avvenuca con successo!";
             response.sendRedirect(request.getContextPath() + "/LoginServlet?email=" + email + "&success=" + success);
 
         } catch (SQLException e) {
-            System.err.println("Errore SQL durante la registrazione: " + e.getMessage());
-            e.printStackTrace();
+            logger.log(java.util.logging.Level.SEVERE, "Errore SQL durante la registrazione", e);
             request.setAttribute("errorMessage", "Si è verificato un errore durante la registrazione. Riprova più tardi.");
             request.getRequestDispatcher("registrazione.jsp").forward(request, response);
         }

@@ -15,8 +15,7 @@ body {
     background-color: var(--bg-main);
     color: var(--text-primary);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     min-height: 100vh;
     margin: 0;
 }
@@ -30,6 +29,7 @@ body {
     max-width: 420px;
     box-sizing: border-box;
     border: 1px solid #EAE6DC;
+    margin: auto;
 }
 
 .auth-logo {
@@ -79,7 +79,6 @@ body {
     background-color: var(--bg-card);
 }
 
-
 .btn-auth {
     width: 100%;
     padding: 0.75rem;
@@ -94,7 +93,6 @@ body {
     margin-top: 0.5rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
-
 
 .btn-auth:hover {
     background-color: var(--bg-button-hover);
