@@ -261,4 +261,38 @@ public class CarrelloServlet extends HttpServlet {
             response.addCookie(cookie);
         }
     }
+    public static int getCartItemCount(HttpServletRequest request, String emailUtente) throws SQLException {
+        CarrelloDAO cDao = new CarrelloDAO();
+
+        // Scenario 1: L'utente è loggato -> Recuperiamo il carrello dal Database
+        if (emailUtente != null) {
+            CarrelloBean carrelloDb = cDao.doRetrieveByUtente(emailUtente);
+            if (carrelloDb != null && carrelloDb.getItems() != null) {
+                return carrelloDb.getItems().size();
+            }
+            return 0;
+        }
+
+        // Scenario 2: L'utente è un ospite -> Leggiamo il carrello salvato nel Cookie JSON
+        Gson staticGson = new Gson();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("guest_cart".equals(cookie.getName())) {
+                    try {
+                        String cartJsonString = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8.toString());
+                        Type type = new TypeToken<Map<String, Integer>>() {}.getType();
+                        Map<String, Integer> guestCart = staticGson.fromJson(cartJsonString, type);
+                        if (guestCart != null) {
+                            return guestCart.size();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                    break;
+                }
+            }
+        }
+
+        return 0;
+    }
 }
