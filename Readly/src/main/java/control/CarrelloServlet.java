@@ -49,7 +49,7 @@ public class CarrelloServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
+        UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("utente");
 
         CarrelloBean carrello = (CarrelloBean) session.getAttribute("carrello");
         if (carrello == null) {
@@ -92,7 +92,7 @@ public class CarrelloServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("user");
+        UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("utente");
 
         CarrelloBean carrello = (CarrelloBean) session.getAttribute("carrello");
         if (carrello == null) {

@@ -35,7 +35,7 @@ public class CatalogoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        UtenteBean loggedUser = (UtenteBean) session.getAttribute("user");
+        UtenteBean loggedUser = (UtenteBean) session.getAttribute("utente");
 
         try {
             session.setAttribute("cartCount", CarrelloServlet.getCartItemCount(request, loggedUser != null ? loggedUser.getEmail() : null));
