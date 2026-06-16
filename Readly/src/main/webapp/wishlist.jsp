@@ -18,7 +18,6 @@
     <div class="wishlist-layout-verticale">
         <h1>Wishlist</h1>
 
-        <%-- Controllo se la lista passata dalla servlet è vuota --%>
         <c:choose>
             <c:when test="${empty prodottiWishlist}">
                 <div class="wishlist-vuota-wrapper">
@@ -32,11 +31,9 @@
             <c:otherwise>
                 <div class="wishlist-griglia-prodotti">
 
-                        <%-- Ciclo su ciascun prodotto presente nella wishlist --%>
                     <c:forEach var="prodotto" items="${prodottiWishlist}">
                         <div class="prodotto-card-wish">
 
-                                <%-- Copertina del libro --%>
                             <div class="libro-copertina-placeholder">
                                 <a href="${pageContext.request.contextPath}/DettaglioProdottoServlet?isbn=${prodotto.isbn}">
                                     <img src="${pageContext.request.contextPath}/img/copertine/${prodotto.isbn}.jpg"
@@ -45,7 +42,6 @@
                                 </a>
                             </div>
 
-                                <%-- Dettagli testuali del libro --%>
                             <div class="prodotto-dettagli-testo">
                                 <h3><a href="${pageContext.request.contextPath}/DettaglioProdottoServlet?isbn=${prodotto.isbn}">${prodotto.titolo}</a></h3>
                                 <p class="autore-libro">${prodotto.autore}</p>
@@ -63,12 +59,10 @@
                                 </div>
                             </div>
 
-                                <%-- Prezzo e Azioni --%>
                             <div class="prodotto-azioni-lato">
                                 <div class="prezzo-wish">${prodotto.prezzo} €</div>
 
                                 <div class="blocco-pulsanti">
-                                        <%-- Bottone Sposta nel Carrello (Invia i dati alla CarrelloServlet) --%>
                                     <form action="${pageContext.request.contextPath}/CarrelloServlet" method="post" style="margin: 0;">
                                         <input type="hidden" name="action" value="aggiungi">
                                         <input type="hidden" name="isbn" value="${prodotto.isbn}">
@@ -78,7 +72,6 @@
                                         </button>
                                     </form>
 
-                                        <%-- Bottone Rimuovi dalla Wishlist --%>
                                     <form action="${pageContext.request.contextPath}/WishlistServlet" method="post" style="margin: 0;">
                                         <input type="hidden" name="action" value="rimuovi">
                                         <input type="hidden" name="isbn" value="${prodotto.isbn}">
@@ -94,7 +87,6 @@
 
                 </div>
 
-                <%-- Sezione inferiore per svuotare l'intero blocco --%>
                 <div class="barra-inferiore-azioni">
                     <form action="${pageContext.request.contextPath}/WishlistServlet" method="post">
                         <input type="hidden" name="action" value="svuota">

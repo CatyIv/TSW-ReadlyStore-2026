@@ -28,10 +28,7 @@ public class WishlistServlet extends HttpServlet {
     public WishlistServlet() {
         super();
     }
-
-    /**
-     * Mostra la pagina dei segnalibri (wishlist) dell'utente loggato
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,7 +36,6 @@ public class WishlistServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("utente");
 
-        // Controllo se l'utente è autenticato
         if (utenteLoggato == null) {
             request.setAttribute("errorMessage", "Accedi per visualizzare e gestire i tuoi segnalibri.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -47,10 +43,8 @@ public class WishlistServlet extends HttpServlet {
         }
 
         try {
-            // 1. Recupera i record grezzi dei segnalibri associati alla mail dell'utente
             List<WishlistBean> wishlistRighe = WishlistDao.doRetrieveByUtente(utenteLoggato.getEmail());
 
-            // 2. Idrata la lista ottenendo i dettagli reali del catalogo (ProdottoBean) tramite l'ISBN
             List<ProdottoBean> prodottiWishlist = new ArrayList<>();
 
             for (WishlistBean item : wishlistRighe) {
@@ -60,7 +54,6 @@ public class WishlistServlet extends HttpServlet {
                 }
             }
 
-            // 3. Inietta la lista di prodotti idratata nella richiesta per la JSP
             request.setAttribute("prodottiWishlist", prodottiWishlist);
 
         } catch (SQLException e) {
@@ -69,13 +62,9 @@ public class WishlistServlet extends HttpServlet {
             return;
         }
 
-        // Inoltra alla pagina di visualizzazione
         request.getRequestDispatcher("/wishlist.jsp").forward(request, response);
     }
 
-    /**
-     * Gestisce le operazioni POST: aggiunta, rimozione singola e svuotamento completo
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,7 +72,6 @@ public class WishlistServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("utente");
 
-        // Protezione: blocca le modifiche se l'utente non è loggato
         if (utenteLoggato == null) {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
@@ -96,15 +84,12 @@ public class WishlistServlet extends HttpServlet {
         try {
             if (action != null) {
 
-                // AZIONE: AGGIUNGI UN LIBRO AI SEGNALIBRI
                 if (action.equalsIgnoreCase("aggiungi")) {
                     if (isbn != null && !isbn.trim().isEmpty()) {
 
-                        // Verifichiamo che il prodotto esista effettivamente a catalogo
                         ProdottoBean prodotto = ProdottoDao.doRetrieveByKey(isbn);
 
                         if (prodotto != null) {
-                            // Impediamo duplicati per non scatenare eccezioni di chiave primaria nel DB
                             List<WishlistBean> wishlistAttuale = WishlistDao.doRetrieveByUtente(emailUtente);
                             boolean giaPresente = wishlistAttuale.stream()
                                     .anyMatch(item -> item.getIsbnProdotto().equals(isbn));
@@ -121,14 +106,12 @@ public class WishlistServlet extends HttpServlet {
                     }
                 }
 
-                // AZIONE: RIMUOVI UN SINGOLO SEGNALIBRO
                 else if (action.equalsIgnoreCase("rimuovi")) {
                     if (isbn != null && !isbn.trim().isEmpty()) {
                         WishlistDao.doDelete(emailUtente, isbn);
                     }
                 }
 
-                // AZIONE: SVUOTA TUTTI I SEGNALIBRI DELL'UTENTE
                 else if (action.equalsIgnoreCase("svuota")) {
                     List<WishlistBean> lista = WishlistDao.doRetrieveByUtente(emailUtente);
                     for (WishlistBean item : lista) {
@@ -142,7 +125,6 @@ public class WishlistServlet extends HttpServlet {
             return;
         }
 
-        // PRG Pattern (Post/Redirect/Get): Evita il reinvio del form ricaricando la pagina
         response.sendRedirect(request.getContextPath() + "/WishlistServlet");
     }
 }
