@@ -20,7 +20,7 @@ if(libro == null) {
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <meta charset="UTF-8">
     <title><%= libro.getTitolo() %> Readly</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=8">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=9">
     </head>
 
     <body>
