@@ -1,0 +1,116 @@
+.sito-footer {
+    background-color: #677351;
+    color: #F6F0D7;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 15px 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 50px;
+}
+
+.footer-compatto-container {
+    max-width: 1400px;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(246, 240, 215, 0.15);
+}
+
+
+.footer-sezione.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-sezione.logo .icona-logo {
+    font-size: 24px;
+    color: #eadfbc;
+}
+
+.footer-sezione.logo h3 {
+    font-family: 'Cabin', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.footer-sezione.links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-sezione.links a {
+    color: #F6F0D7;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s ease;
+}
+
+.footer-sezione.links a .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.footer-sezione.links a:hover {
+    color: #eadfbc;
+}
+
+
+.footer-sezione.social {
+    display: flex;
+    gap: 18px;
+}
+
+.footer-sezione.social a {
+    color: #F6F0D7;
+    text-decoration: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+    display: flex;
+}
+
+.footer-sezione.social a .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.footer-sezione.social a:hover {
+    color: #eadfbc;
+    transform: translateY(-2px);
+}
+
+
+.footer-diritti {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(246, 240, 215, 0.6);
+    margin-top: 8px;
+}
+
+.footer-diritti p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .footer-compatto-container {
+        width: 90%;
+        flex-direction: column;
+        text-align: center;
+        gap: 18px;
+    }
+
+    .footer-sezione.links {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+}

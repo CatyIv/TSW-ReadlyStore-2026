@@ -26,22 +26,48 @@ function chiudiPopup() {
 
 function eseguiAzioneConfermata() {
     if (azioneCorrente === "svuota") {
-        window.location.href = "CarrelloServlet?action=svuota";
+        inviaInPost("svuota", null, null);
     } else if (azioneCorrente === "elimina") {
-        window.location.href = "CarrelloServlet?action=rimuovi&isbn=" + isbnDaEliminare;
+        inviaInPost("rimuovi", isbnDaEliminare, null);
+    }
+    chiudiPopup();
+}
+
+function aggiornaQuantita(isbn, nuovaQta, titoloProdotto) {
+    if (nuovaQta <= 0) {
+        chiediConfermaElimina(isbn, titoloProdotto);
+    } else {
+        inviaInPost("modifica", isbn, nuovaQta);
     }
 }
 
-function aggiornaQuantita(isbn, nuovaQta) {
-    if (nuovaQta <= 0) {
-        let card = event.target.closest('.prodotto-card');
-        let titolo = "questo libro";
-        if (card) {
-            let h3 = card.querySelector('.prodotto-dettagli-testo h3');
-            if (h3) titolo = h3.innerText;
-        }
-        chiediConfermaElimina(isbn, titolo);
-    } else {
-        window.location.href = "CarrelloServlet?action=modifica&isbn=" + isbn + "&quantita=" + nuovaQta;
+function inviaInPost(azione, isbn, quantita) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'CarrelloServlet';
+
+    const inputAction = document.createElement('input');
+    inputAction.type = 'hidden';
+    inputAction.name = 'action';
+    inputAction.value = azione;
+    form.appendChild(inputAction);
+
+    if (isbn) {
+        const inputIsbn = document.createElement('input');
+        inputIsbn.type = 'hidden';
+        inputIsbn.name = 'isbn';
+        inputIsbn.value = isbn;
+        form.appendChild(inputIsbn);
     }
+
+    if (quantita !== null && quantita !== undefined) {
+        const inputQta = document.createElement('input');
+        inputQta.type = 'hidden';
+        inputQta.name = 'quantita';
+        inputQta.value = quantita;
+        form.appendChild(inputQta);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }

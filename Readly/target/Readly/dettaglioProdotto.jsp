@@ -10,8 +10,7 @@ String immaginePrincipale = (String) request.getAttribute("immaginePrincipale");
 if(libro == null) {
     request.setAttribute("messaggioErrore", "Accesso non valido alla pagina del prodotto.");
     request.getRequestDispatcher("/erroreProdotto.jsp").forward(request, response);
-}
-%>
+}%>
 
 <!DOCTYPE html>
     <html lang="it">
@@ -78,7 +77,7 @@ if(libro == null) {
     </div>
 </div>
 
-<%-- <jsp:include page="footer.jsp" /> --%>
+<jsp:include page="footer.jsp" />
 
 </body>
 </html>

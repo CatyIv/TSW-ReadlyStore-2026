@@ -3,7 +3,9 @@ body {
     padding: 0;
     background-color: #eadfbc;
     font-family: 'Segoe UI', sans-serif;
-    width: 100vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     box-sizing: border-box;
 }
@@ -21,6 +23,7 @@ body {
     box-sizing: border-box;
     align-items: stretch;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    flex-grow: 1;
 }
 
 .sezione-immagini {
