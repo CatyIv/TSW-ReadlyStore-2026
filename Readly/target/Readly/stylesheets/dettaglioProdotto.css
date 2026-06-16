@@ -53,8 +53,8 @@ body {
     background: white;
     border: 2px solid #677351;
     border-radius: 20px;
-    width: 340px; /* Mantenuto fisso per bloccare la proporzione della foto del libro */
-    height: 480px;
+    width: 286px;
+    height: 440px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -204,7 +204,6 @@ body {
     gap: 4.5%;
 }
 
-/* Simboli Material Icon (Uniti i duplicati) */
 .material-symbols-outlined {
     font-variation-settings:
             'FILL' 0,

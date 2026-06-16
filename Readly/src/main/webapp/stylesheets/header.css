@@ -7,7 +7,6 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* --- BARRA SUPERIORE MODIFICATA ED EQUILIBRATA --- */
 .barra-superiore-intestazione{
     background: #677351;
     display: flex;
@@ -73,8 +72,8 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    position: relative; /* CRUCIALE: fa da recinto per il logo assoluto */
-    height: 80px;       /* Blocchiamo l'altezza della barra per non farla ballare */
+    position: relative;
+    height: 80px;
 }
 .sezione-sinistra {
     display: flex;
@@ -84,14 +83,14 @@
 }
 
 .header-logo {
-    position: absolute;  /* Sgancia il logo dal flusso: non spingerà più nulla verso il basso */
-    top: 50%;            /* Lo posiziona al centro verticale della barra */
-    transform: translateY(-50%); /* Centratura verticale perfetta */
-    left: 4%;            /* Lo allinea perfettamente a sinistra con il padding della barra */
-    z-index: 10;         /* Lo tiene sopra agli altri elementi se serve */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 4%;
+    z-index: 10;
 }
 .logo-img {
-    height: 140px; /* <--- Alza questo valore finché non ha la grandezza che desideri */
+    height: 140px;
     width: auto;
     object-fit: contain;
     display: block;
@@ -100,8 +99,6 @@
     flex: 1;
     max-width: 450px;
     min-width: 200px;
-    /* Poiché il logo ora è "volante", dobbiamo spingere la ricerca verso destra
-       per evitare che si sovrapponga al logo. Aumenta questo valore se il logo è molto largo */
     margin-left: 220px;
     margin-right: 5%;
 }
@@ -132,10 +129,9 @@
     align-items: center;
 }
 
-/* --- MENU NAVIGAZIONE --- */
 .menu-navigazione{
     display: flex;
-    gap: 15px;
+    gap: 12px;
     flex-shrink: 0;
 }
 .bottone-navigazione{
