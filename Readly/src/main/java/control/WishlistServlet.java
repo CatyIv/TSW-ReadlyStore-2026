@@ -28,7 +28,7 @@ public class WishlistServlet extends HttpServlet {
     public WishlistServlet() {
         super();
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

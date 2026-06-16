@@ -45,7 +45,7 @@
     color: white;
     position: relative;
     transition: .2s;
-    overflow: hidden; /* Blocca scritte lunghe se il font scazza */
+    overflow: visible;
 }
 .collegamento-icona:hover{
     background: rgba(255,255,255,.15);
