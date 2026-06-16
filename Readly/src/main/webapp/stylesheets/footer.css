@@ -2,10 +2,10 @@
     background-color: #677351;
     color: #F6F0D7;
     font-family: 'Segoe UI', sans-serif;
-    padding: 15px 0 10px 0;
+    padding: 1.5% 0 1% 0; /* Convertito in % */
     width: 100%;
     box-sizing: border-box;
-    margin-top: 50px;
+    margin-top: 5%; /* Convertito in % */
 }
 
 .footer-compatto-container {
@@ -17,10 +17,9 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    padding-bottom: 12px;
+    padding-bottom: 1.2%; /* Convertito in % */
     border-bottom: 1px solid rgba(246, 240, 215, 0.15);
 }
-
 
 .footer-sezione.logo {
     display: flex;
@@ -41,7 +40,6 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
 
 .footer-sezione.links {
     display: flex;
@@ -66,7 +64,6 @@
     color: #eadfbc;
 }
 
-
 .footer-sezione.social {
     display: flex;
     gap: 18px;
@@ -88,12 +85,11 @@
     transform: translateY(-2px);
 }
 
-
 .footer-diritti {
     text-align: center;
     font-size: 11px;
     color: rgba(246, 240, 215, 0.6);
-    margin-top: 8px;
+    margin-top: 1%; /* Convertito in % */
 }
 
 .footer-diritti p {
