@@ -6,6 +6,7 @@ function chiediConfermaSvuota() {
     document.getElementById('modal-title').innerText = "Sei sicuro di voler svuotare il carrello?";
     document.getElementById('modal-description').innerText = "Questa azione rimuoverà permanentemente tutti i libri che hai selezionato.";
     document.getElementById('modal-btn-action').innerText = "Sì, svuota tutto";
+    document.getElementById('modal-btn-secondary').innerText = "Annulla";
     document.getElementById('custom-confirm-overlay').classList.add('active');
 }
 
@@ -15,11 +16,13 @@ function chiediConfermaElimina(isbn, titolo) {
     document.getElementById('modal-title').innerText = "Rimuovere questo libro?";
     document.getElementById('modal-description').innerText = "Stai per togliere '" + titolo + "' dal tuo carrello.";
     document.getElementById('modal-btn-action').innerText = "Sì, rimuovi";
+    document.getElementById('modal-btn-secondary').innerText = "Annulla";
     document.getElementById('custom-confirm-overlay').classList.add('active');
 }
 
 function chiudiPopup() {
     document.getElementById('custom-confirm-overlay').classList.remove('active');
+    document.getElementById('modal-btn-secondary').innerText = "";
     azioneCorrente = "";
     isbnDaEliminare = "";
 }
@@ -70,4 +73,37 @@ function inviaInPost(azione, isbn, quantita) {
 
     document.body.appendChild(form);
     form.submit();
+}
+
+function gestisciCheckout(event, giaLoggato) {
+    if (giaLoggato) {
+        return;
+    }
+
+    event.preventDefault();
+
+    const overlay = document.getElementById('custom-confirm-overlay');
+    const title = document.getElementById('modal-title');
+    const description = document.getElementById('modal-description');
+    const btnAction = document.getElementById('modal-btn-action');
+    const btnSecondary = document.getElementById('modal-btn-secondary');
+
+    if (!overlay || !title || !description || !btnAction || !btnSecondary) {
+        return;
+    }
+
+    title.innerText = "Autenticazione Richiesta";
+    description.innerText = "Prima di effettuare il checkout, accedi al tuo account o creane uno nuovo.";
+
+    btnAction.innerText = "Accedi";
+    btnAction.onclick = function() {
+        window.location.href = "login.jsp";
+    };
+
+    btnSecondary.innerText = "Registrati";
+    btnSecondary.onclick = function() {
+        window.location.href = "registrazione.jsp";
+    };
+
+    overlay.classList.add('active');
 }
