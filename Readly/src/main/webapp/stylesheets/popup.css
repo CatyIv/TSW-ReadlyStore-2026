@@ -73,3 +73,15 @@
 .btn-modal-annulla:hover {
     background-color: #EADFBC;
 }
+
+.btn-modal-conferma {
+    background-color: #89986D;
+    color: #FFFFFF;
+    transition: background-color 0.2s;
+}
+
+.btn-modal-annulla {
+    background-color: #F6F0D7;
+    color: #677351;
+    transition: background-color 0.2s;
+}
