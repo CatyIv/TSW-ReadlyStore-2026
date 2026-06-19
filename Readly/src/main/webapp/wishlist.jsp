@@ -6,9 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Wishlist - Readly</title>
+    <title>Wishlist - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/wishlist.css? v=3">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/wishlist.css?v=3">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/popup.css">
 </head>
 <body>
 
@@ -98,7 +99,19 @@
     </div>
 </div>
 
+<div id="wishlist-popup-overlay" class="modal-overlay">
+    <div class="modal-box">
+        <h3 id="wishlist-modal-title"></h3>
+        <p id="wishlist-modal-description"></p>
+        <div class="modal-buttons">
+            <button id="wishlist-btn-conferma" class="btn-modal-conferma"></button>
+            <button id="wishlist-btn-annulla" onclick="chiudiPopupOperazione()" class="btn-modal-annulla"></button>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="footer.jsp" />
 
+<script src="${pageContext.request.contextPath}/javascripts/wishlist.js"></script>
 </body>
 </html>
