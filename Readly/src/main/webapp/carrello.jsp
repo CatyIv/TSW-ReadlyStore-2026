@@ -98,6 +98,22 @@
                 <span><%= totaleCopie %></span>
             </div>
 
+            <%
+                double totaleIvato = carrello.getPrezzoTotaleComplessivo();
+                double imponibile = totaleIvato / 1.22;
+                double quotaIva = totaleIvato - imponibile;
+            %>
+
+            <div class="riepilogo-riga riepilogo-imponibile">
+                <span>Prezzo (Imponibile):</span>
+                <span><%= String.format("%.2f €", imponibile) %></span>
+            </div>
+
+            <div class="riepilogo-riga riepilogo-iva">
+                <span>IVA (22%):</span>
+                <span><%= String.format("%.2f €", quotaIva) %></span>
+            </div>
+
             <div class="riepilogo-riga">
                 <span>Spedizione:</span>
                 <span>Gratis</span>
@@ -105,15 +121,17 @@
 
             <div class="riepilogo-riga totale-definitivo">
                 <span>Totale:</span>
-                <span><%= String.format("%.2f €", carrello.getPrezzoTotaleComplessivo()) %></span>
+                <span><%= String.format("%.2f €", totaleIvato) %></span>
             </div>
 
-            <a href="checkout.jsp" class="btn-checkout-blocco" onclick="gestisciCheckout(event, <%= giaLoggato %>)">
-                Procedi al Checkout
-                <img src="img/shopbag.png" alt="Bag" class="btn-checkout-icon">
-            </a>
+            <div class="riepilogo-azioni-box">
+                <a href="checkout.jsp" class="btn-checkout-blocco" onclick="gestisciCheckout(event, <%= giaLoggato %>)">
+                    Procedi al Checkout
+                    <img src="img/shopbag.png" alt="Bag" class="btn-checkout-icon">
+                </a>
 
-            <button onclick="chiediConfermaSvuota()" class="btn-svuota-link">Svuota intero carrello</button>
+                <button onclick="chiediConfermaSvuota()" class="btn-svuota-link">Svuota intero carrello</button>
+            </div>
         </div>
 
     </div>
