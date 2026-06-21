@@ -58,7 +58,7 @@
             </div>
         </div>
         <nav class="menu-navigazione">
-            <a href="chiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
+            <a href="paginaChiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
             <a href="contatti.jsp" class="bottone-navigazione">Contatti</a>
         </nav>
     </div>

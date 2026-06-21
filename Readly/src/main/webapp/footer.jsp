@@ -9,7 +9,7 @@
             <a href="CatalogoServlet">
                 <span class="material-symbols-outlined">auto_stories</span> Catalogo
             </a>
-            <a href="chiSiamo.jsp">
+            <a href="paginaChiSiamo.jsp">
                 <span class="material-symbols-outlined">groups</span> Chi Siamo
             </a>
             <a href="contatti.jsp">

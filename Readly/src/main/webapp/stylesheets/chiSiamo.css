@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #EADFBC;
+    font-family: 'Segoe UI', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.contenitore-chi-siamo {
+    background-color: #F6F0D7;
+    border-radius: 24px;
+    padding: 4%;
+    max-width: 1200px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 3% auto;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    flex-grow: 1;
+}
+
+.sezione-introduzione {
+    margin-bottom: 4%;
+    text-align: center;
+}
+
+.titolo-pagina {
+    font-family: 'Cabin', sans-serif;
+    font-weight: 700;
+    font-size: 280%;
+    color: #677351;
+    margin: 0 0 1% 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.sottotitolo-pagina {
+    font-size: 112%;
+    color: #89986D;
+    font-weight: 600;
+    margin-bottom: 3%;
+}
+
+.testo-principale {
+    font-size: 100%;
+    line-height: 1.6;
+    color: #677351;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+.testo-principale p {
+    margin-bottom: 2%;
+}
+
+.testo-principale strong {
+    color: #677351;
+}
+
+.griglia-valori {
+    display: flex;
+    justify-content: space-between;
+    gap: 3%;
+    margin: 4% 0;
+}
+
+.card-valore {
+    background-color: #ffffff;
+    border: 2px solid #EADFBC;
+    border-radius: 20px;
+    padding: 2.5%;
+    flex: 1;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-valore:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(103, 115, 81, 0.1);
+}
+
+.icona-valore {
+    font-size: 500%;
+    color: #89986D;
+    margin-bottom: 1.5%;
+}
+
+.card-valore h3 {
+    font-family: 'Cabin', sans-serif;
+    color: #677351;
+    font-size: 125%;
+    margin: 0 0 1.2% 0;
+    text-transform: uppercase;
+}
+
+.card-valore p {
+    font-size: 87.5%;
+    line-height: 1.5;
+    color: #89986D;
+    margin: 0;
+}
+
+.sezione-etica {
+    border-top: 2px solid #EADFBC;
+    padding-top: 4%;
+    margin-top: 2%;
+}
+
+.titolo-sezione {
+    font-family: 'Cabin', sans-serif;
+    font-size: 175%;
+    color: #677351;
+    text-transform: uppercase;
+    margin: 0 0 1.5% 0;
+}
+
+.descrizione-etica {
+    font-size: 93.5%;
+    line-height: 1.5;
+    color: #89986D;
+    margin-bottom: 3%;
+}
+
+.lista-punti-etici {
+    list-style-type: disc;
+    padding-left: 3%;
+    margin: 0;
+}
+
+.lista-punti-etici li {
+    margin-bottom: 2%;
+    font-size: 93.5%;
+    line-height: 1.6;
+    color: #677351;
+}
+
+.lista-punti-etici li::marker {
+    color: #89986D;
+    font-size: 1.2em;
+}
+
+.lista-punti-etici strong {
+    color: #677351;
+    display: inline-block;
+    margin-right: 0.5em;
+}

@@ -13,13 +13,13 @@ body {
 .contenitore-dettaglio {
     background-color: #F6F0D7;
     border-radius: 24px;
-    padding: 3.5%; /* Convertito da 50px (su base 1400px) */
+    padding: 3.5%;
     max-width: 1400px;
     width: 70%;
     display: flex;
-    margin: 2% auto; /* Convertito da 30px */
+    margin: 2% auto;
     flex-direction: row;
-    gap: 4.2%; /* Convertito da 60px (su base 1400px) */
+    gap: 4.2%;
     box-sizing: border-box;
     align-items: stretch;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -29,7 +29,7 @@ body {
 .sezione-immagini {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Mantenuto fisso per gestire lo spazio mini-copertina */
+    gap: 20px;
     align-items: flex-start;
     flex-shrink: 0;
 }
@@ -41,7 +41,7 @@ body {
 }
 
 .miniatura {
-    width: 60px; /* Mantenuto in px per non deformare l'anteprima */
+    width: 60px;
     border: 1px solid #677351;
     border-radius: 8px;
     cursor: pointer;
@@ -86,7 +86,7 @@ body {
     font-weight: 700;
     font-size: 42px;
     color: #677351;
-    margin: 0 0 1.2% 0; /* Convertito in base all'altezza proporzionale */
+    margin: 0 0 1.2% 0;
     text-transform: uppercase;
     line-height: 1.1;
 }
@@ -148,7 +148,7 @@ body {
 
 .bottone-carrello {
     font-family: 'Segoe UI', sans-serif;
-    padding: 2.2% 5.3%; /* Convertito per rendere il bottone fluido */
+    padding: 2.2% 5.3%;
     background-color: #89986D;
     color: #ffffff;
     border: 2px solid #677351;
@@ -170,7 +170,7 @@ body {
 }
 
 .bottone-wishlist {
-    width: 48px; /* Mantenuto in px per preservare il cerchio perfetto */
+    width: 48px;
     height: 48px;
     border-radius: 50%;
     border: 2px solid #677351;
