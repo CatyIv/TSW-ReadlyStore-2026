@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eadfbc;
+    font-family: 'Source Sans 3', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.contenitore-faq {
+    background-color: #F6F0D7;
+    border-radius: 24px;
+    padding: 4%;
+    max-width: 1200px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 3% auto;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    flex-grow: 1;
+}
+
+.sezione-introduzione {
+    margin-bottom: 4%;
+    text-align: center;
+}
+
+.titolo-pagina {
+    font-family: 'Cabin', sans-serif;
+    font-weight: 700;
+    font-size: 280%;
+    color: #677351;
+    margin: 0 0 1% 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.sottotitolo-pagina {
+    font-size: 112%;
+    color: #89986D;
+    font-weight: 600;
+    margin-bottom: 3%;
+}
+
+.lista-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.item-faq {
+    background-color: #ffffff;
+    border: 2px solid #EADFBC;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.item-faq[open] {
+    box-shadow: 0 5px 15px rgba(103, 115, 81, 0.08);
+}
+
+.domanda-faq {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 115%;
+    color: #677351;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.domanda-faq::-webkit-details-marker {
+    display: none;
+}
+
+.freccia-faq {
+    color: #89986D;
+    transition: transform 0.3s ease;
+}
+
+.item-faq[open] .freccia-faq {
+    transform: rotate(180deg);
+}
+
+.risposta-faq {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    font-size: 100%;
+    line-height: 1.6;
+    color: #89986D;
+    border-top: 1px solid #F6F0D7;
+}
+
+.risposta-faq p {
+    margin: 1rem 0 0 0;
+}

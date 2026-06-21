@@ -15,7 +15,7 @@
             <a href="contatti.jsp">
                 <span class="material-symbols-outlined">mail</span> Contatti
             </a>
-            <a href="domande.jsp">
+            <a href="faq.jsp">
                 <span class="material-symbols-outlined">help_center</span> FAQ
             </a>
         </div>
