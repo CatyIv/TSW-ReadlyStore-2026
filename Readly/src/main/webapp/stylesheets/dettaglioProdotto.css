@@ -48,10 +48,6 @@ body {
     transition: .2s ease;
 }
 
-.miniatura:hover {
-    transform: scale(1.05);
-}
-
 .copertina-principale {
     background: white;
     border: 2px solid #677351;
@@ -68,11 +64,6 @@ body {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    transition: .3s ease;
-}
-
-.copertina-principale img:hover {
-    transform: scale(1.03);
 }
 
 .sezione-info {

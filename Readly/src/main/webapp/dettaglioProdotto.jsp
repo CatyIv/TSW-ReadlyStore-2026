@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <meta charset="UTF-8">
     <title><%= libro.getTitolo() %> - Readly</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=9">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=10">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/popup.css">
 </head>
 
@@ -61,6 +61,7 @@
                     <button type="submit" class="bottone-carrello" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
                         Aggiungi al carrello <span class="material-symbols-outlined">shopping_bag</span>
                     </button>
+
                 </div>
             </form>
             <form action="<%= request.getContextPath() %>/WishlistServlet" method="post" style="margin: 0;" data-loggato="<%= utenteLoggato %>" class="form-wishlist">
