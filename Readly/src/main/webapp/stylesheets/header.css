@@ -159,12 +159,13 @@
     background: #F6F0D7;
     border: 2px solid #89986D;
     border-top: none;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 25px 25px;
     box-sizing: border-box;
     max-height: 250px;
     overflow-y: auto;
     z-index: 999;
     display: none;
+    margin-top: -2px;
 }
 
 #search-results a {
@@ -180,4 +181,12 @@
 #search-results a:hover {
     background: #89986D;
     color: white;
+}
+
+.contenitore-ricerca.is-open .input-ricerca {
+    border-radius: 25px 25px 0 0;
+}
+
+.contenitore-ricerca.is-open #search-results {
+    display: block;
 }

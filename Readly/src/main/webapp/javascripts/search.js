@@ -6,10 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     searchBox.addEventListener('input', function() {
         let query = this.value.trim();
-
+        const contenitore = searchBox.closest('.contenitore-ricerca');
         if (query.length === 0) {
             searchResults.innerHTML = '';
             searchResults.style.display = 'none';
+            if (contenitore) contenitore.classList.remove('is-open');
             return;
         }
 
@@ -23,9 +24,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.length === 0) {
                     let noResultDiv = document.createElement('div');
                     noResultDiv.textContent = 'Nessun prodotto trovato';
-                    noResultDiv.style.padding = '10px 20px'; // Un po' di spazio temporaneo
+                    noResultDiv.style.padding = '10px 20px';
                     searchResults.appendChild(noResultDiv);
-                    searchResults.style.display = 'block'; // <-- AGGIUNGI QUESTO
+                    searchResults.style.display = 'block';
+                    if (contenitore) contenitore.classList.add('is-open');
                     return;
                 }
 
@@ -37,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     searchResults.appendChild(link);
                 });
                 searchResults.style.display = 'block';
+                if (contenitore) contenitore.classList.add('is-open');
             })
             .catch(error => console.error('Errore AJAX:', error));
     });
