@@ -97,6 +97,7 @@ public class ProcessOrderServlet extends HttpServlet {
 
             session.setAttribute("ultimoNumeroOrdine", ordine.getNumeroOrdine());
             session.removeAttribute("carrello");
+            session.setAttribute("cartCount", 0);
 
             response.sendRedirect(request.getContextPath() + "/confermaOrdine.jsp");
 

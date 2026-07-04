@@ -30,6 +30,34 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (response.ok) {
                         const isWishlist = actionUrl.toLowerCase().includes("wishlist");
                         mostraPopupSuccesso(titoloLibro, isWishlist);
+
+                        if (!isWishlist) {
+                            let badge = document.querySelector(".conteggio-badge");
+                            const quantitaInput = form.querySelector("input[name='quantita']");
+                            const quantitaAggiunta = quantitaInput ? parseInt(quantitaInput.value) : 1;
+
+                            if (badge) {
+                                let conteggioAttuale = parseInt(badge.textContent) || 0;
+                                badge.textContent = conteggioAttuale + quantitaAggiunta;
+                            } else {
+                                const iconeHeader = document.querySelectorAll(".collegamento-icona");
+                                let linkCarrello = null;
+
+                                iconeHeader.forEach(icona => {
+                                    if (icona.innerHTML.includes("shopping_cart")) {
+                                        linkCarrello = icona;
+                                    }
+                                });
+
+                                if (linkCarrello) {
+                                    const nuovoBadge = document.createElement("span");
+                                    nuovoBadge.className = "conteggio-badge";
+                                    nuovoBadge.textContent = quantitaAggiunta;
+                                    linkCarrello.appendChild(nuovoBadge);
+                                }
+                            }
+                        }
+
                     } else {
                         alert("Si è verificato un errore sul server (Codice: " + response.status + ").");
                     }
