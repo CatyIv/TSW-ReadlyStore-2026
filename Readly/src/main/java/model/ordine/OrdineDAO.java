@@ -94,14 +94,15 @@ public class OrdineDAO {
         Connection connection = null;
         PreparedStatement orderStatement = null;
         PreparedStatement productStatement = null;
+        PreparedStatement stockStatement = null;
         ResultSet generatedKeys = null;
 
         String sqlOrder = "INSERT INTO " + TABLE_NAME + " (data_ordine, stato_ordine, costo, indirizzo, corriere, data_consegna, idUtente) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String sqlProduct = "INSERT INTO ProdottoOrdinato (numero_ordine, ISBN_prodotto, prezzo, IVA, quantita) VALUES (?, ?, ?, ?, ?)";
+        String sqlUpdateStock = "UPDATE Prodotto SET disponibilita = disponibilita - ? WHERE ISBN = ?";
 
         try {
             connection = ConnectionPool.getConnection();
-
             connection.setAutoCommit(false);
 
             orderStatement = connection.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
@@ -122,33 +123,39 @@ public class OrdineDAO {
             int numeroOrdineGenerato = 0;
             if (generatedKeys.next()) {
                 numeroOrdineGenerato = generatedKeys.getInt(1);
-                ordine.setNumeroOrdine(numeroOrdineGenerato); // Aggiorniamo il bean
+                ordine.setNumeroOrdine(numeroOrdineGenerato);
             } else {
                 throw new SQLException("Errore: Impossibile recuperare l'ID dell'ordine.");
             }
 
             productStatement = connection.prepareStatement(sqlProduct);
+            stockStatement = connection.prepareStatement(sqlUpdateStock);
+
             for (Map.Entry<ProdottoBean, Integer> entry : prodottiCarrello.entrySet()) {
                 ProdottoBean prodotto = entry.getKey();
                 int quantitaAcquistata = entry.getValue();
 
                 productStatement.setInt(1, numeroOrdineGenerato);
                 productStatement.setString(2, prodotto.getIsbn());
-                productStatement.setDouble(3, prodotto.getPrezzo()); // Congela il prezzo corrente
-                productStatement.setInt(4, prodotto.getIva());       // Congela l'IVA corrente
+                productStatement.setDouble(3, prodotto.getPrezzo());
+                productStatement.setInt(4, prodotto.getIva());
                 productStatement.setInt(5, quantitaAcquistata);
+                productStatement.addBatch();
 
-                productStatement.addBatch(); // Aggiunge al pacchetto di esecuzione
+                stockStatement.setInt(1, quantitaAcquistata);
+                stockStatement.setString(2, prodotto.getIsbn());
+                stockStatement.addBatch();
             }
 
-            productStatement.executeBatch(); // Esegue tutti gli inserimenti dei prodotti insieme
+            productStatement.executeBatch();
+            stockStatement.executeBatch();
 
             connection.commit();
 
         } catch (SQLException e) {
             if (connection != null) {
                 try {
-                    connection.rollback(); // Se qualcosa fallisce, cancella tutto per sicurezza!
+                    connection.rollback();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -161,7 +168,9 @@ public class OrdineDAO {
             try { if (generatedKeys != null) generatedKeys.close(); } finally {
                 try { if (orderStatement != null) orderStatement.close(); } finally {
                     try { if (productStatement != null) productStatement.close(); } finally {
-                        ConnectionPool.releaseConnection(connection);
+                        try { if (stockStatement != null) stockStatement.close(); } finally {
+                            ConnectionPool.releaseConnection(connection);
+                        }
                     }
                 }
             }
@@ -189,11 +198,11 @@ public class OrdineDAO {
                 p.setIsbn(resultSet.getString("ISBN"));
                 p.setTitolo(resultSet.getString("titolo"));
                 p.setAutore(resultSet.getString("autore"));
-                p.setPrezzo(resultSet.getDouble("prezzo")); // Prezzo storico congelato
-                p.setIva(resultSet.getInt("IVA"));         // IVA storica congelata
+                p.setPrezzo(resultSet.getDouble("prezzo"));
+                p.setIva(resultSet.getInt("IVA"));
                 p.setDescrizione(resultSet.getString("descrizione"));
                 p.setCategoria(resultSet.getString("categoria"));
-                p.setDisponibilita(resultSet.getInt("quantita")); // Riutilizziamo temporaneamente questo campo per la quantità acquistata nell'ordine
+                p.setDisponibilita(resultSet.getInt("quantita"));
 
                 prodottiOrdinati.add(p);
             }
@@ -210,19 +219,48 @@ public class OrdineDAO {
     public void doUpdateStato(int numeroOrdine, String nuovoStato) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
+        PreparedStatement stockStatement = null;
 
-        String sql = "UPDATE " + TABLE_NAME + " SET stato_ordine = ? WHERE numero_ordine = ?";
+        String sqlUpdateStatus = "UPDATE " + TABLE_NAME + " SET stato_ordine = ? WHERE numero_ordine = ?";
+        String sqlRestoreStock = "UPDATE Prodotto SET disponibilita = disponibilita + ? WHERE ISBN = ?";
 
         try {
             connection = ConnectionPool.getConnection();
-            statement = connection.prepareStatement(sql);
+            connection.setAutoCommit(false);
+
+            OrdineBean ordineCorrente = doRetrieveByKey(numeroOrdine);
+
+            statement = connection.prepareStatement(sqlUpdateStatus);
             statement.setString(1, nuovoStato);
             statement.setInt(2, numeroOrdine);
-
             statement.executeUpdate();
+
+            if (ordineCorrente != null && !"Annullato".equalsIgnoreCase(ordineCorrente.getStatoOrdine()) && "Annullato".equalsIgnoreCase(nuovoStato)) {
+                List<ProdottoBean> prodottiDaRipristinare = doRetrieveProdottiByOrdine(numeroOrdine);
+                stockStatement = connection.prepareStatement(sqlRestoreStock);
+
+                for (ProdottoBean prodotto : prodottiDaRipristinare) {
+                    stockStatement.setInt(1, prodotto.getDisponibilita());
+                    stockStatement.setString(2, prodotto.getIsbn());
+                    stockStatement.addBatch();
+                }
+                stockStatement.executeBatch();
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try { connection.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
+            throw e;
         } finally {
+            if (connection != null) {
+                try { connection.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            }
             try { if (statement != null) statement.close(); } finally {
-                ConnectionPool.releaseConnection(connection);
+                try { if (stockStatement != null) stockStatement.close(); } finally {
+                    ConnectionPool.releaseConnection(connection);
+                }
             }
         }
     }

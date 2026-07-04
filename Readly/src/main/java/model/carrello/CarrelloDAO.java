@@ -19,7 +19,7 @@ public class CarrelloDAO {
         ResultSet resultSet = null;
         CarrelloBean carrello = null;
 
-        String sql = "SELECT ID_Carrello, email FROM Carrello WHERE email = ?";
+        String sql = "SELECT ID_Carrello, idUtente FROM Carrello WHERE idUtente = ?";
 
         try {
             connection = ConnectionPool.getConnection();
@@ -45,7 +45,7 @@ public class CarrelloDAO {
         Connection connection = null;
         PreparedStatement statement = null;
 
-        String sql = "INSERT INTO Carrello (ID_Carrello, email) VALUES (?, ?)";
+        String sql = "INSERT INTO Carrello (ID_Carrello, idUtente) VALUES (?, ?)";
 
         try {
             connection = ConnectionPool.getConnection();
@@ -66,9 +66,9 @@ public class CarrelloDAO {
         ResultSet resultSet = null;
 
         String sql = "SELECT c.quantita, p.isbn, p.titolo, p.autore, p.prezzo, p.iva, p.descrizione, " +
-                     "p.categoria, p.disponibilita, p.idUtentePubblica " +
-                     "FROM Contiene c JOIN Prodotto p ON c.isbn = p.isbn " +
-                     "WHERE c.ID_Carrello = ?";
+                "p.categoria, p.disponibilita, p.idUtentePubblica " +
+                "FROM Contiene c JOIN Prodotto p ON c.isbn = p.isbn " +
+                "WHERE c.ID_Carrello = ?";
 
         try {
             connection = ConnectionPool.getConnection();
@@ -77,19 +77,19 @@ public class CarrelloDAO {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                ProdottoBean prodotto = new ProdottoBean( 
-                    resultSet.getString("isbn"),
-                    resultSet.getString("titolo"),
-                    resultSet.getString("autore"),
-                    resultSet.getDouble("prezzo"),
-                    resultSet.getInt("iva"),
-                    resultSet.getString("descrizione"),
-                    resultSet.getString("categoria"),
-                    resultSet.getInt("disponibilita"),
-                    resultSet.getString("idUtentePubblica")
+                ProdottoBean prodotto = new ProdottoBean(
+                        resultSet.getString("isbn"),
+                        resultSet.getString("titolo"),
+                        resultSet.getString("autore"),
+                        resultSet.getDouble("prezzo"),
+                        resultSet.getInt("iva"),
+                        resultSet.getString("descrizione"),
+                        resultSet.getString("categoria"),
+                        resultSet.getInt("disponibilita"),
+                        resultSet.getString("idUtentePubblica")
                 );
-                int quantita = resultSet.getInt("quantita");
-                carrello.aggiungiProdotto(prodotto, quantita);
+                int javaQuantita = resultSet.getInt("quantita");
+                carrello.aggiungiProdotto(prodotto, javaQuantita);
             }
         } finally {
             try { if (resultSet != null) resultSet.close(); } finally {
