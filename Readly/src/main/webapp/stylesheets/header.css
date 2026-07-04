@@ -4,7 +4,7 @@
 .intestazione-sito{
     width: 100%;
     background: #eadfbc;
-    font-family: 'Source Snas 3', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
 }
 
 .barra-superiore-intestazione{
@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 4%;
+    padding: 6px 4%;
     box-sizing: border-box;
 }
 .sinistra-superiore-intestazione{
@@ -72,7 +72,7 @@
     justify-content: space-between;
     box-sizing: border-box;
     position: relative;
-    height: 80px;
+    height: 85px;
 }
 .sezione-sinistra {
     display: flex;
@@ -82,11 +82,8 @@
 }
 
 .header-logo {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 4%;
-    z-index: 10;
+ display:flex;
+    align-items: center;
 }
 .logo-img {
     height: 140px;
@@ -95,12 +92,15 @@
     display: block;
 }
 .contenitore-ricerca {
-    flex: 1;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    width:100%;
     max-width: 450px;
     min-width: 200px;
-    margin-left: 50%;
-    margin-right: 5%;
-    position: relative;
+    z-index: 5;
+
 }
 .contenitore-ricerca form{
     position: relative;
@@ -132,6 +132,8 @@
 .menu-navigazione{
     display: flex;
     gap: 12px;
+    flex: 1;
+    justify-content: flex-end;
     flex-shrink: 0;
 }
 .bottone-navigazione{
