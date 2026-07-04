@@ -25,6 +25,17 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+
+        if (session != null && session.getAttribute("utente") != null) {
+            UtenteBean utente = (UtenteBean) session.getAttribute("utente");
+            if (utente.isAdmin()) {
+                response.sendRedirect(request.getContextPath() + "/admin/DashboardServlet");
+            }  else {
+                response.sendRedirect(request.getContextPath() + "/AreaPersonaleServlet");
+            }
+            return;
+        }
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
