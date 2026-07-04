@@ -2,6 +2,8 @@ package control;
 
 import model.utente.UtenteBean;
 import model.utente.UtenteDAO;
+import model.carrello.CarrelloBean;
+import model.carrello.CarrelloDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,6 +64,27 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("utente", utente);
                     logger.info("Utente autenticato con successo: " + email);
+
+                    try {
+                        CarrelloDAO carrelloDAO = new CarrelloDAO();
+                        CarrelloBean carrello = carrelloDAO.doRetrieveByUtente(email);
+
+                        if (carrello == null) {
+                            carrello = new CarrelloBean();
+                            carrello.setIdCarrello(java.util.UUID.randomUUID().toString());
+                            carrelloDAO.doSave(carrello, email);
+                        }
+
+                        CarrelloServlet.mergeGuestCartToUserCart(request, response, utente);
+                        carrelloDAO.caricaElementiCarrello(carrello);
+
+                        session.setAttribute("carrello", carrello);
+                        int conteggioBadge = (carrello.getItems() != null) ? carrello.getItems().size() : 0;
+                        session.setAttribute("cartCount", conteggioBadge);
+
+                    } catch (SQLException e) {
+                        logger.log(Level.SEVERE, "Errore nel caricamento del carrello per l'utente: " + email, e);
+                    }
 
                     if (utente.isAdmin()) {
                         response.sendRedirect(request.getContextPath() + "/admin/DashboardServlet");

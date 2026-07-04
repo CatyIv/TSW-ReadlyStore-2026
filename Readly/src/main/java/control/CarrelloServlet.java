@@ -61,6 +61,10 @@ public class CarrelloServlet extends HttpServlet {
                 CarrelloBean carrelloDb = carrelloDao.doRetrieveByUtente(utenteLoggato.getEmail());
                 if (carrelloDb != null) {
                     carrello = carrelloDb;
+                    carrelloDao.caricaElementiCarrello(carrello);
+                } else {
+                    carrello.setIdCarrello(java.util.UUID.randomUUID().toString());
+                    carrelloDao.doSave(carrello, utenteLoggato.getEmail());
                 }
             } else {
                 carrello.svuotaCarrello();
@@ -264,7 +268,6 @@ public class CarrelloServlet extends HttpServlet {
     public static int getCartItemCount(HttpServletRequest request, String emailUtente) throws SQLException {
         CarrelloDAO cDao = new CarrelloDAO();
 
-        // Scenario 1: L'utente è loggato -> Recuperiamo il carrello dal Database
         if (emailUtente != null) {
             CarrelloBean carrelloDb = cDao.doRetrieveByUtente(emailUtente);
             if (carrelloDb != null && carrelloDb.getItems() != null) {
@@ -273,7 +276,6 @@ public class CarrelloServlet extends HttpServlet {
             return 0;
         }
 
-        // Scenario 2: L'utente è un ospite -> Leggiamo il carrello salvato nel Cookie JSON
         Gson staticGson = new Gson();
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
