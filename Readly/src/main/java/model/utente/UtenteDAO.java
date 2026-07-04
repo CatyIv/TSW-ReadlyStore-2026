@@ -185,4 +185,27 @@ public class UtenteDAO {
         }
         return bean;
     }
+
+    public void doUpdateAnagrafica(UtenteBean utente) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        String sql = "UPDATE " + TABLE_NAME + " SET nome=?, cognome=?, telefono=? WHERE email=?";
+
+        try {
+            connection = ConnectionPool.getConnection();
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1, utente.getNome());
+            statement.setString(2, utente.getCognome());
+            statement.setString(3, utente.getTelefono());
+            statement.setString(4, utente.getEmail());
+
+            statement.executeUpdate();
+        } finally {
+            try { if (statement != null) statement.close(); } finally {
+                ConnectionPool.releaseConnection(connection);
+            }
+        }
+    }
 }
