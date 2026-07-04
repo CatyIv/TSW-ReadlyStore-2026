@@ -49,19 +49,22 @@
                      class="logo-img">
             </a>
             <div class="contenitore-ricerca">
-                <form action="CatalogoServlet" method="get">
-                    <input type="text" name="search" class="input-ricerca" placeholder="Cerca..." value="<%= request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "" %>">
+                <form action="CatalogoServlet" method="get" id="search-form">
+                    <input type="text" name="search" id="search-box" class="input-ricerca" placeholder="Cerca..." value="<%= request.getAttribute("searchQuery") != null ? (String) request.getAttribute("searchQuery") : "" %>">
                     <button type="submit" class="invia-ricerca">
                         <span class="material-symbols-outlined">search</span>
                     </button>
                 </form>
+                     <div id="search-results"></div>
             </div>
         </div>
         <nav class="menu-navigazione">
-            <a href="chiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
+            <a href="paginaChiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
             <a href="contatti.jsp" class="bottone-navigazione">Contatti</a>
         </nav>
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/javascripts/search.js"></script>
+
 </body>
 </html>

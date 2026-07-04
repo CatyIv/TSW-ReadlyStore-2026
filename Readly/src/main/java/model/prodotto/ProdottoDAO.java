@@ -162,5 +162,88 @@ public class ProdottoDAO {
             }
         }
     }
+    public List<ProdottoBean> doRetrieveBySearch(String query) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<ProdottoBean> prodotti = new ArrayList<>();
 
+        String sql = "SELECT ISBN, titolo, autore, prezzo, IVA, descrizione, categoria, disponibilita, idUtentePubblica FROM " + TABLE_NAME;
+
+        try {
+            connection = ConnectionPool.getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+
+            String queryPulita = query.toLowerCase().replaceAll("[\\p{Punct}\\s]", "");
+            while (resultSet.next()) {
+                String titoloDb = resultSet.getString("titolo");
+                if (titoloDb == null)
+                    continue;
+                String titoloDbPulito = titoloDb.toLowerCase().replaceAll("[\\p{Punct}\\s]", "");
+
+                if (titoloDbPulito.contains(queryPulita)) {
+                    prodotti.add(creaBeanDaResultSet(resultSet));
+                    continue;
+                }
+                String[] paroleQuery = query.toLowerCase().split("[\\p{Punct}\\s]+");
+                String[] paroleDb = titoloDb.toLowerCase().split("[\\p{Punct}\\s]+");
+
+                boolean trovato = false;
+                for (String pQuery : paroleQuery) {
+                    if (pQuery.length() < 3) continue;
+                    for (String pDb : paroleDb) {
+                        if (pDb.length() < 3) continue;
+                        if (pDb.contains(pQuery) || calcolaSomiglianza(pDb, pQuery)) {
+                            trovato = true;
+                            break;
+                        }
+                    }
+                    if (trovato) break;
+                }
+                if (trovato) {
+                    prodotti.add(creaBeanDaResultSet(resultSet));
+                }
+            }
+        } finally {
+            try { if (resultSet != null) resultSet.close(); } finally {
+                try { if (statement != null) statement.close(); } finally {
+                    ConnectionPool.releaseConnection(connection);
+                }
+            }
+        }
+        return prodotti;
+    }
+    private ProdottoBean creaBeanDaResultSet(ResultSet resultSet) throws SQLException {
+        return new ProdottoBean(
+                resultSet.getString("ISBN"),
+                resultSet.getString("titolo"),
+                resultSet.getString("autore"),
+                resultSet.getDouble("prezzo"),
+                resultSet.getInt("IVA"),
+                resultSet.getString("descrizione"),
+                resultSet.getString("categoria"),
+                resultSet.getInt("disponibilita"),
+                resultSet.getString("idUtentePubblica")
+        );
+    }
+
+    private boolean calcolaSomiglianza(String titolo, String query) {
+        int erroriPermessi = 2;
+        if (query.length() <= 5) erroriPermessi = 1;
+
+        for (int i = 0; i <= titolo.length() - query.length(); i++) {
+            String sottostringaTitolo = titolo.substring(i, i + query.length());
+            int distanza = 0;
+            for (int j = 0; j < query.length(); j++) {
+                if (sottostringaTitolo.charAt(j) != query.charAt(j)) {
+                    distanza++;
+                }
+            }
+            if (distanza <= erroriPermessi) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

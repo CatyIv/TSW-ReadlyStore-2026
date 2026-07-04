@@ -4,7 +4,7 @@
 .intestazione-sito{
     width: 100%;
     background: #eadfbc;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Source Snas 3', sans-serif;
 }
 
 .barra-superiore-intestazione{
@@ -65,9 +65,8 @@
     padding: 2px 6px;
 }
 
-/* --- BARRA DI NAVIGAZIONE --- */
 .barra-navigazione-intestazione {
-    padding: 20px 4%; /* Ripristinato uno spazio sano per i bottoni e la ricerca */
+    padding: 20px 4%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -101,6 +100,7 @@
     min-width: 200px;
     margin-left: 50%;
     margin-right: 5%;
+    position: relative;
 }
 .contenitore-ricerca form{
     position: relative;
@@ -149,4 +149,44 @@
 .bottone-navigazione:hover{
     background: #89986D;
     color: white;
+}
+
+#search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #F6F0D7;
+    border: 2px solid #89986D;
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+    box-sizing: border-box;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 999;
+    display: none;
+    margin-top: -2px;
+}
+
+#search-results a {
+    display: block;
+    padding: 10px 20px;
+    color: #677351;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(137, 152, 109, 0.3);
+    transition: background 0.2s;
+}
+
+#search-results a:hover {
+    background: #89986D;
+    color: white;
+}
+
+.contenitore-ricerca.is-open .input-ricerca {
+    border-radius: 25px 25px 0 0;
+}
+
+.contenitore-ricerca.is-open #search-results {
+    display: block;
 }

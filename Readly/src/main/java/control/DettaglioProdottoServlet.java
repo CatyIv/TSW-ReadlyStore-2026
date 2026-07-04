@@ -66,4 +66,3 @@ public class DettaglioProdottoServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-
