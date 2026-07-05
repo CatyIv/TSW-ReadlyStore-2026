@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/header.css?v=4">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/header.css?v=8">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/evidenziatore.css">
+</head>
 </head>
 <body>
 <div class="intestazione-sito">
