@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         if (!isWishlist) {
                             let badge = document.querySelector(".conteggio-badge");
-                            const quantitaInput = form.querySelector("input[name='quantita']");
+                            const quantitaInput = document.getElementById('quantita');
+                            const bottoneCarrello = document.querySelector('.bottone-carrello');
+                            const divStato = document.querySelector('.stato-disponibilita');
                             const quantitaAggiunta = quantitaInput ? parseInt(quantitaInput.value) : 1;
 
                             if (badge) {
@@ -54,6 +56,27 @@ document.addEventListener("DOMContentLoaded", function () {
                                     nuovoBadge.className = "conteggio-badge";
                                     nuovoBadge.textContent = quantitaAggiunta;
                                     linkCarrello.appendChild(nuovoBadge);
+                                }
+                            }
+
+                            if (quantitaInput && bottoneCarrello) {
+                                const maxAttuale = parseInt(quantitaInput.getAttribute('max')) || 0;
+                                const nuovoMax = maxAttuale - quantitaAggiunta;
+
+                                if (nuovoMax <= 0) {
+                                    quantitaInput.value = 0;
+                                    quantitaInput.setAttribute('min', 0);
+                                    quantitaInput.setAttribute('max', 0);
+                                    quantitaInput.disabled = true;
+                                    bottoneCarrello.disabled = true;
+
+                                    if (divStato) {
+                                        divStato.classList.add('esaurito');
+                                        divStato.innerHTML = "Quantità massima già nel carrello";
+                                    }
+                                } else {
+                                    quantitaInput.setAttribute('max', nuovoMax);
+                                    quantitaInput.value = 1;
                                 }
                             }
                         }

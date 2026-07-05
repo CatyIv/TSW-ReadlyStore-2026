@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import model.carrello.CarrelloBean;
 import model.carrello.CarrelloDAO;
 import model.itemcarrello.ItemCarrelloDAO;
+import model.itemcarrello.ItemCarrelloBean;
 import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDAO;
 import model.utente.UtenteBean;
@@ -44,7 +45,6 @@ public class CarrelloServlet extends HttpServlet {
         gson = new Gson();
     }
 
-    @SuppressWarnings({"CallToPrintStackTrace", "override"})
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -81,7 +81,7 @@ public class CarrelloServlet extends HttpServlet {
 
             int conteggioBadge = 0;
             if (carrello.getItems() != null) {
-                for (model.itemcarrello.ItemCarrelloBean item : carrello.getItems()) {
+                for (ItemCarrelloBean item : carrello.getItems()) {
                     conteggioBadge += item.getQuantita();
                 }
             }
@@ -96,7 +96,6 @@ public class CarrelloServlet extends HttpServlet {
         response.sendRedirect("carrello.jsp");
     }
 
-    @SuppressWarnings("override")
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -121,14 +120,30 @@ public class CarrelloServlet extends HttpServlet {
 
                     ProdottoBean prodotto = prodottoDao.doRetrieveByKey(isbn);
                     if (prodotto != null) {
-                        carrello.aggiungiProdotto(prodotto, qta);
+                        int qtaCorrenteCarrello = 0;
+                        if (carrello.getItems() != null) {
+                            for (ItemCarrelloBean item : carrello.getItems()) {
+                                if (item.getProdotto().getIsbn().equals(isbn)) {
+                                    qtaCorrenteCarrello = item.getQuantita();
+                                    break;
+                                }
+                            }
+                        }
 
-                        if (utenteLoggato != null && carrello.getIdCarrello() != null) {
-                            itemCarrelloDao.doSave(carrello.getIdCarrello(), isbn, qta);
-                        } else {
-                            Map<String, Integer> guestCart = getGuestCartFromCookies(request);
-                            guestCart.put(isbn, guestCart.getOrDefault(isbn, 0) + qta);
-                            saveGuestCartToCookies(response, guestCart);
+                        if (qtaCorrenteCarrello + qta > prodotto.getDisponibilita()) {
+                            qta = prodotto.getDisponibilita() - qtaCorrenteCarrello;
+                        }
+
+                        if (qta > 0) {
+                            carrello.aggiungiProdotto(prodotto, qta);
+
+                            if (utenteLoggato != null && carrello.getIdCarrello() != null) {
+                                itemCarrelloDao.doSave(carrello.getIdCarrello(), isbn, qta);
+                            } else {
+                                Map<String, Integer> guestCart = getGuestCartFromCookies(request);
+                                guestCart.put(isbn, guestCart.getOrDefault(isbn, 0) + qta);
+                                saveGuestCartToCookies(response, guestCart);
+                            }
                         }
                     }
                 }
@@ -183,7 +198,7 @@ public class CarrelloServlet extends HttpServlet {
 
             int conteggioBadge = 0;
             if (carrello.getItems() != null) {
-                for (model.itemcarrello.ItemCarrelloBean item : carrello.getItems()) {
+                for (ItemCarrelloBean item : carrello.getItems()) {
                     conteggioBadge += item.getQuantita();
                 }
             }
@@ -197,7 +212,6 @@ public class CarrelloServlet extends HttpServlet {
 
         response.sendRedirect("carrello.jsp");
     }
-
 
     private Map<String, Integer> getGuestCartFromCookies(HttpServletRequest request) {
         Map<String, Integer> guestCart = new HashMap<>();
@@ -231,7 +245,6 @@ public class CarrelloServlet extends HttpServlet {
         } catch (Exception ignored) {
         }
     }
-
 
     public static void mergeGuestCartToUserCart(HttpServletRequest request, HttpServletResponse response, UtenteBean utenteLoggato) throws SQLException {
         CarrelloDAO cDao = new CarrelloDAO();
@@ -283,7 +296,7 @@ public class CarrelloServlet extends HttpServlet {
         if (emailUtente != null) {
             CarrelloBean carrelloDb = cDao.doRetrieveByUtente(emailUtente);
             if (carrelloDb != null && carrelloDb.getItems() != null) {
-                for (model.itemcarrello.ItemCarrelloBean item : carrelloDb.getItems()) {
+                for (ItemCarrelloBean item : carrelloDb.getItems()) {
                     totaleBadge += item.getQuantita();
                 }
             }
