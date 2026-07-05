@@ -4,6 +4,9 @@ import model.prodotto.ProdottoBean;
 import model.prodotto.ProdottoDAO;
 import model.immagine.ImmagineBean;
 import model.immagine.ImmagineDAO;
+import javax.servlet.http.HttpSession;
+import model.carrello.CarrelloBean;
+import model.itemcarrello.ItemCarrelloBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,6 +55,20 @@ public class DettaglioProdottoServlet extends HttpServlet {
             if (listaImmagini != null && !listaImmagini.isEmpty()) {
                 immaginePrincipale = listaImmagini.get(0).getUrl();
             }
+            HttpSession session = request.getSession();
+            boolean utenteLoggato = (session.getAttribute("utente") != null);
+
+            CarrelloBean carrelloDettaglio = (CarrelloBean) session.getAttribute("carrello");
+            int copieGiaNelCarrello = 0;
+            if (carrelloDettaglio != null && carrelloDettaglio.getItems() != null) {
+                for (ItemCarrelloBean item : carrelloDettaglio.getItems()) {
+                    if (item.getProdotto().getIsbn().equals(libro.getIsbn())) {
+                        copieGiaNelCarrello = item.getQuantita();
+                        break;
+                    }
+                }
+            }
+            int copieDisponibiliEffettive = libro.getDisponibilita() - copieGiaNelCarrello;
             request.setAttribute("libro", libro);
             request.setAttribute("listaImmagini", listaImmagini);
             request.setAttribute("immaginePrincipale", immaginePrincipale);
