@@ -1,33 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-
 .contenitore-principale-carrello,
 .contenitore-principale-carrello *,
 .carrello-vuoto,
-.carrello-vuoto * {
+.carrello-vuoto *,
+.modal-overlay,
+.modal-overlay * {
     box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
+    font-family: 'Source Sans 3', sans-serif;
 }
 
 body {
-    font-family: 'Cabin', sans-serif;
-    color: #9BAE73;
+    margin: 0;
+    padding: 0;
     background-color: #EADFBC;
-    display: flex;
-    flex-direction: column;
 }
 
 .contenitore-principale-carrello {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    flex: 1 0 auto;
     width: 100%;
     display: flex;
     flex-direction: column;
+    color: #677351;
 }
 
 h1 {
@@ -58,7 +52,7 @@ h1 {
     background-color: #F6F0D7;
     padding: 25px;
     border-radius: 8px;
-    color: #9BAE73;
+    color: #677351;
     display: flex;
     flex-direction: column;
 }
@@ -119,7 +113,6 @@ h1 {
     font-size: 16px;
     color: #9BAE73;
     margin: 0 0 15px 0;
-    opacity: 0.8;
 }
 
 .controlli-qta-box {
@@ -130,7 +123,7 @@ h1 {
 
 .btn-qta {
     background-color: #F6F0D7;
-    color: #9BAE73;
+    color: #677351;
     border: 1px solid #9BAE73;
     width: 25px;
     height: 25px;
@@ -143,7 +136,7 @@ h1 {
 }
 
 .btn-qta:hover {
-    background-color: #9BAE73;
+    background-color: #677351;
     color: #F6F0D7;
 }
 
@@ -151,7 +144,7 @@ h1 {
     font-weight: bold;
     min-width: 20px;
     text-align: center;
-    color: #9BAE73;
+    color: #677351;
 }
 
 .btn-cestino {
@@ -188,7 +181,7 @@ h1 {
     font-size: 30px;
     margin-top: 0;
     margin-bottom: 20px;
-    border-bottom: 2px solid #9BAE73;
+    border-bottom: 2px solid #677351;
     padding-bottom: 10px;
 }
 
@@ -197,6 +190,11 @@ h1 {
     justify-content: space-between;
     font-size: 17px;
     margin-bottom: 12px;
+    color: #9BAE73;
+}
+
+.riepilogo-riga span:last-child {
+    color: #677351;
 }
 
 .riepilogo-imponibile,
@@ -211,13 +209,17 @@ h1 {
 
 .riepilogo-riga.totale-definitivo {
     font-family: 'Source Sans 3', sans-serif;
-    color: #9BAE73;
+    color: #677351;
     font-size: 24px;
     font-weight: bold;
     margin-top: 20px;
     border-top: 1px dashed #9BAE73;
     padding-top: 15px;
     margin-bottom: 20px;
+}
+
+.riepilogo-riga.totale-definitivo span:last-child {
+    color: #677351;
 }
 
 .riepilogo-azioni-box {
@@ -274,6 +276,7 @@ h1 {
 
 .btn-svuota-link:hover {
     opacity: 1;
+    color: #677351;
 }
 
 .carrello-vuoto {
@@ -368,7 +371,7 @@ h1 {
 }
 
 .modal-box p {
-    color: #9BAE73;
+    color: #677351;
     font-size: 16px;
     margin-bottom: 25px;
 }

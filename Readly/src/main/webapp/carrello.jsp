@@ -30,7 +30,7 @@
     <div class="carrello-vuoto" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; gap: 40px !important; padding: 40px 60px !important; text-align: left !important;">
         <div class="carrello-vuoto-testo" style="flex: 1 !important; text-align: center !important;">
             <h2 style="font-family: 'Source Sans 3', sans-serif; color: #677351; font-size: 36px; margin-top: 0; margin-bottom: 15px;">Il tuo carrello è attualmente vuoto!</h2>
-            <p style="font-size: 18px; margin: 0; color: #9BAE73;">Torna al <a href="catalogo.jsp" style="color:#677351; font-weight:bold;">Catalogo</a> per esplorare i nostri libri.</p>
+            <p style="font-family: 'Source Sans 3', sans-serif; font-size: 18px; margin: 0; color: #9BAE73;">Torna al <a href="catalogo.jsp" style="color:#677351; font-weight:bold;">Catalogo</a> per esplorare i nostri libri.</p>
         </div>
         <div class="carrello-vuoto-immagine-box" style="flex: 1 !important; display: flex !important; justify-content: center !important; align-items: center !important;">
             <img src="img/cartVuoto.png" alt="Mascotte Carrello Vuoto" class="mascotte-vuoto-img" style="width: 100% !important; max-width: 380px !important; height: auto !important; object-fit: contain !important;">
@@ -75,9 +75,9 @@
                         <p><%= item.getProdotto().getAutore() %></p>
 
                         <div class="controlli-qta-box">
-                            <button class="btn-qta" onclick="aggiornaQuantita('<%= isbn %>', <%= item.getQuantita() - 1 %>, '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>')">-</button>
+                            <button class="btn-qta" onclick="aggiornaQuantita('<%= isbn %>', <%= item.getQuantita() - 1 %>, '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>', <%= item.getProdotto().getDisponibilita() %>)">-</button>
                             <span class="qta-valore"><%= item.getQuantita() %></span>
-                            <button class="btn-qta" onclick="aggiornaQuantita('<%= isbn %>', <%= item.getQuantita() + 1 %>)">+</button>
+                            <button class="btn-qta" onclick="aggiornaQuantita('<%= isbn %>', <%= item.getQuantita() + 1 %>, '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>', <%= item.getProdotto().getDisponibilita() %>)">+</button>
 
                             <button class="btn-cestino" onclick="chiediConfermaElimina('<%= isbn %>', '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>')" title="Rimuovi elemento">
                                 <img src="img/cestino.png" alt="cestino" class="btn-trash-icon">

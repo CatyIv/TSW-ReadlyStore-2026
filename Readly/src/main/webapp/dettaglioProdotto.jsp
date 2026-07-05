@@ -1,16 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.prodotto.ProdottoBean" %>
+<%@ page import="model.immagine.ImmagineBean" %>
+<%@ page import="model.carrello.CarrelloBean" %>
+<%@ page import="model.itemcarrello.ItemCarrelloBean" %>
 <%@ page import="java.util.List" %>
 
-<%
-    ProdottoBean libro = (ProdottoBean) request.getAttribute("libro");
+<% ProdottoBean libro = (ProdottoBean) request.getAttribute("libro");
+    List<ImmagineBean> listaImmagini = (List<ImmagineBean>) request.getAttribute("listaImmagini");
+    String immaginePrincipale = (String) request.getAttribute("immaginePrincipale");
+
     if(libro == null) {
         request.setAttribute("messaggioErrore", "Accesso non valido alla pagina del prodotto.");
         request.getRequestDispatcher("/erroreProdotto.jsp").forward(request, response);
     }
 
     boolean utenteLoggato = (session.getAttribute("utente") != null);
-    long cacheBuster = System.currentTimeMillis();
+
+    CarrelloBean carrelloDettaglio = (CarrelloBean) session.getAttribute("carrello");
+    int copieGiaNelCarrello = 0;
+    if (carrelloDettaglio != null && carrelloDettaglio.getItems() != null) {
+        for (ItemCarrelloBean item : carrelloDettaglio.getItems()) {
+            if (item.getProdotto().getIsbn().equals(libro.getIsbn())) {
+                copieGiaNelCarrello = item.getQuantita();
+                break;
+            }
+        }
+    }
+    int copieDisponibiliEffettive = libro.getDisponibilita() - copieGiaNelCarrello;
 %>
 
 <!DOCTYPE html>
@@ -27,10 +43,19 @@
 <jsp:include page="header.jsp"/>
 <div class="contenitore-dettaglio">
     <div class="sezione-immagini">
+        <div class="colonna-miniature">
+            <%
+                if (listaImmagini != null) {
+                    for (ImmagineBean img : listaImmagini) {
+            %>
+            <img class="miniatura" src="<%= request.getContextPath() %>/img/copertine/<%= img.getUrl() %>" alt="Anteprima">
+            <%
+                    }
+                }
+            %>
+        </div>
         <div class="copertina-principale">
-            <img src="<%= request.getContextPath() %>/img/copertine/<%= libro.getIsbn() %>.jpg?v=<%= cacheBuster %>"
-                 alt="<%= libro.getTitolo() %>"
-                 onerror="this.src='<%= request.getContextPath() %>/img/copertine/default_book.png';">
+            <img src="<%= request.getContextPath() %>/img/copertine/<%= immaginePrincipale %>" alt="<%= libro.getTitolo() %>">
         </div>
     </div>
     <div class="sezione-info">
@@ -45,9 +70,9 @@
                 <div class="blocco-azioni">
                     <div class="selettore-quantita">
                         <label for="quantita">Quantità:</label>
-                        <input type="number" id="quantita" name="quantita" value="1" min="1" max="<%= libro.getDisponibilita() %>" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %>>
+                        <input type="number" id="quantita" name="quantita" value="<%= copieDisponibiliEffettive <= 0 ? "0" : "1" %>" min="<%= copieDisponibiliEffettive <= 0 ? "0" : "1" %>" max="<%= copieDisponibiliEffettive %>" <%= copieDisponibiliEffettive <= 0 ? "disabled" : "" %>>
                     </div>
-                    <button type="submit" class="bottone-carrello" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
+                    <button type="submit" class="bottone-carrello" <%= copieDisponibiliEffettive <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
                         Aggiungi al carrello <span class="material-symbols-outlined">shopping_bag</span>
                     </button>
                 </div>
@@ -60,11 +85,13 @@
                 </button>
             </form>
         </div>
-        <div class="stato-disponibilita <%= (libro.getDisponibilita() <= 0) ? "esaurito" : "" %>">
-            <% if (libro.getDisponibilita() > 0) { %>
-            Disponibilità: <%= libro.getDisponibilita() %> copie
-            <% } else { %>
+        <div class="stato-disponibilita <%= (copieDisponibiliEffettive <= 0) ? "esaurito" : "" %>">
+            <% if (libro.getDisponibilita() <= 0) { %>
             Esaurito
+            <% } else if (copieDisponibiliEffettive <= 0) { %>
+            Quantità massima già nel carrello (<%= libro.getDisponibilita() %> copie)
+            <% } else { %>
+            Disponibilità: <%= libro.getDisponibilita() %> copie
             <% } %>
         </div>
     </div>

@@ -20,8 +20,18 @@ function chiediConfermaElimina(isbn, titolo) {
     document.getElementById('custom-confirm-overlay').classList.add('active');
 }
 
+function mostraErroreDisponibilita(maxDisponibile) {
+    azioneCorrente = "errore_stock";
+    document.getElementById('modal-title').innerText = "Disponibilità Insufficiente";
+    document.getElementById('modal-description').innerText = "Non puoi aggiungere altre copie di questo libro. Il numero massimo di copie disponibili in magazzino è " + maxDisponibile + ".";
+    document.getElementById('modal-btn-action').innerText = "Ok, ho capito";
+    document.getElementById('modal-btn-secondary').style.display = "none";
+    document.getElementById('custom-confirm-overlay').classList.add('active');
+}
+
 function chiudiPopup() {
     document.getElementById('custom-confirm-overlay').classList.remove('active');
+    document.getElementById('modal-btn-secondary').style.display = "";
     document.getElementById('modal-btn-secondary').innerText = "";
     azioneCorrente = "";
     isbnDaEliminare = "";
@@ -30,15 +40,20 @@ function chiudiPopup() {
 function eseguiAzioneConfermata() {
     if (azioneCorrente === "svuota") {
         inviaInPost("svuota", null, null);
+        chiudiPopup();
     } else if (azioneCorrente === "elimina") {
         inviaInPost("rimuovi", isbnDaEliminare, null);
+        chiudiPopup();
+    } else if (azioneCorrente === "errore_stock") {
+        chiudiPopup();
     }
-    chiudiPopup();
 }
 
-function aggiornaQuantita(isbn, nuovaQta, titoloProdotto) {
+function aggiornaQuantita(isbn, nuovaQta, titoloProdotto, maxDisponibile) {
     if (nuovaQta <= 0) {
         chiediConfermaElimina(isbn, titoloProdotto);
+    } else if (maxDisponibile !== undefined && maxDisponibile !== null && nuovaQta > maxDisponibile) {
+        mostraErroreDisponibilita(maxDisponibile);
     } else {
         inviaInPost("modifica", isbn, nuovaQta);
     }
