@@ -75,7 +75,12 @@ public class CarrelloServlet extends HttpServlet {
 
             session.setAttribute("carrello", carrello);
 
-            int conteggioBadge = (carrello.getItems() != null) ? carrello.getItems().size() : 0;
+            int conteggioBadge = 0;
+            if (carrello.getItems() != null) {
+                for (model.itemcarrello.ItemCarrelloBean item : carrello.getItems()) {
+                    conteggioBadge += item.getQuantita();
+                }
+            }
             session.setAttribute("cartCount", conteggioBadge);
 
         } catch (SQLException e) {
@@ -172,7 +177,12 @@ public class CarrelloServlet extends HttpServlet {
                 }
             }
 
-            int conteggioBadge = (carrello.getItems() != null) ? carrello.getItems().size() : 0;
+            int conteggioBadge = 0;
+            if (carrello.getItems() != null) {
+                for (model.itemcarrello.ItemCarrelloBean item : carrello.getItems()) {
+                    conteggioBadge += item.getQuantita();
+                }
+            }
             session.setAttribute("cartCount", conteggioBadge);
 
         } catch (SQLException e) {
@@ -261,19 +271,21 @@ public class CarrelloServlet extends HttpServlet {
             response.addCookie(cookie);
         }
     }
+
     public static int getCartItemCount(HttpServletRequest request, String emailUtente) throws SQLException {
         CarrelloDAO cDao = new CarrelloDAO();
+        int totaleBadge = 0;
 
-        // Scenario 1: L'utente è loggato -> Recuperiamo il carrello dal Database
         if (emailUtente != null) {
             CarrelloBean carrelloDb = cDao.doRetrieveByUtente(emailUtente);
             if (carrelloDb != null && carrelloDb.getItems() != null) {
-                return carrelloDb.getItems().size();
+                for (model.itemcarrello.ItemCarrelloBean item : carrelloDb.getItems()) {
+                    totaleBadge += item.getQuantita();
+                }
             }
-            return 0;
+            return totaleBadge;
         }
 
-        // Scenario 2: L'utente è un ospite -> Leggiamo il carrello salvato nel Cookie JSON
         Gson staticGson = new Gson();
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -284,7 +296,9 @@ public class CarrelloServlet extends HttpServlet {
                         Type type = new TypeToken<Map<String, Integer>>() {}.getType();
                         Map<String, Integer> guestCart = staticGson.fromJson(cartJsonString, type);
                         if (guestCart != null) {
-                            return guestCart.size();
+                            for (int qta : guestCart.values()) {
+                                totaleBadge += qta;
+                            }
                         }
                     } catch (Exception ignored) {
                     }
@@ -293,6 +307,6 @@ public class CarrelloServlet extends HttpServlet {
             }
         }
 
-        return 0;
+        return totaleBadge;
     }
 }
