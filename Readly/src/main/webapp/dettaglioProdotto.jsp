@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- Direttiva JSTL fondamentale --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -7,21 +7,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <meta charset="UTF-8">
     <title>${libro.titolo} - Readly</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/dettaglioProdotto.css?v=11">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/dettaglioProdotto.css?v=11">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/popup.css">
 </head>
 
 <body>
 <jsp:include page="header.jsp"/>
 <div class="contenitore-dettaglio">
     <div class="sezione-immagini">
-        <div class="colonna-miniature">
-            <c:forEach var="img" items="${listaImmagini}">
-                <img class="miniatura" src="${pageContext.request.contextPath}/img/copertine/${img.url}" alt="Anteprima">
-            </c:forEach>
-        </div>
         <div class="copertina-principale">
-            <img src="${pageContext.request.contextPath}/img/copertine/${immaginePrincipale}" alt="${libro.titolo}">        </div>
+            <img src="${pageContext.request.contextPath}/img/copertine/${libro.isbn}.jpg?v=${pageContext.session.lastAccessedTime}"
+                 alt="${libro.titolo}"
+                 onerror="this.src='${pageContext.request.contextPath}/img/copertine/default_book.png';">
+        </div>
     </div>
     <div class="sezione-info">
         <h1 class="titolo-libro">${libro.titolo}</h1>
@@ -47,7 +45,7 @@
                     </button>
                 </div>
             </form>
-            <form action="<%= request.getContextPath() %>/WishlistServlet" method="post" style="margin: 0;" data-loggato="${utenteLoggato}" class="form-wishlist">
+            <form action="${pageContext.request.contextPath}/WishlistServlet" method="post" style="margin: 0;" data-loggato="${utenteLoggato}" class="form-wishlist">
                 <input type="hidden" name="action" value="aggiungi">
                 <input type="hidden" name="isbn" value="${libro.isbn}">
                 <button type="submit" class="bottone-wishlist" title="Aggiungi alla Wishlist">
