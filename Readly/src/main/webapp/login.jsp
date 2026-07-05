@@ -9,6 +9,7 @@
     <title>Accedi - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/auth.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/evidenziatore.css">
 </head>
 <body>
 
