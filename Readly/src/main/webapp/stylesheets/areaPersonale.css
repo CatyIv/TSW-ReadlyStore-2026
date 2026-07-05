@@ -251,6 +251,47 @@
     text-decoration: none;
 }
 
+.admin-lista-verticale {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.admin-lista-verticale .admin-box {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: auto;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-lista-verticale .admin-box div:first-child {
+    text-align: left;
+}
+
+.admin-lista-verticale .admin-box div:last-child {
+    text-align: right;
+}
+
+.admin-form-flusso {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+.admin-form-flusso textarea {
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
 @media (max-width: 768px) {
     .admin-grid {
         flex-direction: column;

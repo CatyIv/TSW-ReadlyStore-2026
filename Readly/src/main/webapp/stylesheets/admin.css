@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg-main: #eadfbc;
+    --bg-card: #f6f0d7;
+    --text-primary: #677351;
+    --text-secondary: #89986D;
+    --bg-button-hover: #677351;
+    --text-button-hover: #FDFBF7;
+    --error-color: #C53030;
+}
+
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.admin-form-flusso {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    border: 1px solid var(--text-secondary);
+    background-color: var(--bg-main);
+    border-radius: 50px;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--text-primary);
+    background-color: var(--bg-card);
+}
+
+.form-group textarea {
+    border-radius: 20px;
+    resize: vertical;
+}
+
+.form-group select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22><path fill=%22%23677351%22 d=%22M7 10l5 5 5-5z%22/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid var(--text-secondary);
+    border-radius: 50px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.btn-auth:hover {
+    background-color: var(--bg-button-hover);
+    color: var(--text-button-hover);
+    border-color: var(--bg-button-hover);
+}
+
+.admin-grid .btn-auth {
+    display: inline-block;
+    width: auto;
+    padding: 0.6rem 2rem;
+}
+
+.admin-sezione-anteprima {
+    align-items: center;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.label-anteprima {
+    font-size: 1.1rem !important;
+    margin-bottom: 10px !important;
+    text-align: center !important;
+    width: 100%;
+}
+
+.admin-wrapper-copertina {
+    display: block;
+}
+
+.admin-img-principale {
+    max-width: 180px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    display: block;
+}
+
+.admin-sezione-storico {
+    margin-top: 2rem;
+    border-top: 1px solid var(--text-secondary);
+    padding-top: 1.5rem;
+}
+
+.admin-griglia-backup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.admin-form-miniatura {
+    margin: 0;
+}
+
+.admin-btn-miniatura {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.admin-btn-miniatura:hover {
+    transform: scale(1.05);
+}
+
+.admin-img-backup {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid var(--text-secondary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.text-storico-vuoto {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    width: 100%;
+}
+
+.btn-salva-flusso {
+    margin-top: 2rem;
+}
+
+.input-file-admin {
+    padding: 0.5rem 1.25rem;
+}

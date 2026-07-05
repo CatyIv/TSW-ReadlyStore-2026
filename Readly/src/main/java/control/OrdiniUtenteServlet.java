@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.ordine.OrdineBean;
 import model.ordine.OrdineDAO;
+import model.prodotto.ProdottoBean;
 import model.utente.UtenteBean;
 
 @WebServlet("/OrdiniUtenteServlet")
@@ -35,13 +36,29 @@ public class OrdiniUtenteServlet extends HttpServlet {
         UtenteBean utente = (UtenteBean) session.getAttribute("utente");
         OrdineDAO ordineDAO = new OrdineDAO();
 
+        String idOrdineParam = request.getParameter("idOrdine");
+
         try {
+            if (idOrdineParam != null && !idOrdineParam.trim().isEmpty()) {
+                int numeroOrdine = Integer.parseInt(idOrdineParam);
+
+                OrdineBean ordine = ordineDAO.doRetrieveByKey(numeroOrdine);
+
+                if (ordine != null && ordine.getIdUtente().equals(utente.getEmail())) {
+                    List<ProdottoBean> prodottiOrdinati = ordineDAO.doRetrieveProdottiByOrdine(numeroOrdine);
+
+                    request.setAttribute("ordineDettaglio", ordine);
+                    request.setAttribute("prodottiOrdinati", prodottiOrdinati);
+                    request.getRequestDispatcher("/dettaglio-ordine.jsp").forward(request, response);
+                    return;
+                }
+            }
+
             List<OrdineBean> listaOrdini = ordineDAO.doRetrieveByUtente(utente.getEmail());
             request.setAttribute("listaOrdini", listaOrdini);
-
             request.getRequestDispatcher("/ordini-utente.jsp").forward(request, response);
 
-        } catch (SQLException e) {
+        } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/error.jsp");
         }

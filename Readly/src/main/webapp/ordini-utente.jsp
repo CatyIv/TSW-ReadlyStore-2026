@@ -44,13 +44,18 @@
           </p>
         </div>
 
-        <div style="text-align: right;">
-          <p class="admin-box-title" style="margin-bottom: 5px; color: #677351;">
-            &euro; <%= String.format("%.2f", ordine.getCosto()) %>
-          </p>
-          <span class="admin-box-text" style="display: inline-block; padding: 5px 15px; border-radius: 15px; background-color: #EADFBC; font-weight: bold; color: #677351;">
-                                        <%= ordine.getStatoOrdine() %>
-                                    </span>
+        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+          <div>
+            <p class="admin-box-title" style="margin-bottom: 5px; color: #677351;">
+              &euro; <%= String.format("%.2f", ordine.getCosto()) %>
+            </p>
+            <span class="admin-box-text" style="display: inline-block; padding: 5px 15px; border-radius: 15px; background-color: #EADFBC; font-weight: bold; color: #677351; font-size: 0.85rem;">
+              <%= ordine.getStatoOrdine() %>
+            </span>
+          </div>
+          <a href="<%= request.getContextPath() %>/OrdiniUtenteServlet?idOrdine=<%= ordine.getNumeroOrdine() %>" class="btn-admin" style="padding: 6px 16px; font-size: 0.85rem; margin-top: 0;">
+            Vedi Dettagli
+          </a>
         </div>
       </div>
       <%
