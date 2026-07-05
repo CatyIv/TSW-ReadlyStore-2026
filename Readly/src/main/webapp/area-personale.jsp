@@ -38,6 +38,19 @@
             if (action != null && action.equals("edit")) {
         %>
         <form action="<%= request.getContextPath() %>/ModificaUtenteServlet" method="POST" class="profile-form">
+
+            <%
+                String errorMessage = (String) request.getAttribute("errorMessage");
+                if (errorMessage != null) {
+            %>
+            <div class="admin-alert-box" style="border-color: #c94c4c; margin-bottom: 20px;">
+                <p class="admin-alert-text" style="color: #c94c4c; margin-bottom: 10px;">Attenzione</p>
+                <p class="admin-box-text" style="color: #c94c4c; margin: 0;"><%= errorMessage %></p>
+            </div>
+            <%
+                }
+            %>
+
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome" value="<%= utente != null ? utente.getNome() : "" %>" required>
