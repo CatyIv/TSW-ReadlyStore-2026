@@ -45,6 +45,31 @@ function eseguiAzioneAjax(form, isAggiuntaCarrello) {
                 if (isAggiuntaCarrello) {
                     const titolo = form.closest(".prodotto-card-wish").querySelector(".prodotto-dettagli-testo h3 a").innerText;
                     mostraPopupNotifica("Aggiunto al Carrello!", `Il libro <strong>'${titolo}'</strong> è stato inserito nel carrello con successo.`);
+
+                    let badge = document.querySelector(".conteggio-badge");
+                    const quantitaInput = form.querySelector("input[name='quantita']");
+                    const quantitaAggiunta = quantitaInput ? parseInt(quantitaInput.value) : 1;
+
+                    if (badge) {
+                        let conteggioAttuale = parseInt(badge.textContent) || 0;
+                        badge.textContent = conteggioAttuale + quantitaAggiunta;
+                    } else {
+                        const iconeHeader = document.querySelectorAll(".collegamento-icona");
+                        let linkCarrello = null;
+
+                        iconeHeader.forEach(icona => {
+                            if (icona.innerHTML.includes("shopping_cart")) {
+                                linkCarrello = icona;
+                            }
+                        });
+
+                        if (linkCarrello) {
+                            const nuovoBadge = document.createElement("span");
+                            nuovoBadge.className = "conteggio-badge";
+                            nuovoBadge.textContent = quantitaAggiunta;
+                            linkCarrello.appendChild(nuovoBadge);
+                        }
+                    }
                 } else {
                     window.location.reload();
                 }
