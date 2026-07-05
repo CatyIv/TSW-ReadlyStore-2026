@@ -53,7 +53,7 @@ CREATE TABLE Ordine (
     idUtente VARCHAR(255) NOT NULL, 
     FOREIGN KEY (idUtente) REFERENCES Utente(email),
     
-    CONSTRAINT check_stato_ordine CHECK (stato_ordine IN ('In lavorazione', 'Spedito', 'In Consegna', 'Consegnato'))
+    CONSTRAINT check_stato_ordine CHECK (stato_ordine IN ('In lavorazione', 'Spedito', 'In Consegna', 'Consegnato', 'Annullato'))
 );
 
 -- 6 Fattura
