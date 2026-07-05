@@ -65,9 +65,9 @@ public class CarrelloDAO {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
-        String sql = "SELECT c.quantita, p.isbn, p.titolo, p.autore, p.prezzo, p.iva, p.descrizione, " +
+        String sql = "SELECT c.quantita, p.ISBN, p.titolo, p.autore, p.prezzo, p.IVA, p.descrizione, " +
                 "p.categoria, p.disponibilita, p.idUtentePubblica " +
-                "FROM Contiene c JOIN Prodotto p ON c.isbn = p.isbn " +
+                "FROM Contiene c JOIN Prodotto p ON c.ISBN_prodotto = p.ISBN " +
                 "WHERE c.ID_Carrello = ?";
 
         try {
@@ -78,11 +78,11 @@ public class CarrelloDAO {
 
             while (resultSet.next()) {
                 ProdottoBean prodotto = new ProdottoBean(
-                        resultSet.getString("isbn"),
+                        resultSet.getString("ISBN"),
                         resultSet.getString("titolo"),
                         resultSet.getString("autore"),
                         resultSet.getDouble("prezzo"),
-                        resultSet.getInt("iva"),
+                        resultSet.getInt("IVA"),
                         resultSet.getString("descrizione"),
                         resultSet.getString("categoria"),
                         resultSet.getInt("disponibilita"),

@@ -19,15 +19,15 @@
                 UtenteBean user = (UtenteBean) session.getAttribute("user");
                 if (user == null) {
             %>
-            <a href="login.jsp" class="collegamento-icona" title="Accedi">
+            <a href="${pageContext.request.contextPath}/LoginServlet" class="collegamento-icona" title="Accedi">
                 <span class="material-symbols-outlined">person</span>
             </a>
             <% } else { %>
-            <a href="account.jsp" class="collegamento-icona" title="Il mio account">
+            <a href="${pageContext.request.contextPath}/AreaPersonaleServlet" class="collegamento-icona" title="Il mio account">
                 <span class="material-symbols-outlined">person</span>
             </a>
             <% } %>
-            <a href="carrello.jsp" class="collegamento-icona" title="Carrello">
+            <a href="${pageContext.request.contextPath}/CarrelloServlet" class="collegamento-icona" title="Carrello">
                 <span class="material-symbols-outlined">shopping_cart</span>
                 <%
                     Integer cartCount = (Integer) session.getAttribute("cartCount");
@@ -43,7 +43,7 @@
     </div>
     <div class="barra-navigazione-intestazione">
         <div class="sezione-sinistra">
-            <a href="index.jsp" class="header-logo">
+            <a href="${pageContext.request.contextPath}/index.jsp" class="header-logo">
                 <img src="${pageContext.request.contextPath}/img/logo.png"
                      alt="Readly"
                      class="logo-img">
@@ -59,8 +59,8 @@
             </div>
         </div>
         <nav class="menu-navigazione">
-            <a href="paginaChiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
-            <a href="contatti.jsp" class="bottone-navigazione">Contatti</a>
+            <a href="${pageContext.request.contextPath}/paginaChiSiamo.jsp" class="bottone-navigazione">Chi siamo</a>
+            <a href="${pageContext.request.contextPath}/contatti.jsp" class="bottone-navigazione">Contatti</a>
         </nav>
     </div>
 </div>

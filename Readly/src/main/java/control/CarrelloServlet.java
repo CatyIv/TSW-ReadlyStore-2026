@@ -61,6 +61,10 @@ public class CarrelloServlet extends HttpServlet {
                 CarrelloBean carrelloDb = carrelloDao.doRetrieveByUtente(utenteLoggato.getEmail());
                 if (carrelloDb != null) {
                     carrello = carrelloDb;
+                    carrelloDao.caricaElementiCarrello(carrello);
+                } else {
+                    carrello.setIdCarrello(java.util.UUID.randomUUID().toString());
+                    carrelloDao.doSave(carrello, utenteLoggato.getEmail());
                 }
             } else {
                 carrello.svuotaCarrello();

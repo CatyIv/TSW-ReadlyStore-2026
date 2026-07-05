@@ -65,7 +65,7 @@ body {
     padding: 0.75rem 1.25rem;
     font-family: inherit;
     font-size: 0.95rem;
-    border: 1px solid #E2DDD3;
+    border: 1px solid var(--text-secondary);
     background-color: var(--bg-main);
     border-radius: 50px;
     box-sizing: border-box;
@@ -84,7 +84,7 @@ body {
     padding: 0.75rem;
     background-color: var(--bg-card);
     color: var(--text-primary);
-    border: 2px solid var(--bg-main);
+    border: 2px solid var(--text-secondary);
     border-radius: 50px;
     font-family: 'Source Sans 3', sans-serif;
     font-size: 1.2rem;
