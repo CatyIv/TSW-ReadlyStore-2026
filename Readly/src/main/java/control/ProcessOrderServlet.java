@@ -1,6 +1,7 @@
 package control;
 
 import model.carrello.CarrelloBean;
+import model.carrello.CarrelloDAO;
 import model.itemcarrello.ItemCarrelloBean;
 import model.ordine.OrdineBean;
 import model.ordine.OrdineDAO;
@@ -95,11 +96,22 @@ public class ProcessOrderServlet extends HttpServlet {
             OrdineDAO ordineDao = new OrdineDAO();
             ordineDao.doSave(ordine, prodottiMappati);
 
+            if (idUtente != null) {
+                CarrelloDAO carrelloDao = new CarrelloDAO();
+                CarrelloBean carrelloDb = carrelloDao.doRetrieveByUtente(idUtente);
+                if (carrelloDb != null) {
+                    carrelloDao.doClear(carrelloDb.getIdCarrello());
+                }
+            }
+
+            carrello.getItems().clear();
             session.setAttribute("ultimoNumeroOrdine", ordine.getNumeroOrdine());
             session.removeAttribute("carrello");
             session.setAttribute("cartCount", 0);
+            session.setMaxInactiveInterval(session.getMaxInactiveInterval());
 
             response.sendRedirect(request.getContextPath() + "/confermaOrdine.jsp");
+            return;
 
         } catch (SQLException e) {
             e.printStackTrace();
