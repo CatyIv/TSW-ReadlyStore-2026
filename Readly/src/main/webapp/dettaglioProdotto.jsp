@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.prodotto.ProdottoBean" %>
-<%@ page import="model.immagine.ImmagineBean" %>
 <%@ page import="java.util.List" %>
 
-<% ProdottoBean libro = (ProdottoBean) request.getAttribute("libro");
-    List<ImmagineBean> listaImmagini = (List<ImmagineBean>) request.getAttribute("listaImmagini");
-    String immaginePrincipale = (String) request.getAttribute("immaginePrincipale");
-
+<%
+    ProdottoBean libro = (ProdottoBean) request.getAttribute("libro");
     if(libro == null) {
         request.setAttribute("messaggioErrore", "Accesso non valido alla pagina del prodotto.");
         request.getRequestDispatcher("/erroreProdotto.jsp").forward(request, response);
     }
 
     boolean utenteLoggato = (session.getAttribute("utente") != null);
+    long cacheBuster = System.currentTimeMillis();
 %>
 
 <!DOCTYPE html>
@@ -29,19 +27,10 @@
 <jsp:include page="header.jsp"/>
 <div class="contenitore-dettaglio">
     <div class="sezione-immagini">
-        <div class="colonna-miniature">
-            <%
-                if (listaImmagini != null) {
-                    for (ImmagineBean img : listaImmagini) {
-            %>
-            <img class="miniatura" src="<%= request.getContextPath() %>/img/copertine/<%= img.getUrl() %>" alt="Anteprima">
-            <%
-                    }
-                }
-            %>
-        </div>
         <div class="copertina-principale">
-            <img src="<%= request.getContextPath() %>/img/copertine/<%= immaginePrincipale %>" alt="<%= libro.getTitolo() %>">
+            <img src="<%= request.getContextPath() %>/img/copertine/<%= libro.getIsbn() %>.jpg?v=<%= cacheBuster %>"
+                 alt="<%= libro.getTitolo() %>"
+                 onerror="this.src='<%= request.getContextPath() %>/img/copertine/default_book.png';">
         </div>
     </div>
     <div class="sezione-info">
@@ -61,7 +50,6 @@
                     <button type="submit" class="bottone-carrello" <%= libro.getDisponibilita() <= 0 ? "disabled" : "" %> title="Aggiungi al Carrello">
                         Aggiungi al carrello <span class="material-symbols-outlined">shopping_bag</span>
                     </button>
-
                 </div>
             </form>
             <form action="<%= request.getContextPath() %>/WishlistServlet" method="post" style="margin: 0;" data-loggato="<%= utenteLoggato %>" class="form-wishlist">
