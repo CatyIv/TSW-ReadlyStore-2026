@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
-* {
+.contenitore-principale-carrello,
+.contenitore-principale-carrello *,
+.carrello-vuoto,
+.carrello-vuoto * {
     box-sizing: border-box;
 }
 
@@ -58,6 +61,23 @@ h1 {
     color: #9BAE73;
     display: flex;
     flex-direction: column;
+}
+
+.riepilogo-mascotte-sotto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #9BAE73;
+    width: 100%;
+}
+
+.mascotte-pieno-sotto-img {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    object-fit: contain;
 }
 
 .prodotto-card {
@@ -257,13 +277,49 @@ h1 {
 }
 
 .carrello-vuoto {
-    text-align: center;
-    padding: 80px;
     background-color: #F6F0D7;
     color: #9BAE73;
     border-radius: 16px;
     width: 100%;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
     margin: auto 0;
+}
+
+.carrello-vuoto-testo {
+    flex: 1;
+    text-align: center;
+}
+
+.carrello-vuoto-testo h2 {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #677351;
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.carrello-vuoto-testo p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.carrello-vuoto-immagine-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mascotte-vuoto-img {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    object-fit: contain;
 }
 
 .modal-overlay {
@@ -353,4 +409,23 @@ h1 {
 
 .btn-modal-annulla:hover {
     background-color: #EADFBC;
+}
+
+@media (max-width: 992px) {
+    .carrello-layout {
+        flex-direction: column;
+    }
+    .libri-lista-container, .riepilogo-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .carrello-vuoto {
+        flex-direction: column-reverse;
+        padding: 30px;
+    }
+    .mascotte-vuoto-img {
+        max-width: 250px;
+    }
 }

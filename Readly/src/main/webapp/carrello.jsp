@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <title>Il Tuo Carrello - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css?v=2">
+    <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css?v=8">
     <link rel="stylesheet" type="text/css" href="stylesheets/popup.css">
 </head>
 <body>
@@ -27,9 +27,14 @@
 
         if (items == null || items.isEmpty()) {
     %>
-    <div class="carrello-vuoto">
-        <h2>Il tuo carrello è attualmente vuoto!</h2>
-        <p>Torna al <a href="catalogo.jsp" style="color:#677351; font-weight:bold;">Catalogo</a> per esplorare i nostri libri.</p>
+    <div class="carrello-vuoto" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; gap: 40px !important; padding: 40px 60px !important; text-align: left !important;">
+        <div class="carrello-vuoto-testo" style="flex: 1 !important; text-align: center !important;">
+            <h2 style="font-family: 'Source Sans 3', sans-serif; color: #677351; font-size: 36px; margin-top: 0; margin-bottom: 15px;">Il tuo carrello è attualmente vuoto!</h2>
+            <p style="font-size: 18px; margin: 0; color: #9BAE73;">Torna al <a href="catalogo.jsp" style="color:#677351; font-weight:bold;">Catalogo</a> per esplorare i nostri libri.</p>
+        </div>
+        <div class="carrello-vuoto-immagine-box" style="flex: 1 !important; display: flex !important; justify-content: center !important; align-items: center !important;">
+            <img src="img/cartVuoto.png" alt="Mascotte Carrello Vuoto" class="mascotte-vuoto-img" style="width: 100% !important; max-width: 380px !important; height: auto !important; object-fit: contain !important;">
+        </div>
     </div>
     <%
     } else {
@@ -131,6 +136,10 @@
                 </a>
 
                 <button onclick="chiediConfermaSvuota()" class="btn-svuota-link">Svuota intero carrello</button>
+            </div>
+
+            <div class="riepilogo-mascotte-sotto">
+                <img src="img/cartPieno.png" alt="Mascotte Carrello Pieno" class="mascotte-pieno-sotto-img">
             </div>
         </div>
 
