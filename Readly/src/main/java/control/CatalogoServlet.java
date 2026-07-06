@@ -24,7 +24,7 @@ public class CatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ProdottoDAO prodottoDAO;
-    private static final int ITEMS_PER_PAGE = 9;
+    private static final int ITEMS_PER_PAGE = 16;
 
     @Override
     public void init() throws ServletException {
@@ -73,6 +73,9 @@ public class CatalogoServlet extends HttpServlet {
             try { maxPrice = Float.parseFloat(maxPriceStr); } catch (NumberFormatException e) { maxPrice = null; }
         }
 
+        String autore = request.getParameter("autore");
+        if (autore != null && autore.isEmpty()) autore = null;
+
         String sortBy = request.getParameter("sortBy");
 
         int currentPage = 1;
@@ -84,15 +87,23 @@ public class CatalogoServlet extends HttpServlet {
         try {
             List<ProdottoBean> allProducts = prodottoDAO.doRetrieveAll();
 
+            List<String> allAuthors = allProducts.stream()
+                    .map(ProdottoBean::getAutore)
+                    .distinct()
+                    .sorted()
+                    .collect(Collectors.toList());
+
             final String finalCategory = category;
             final Float finalMinPrice = minPrice;
             final Float finalMaxPrice = maxPrice;
             final String finalSearch = searchQuery != null ? searchQuery.toLowerCase() : null;
+            final String finalAutore = autore != null ? autore.toLowerCase() : null;
 
             List<ProdottoBean> filteredProducts = allProducts.stream()
                     .filter(p -> finalCategory == null || finalCategory.equals(p.getCategoria()))
                     .filter(p -> finalMinPrice == null || p.getPrezzo() >= finalMinPrice)
                     .filter(p -> finalMaxPrice == null || p.getPrezzo() <= finalMaxPrice)
+                    .filter(p -> finalAutore == null || p.getAutore().toLowerCase().contains(finalAutore))
                     .filter(p -> finalSearch == null ||
                             p.getTitolo().toLowerCase().contains(finalSearch) ||
                             p.getAutore().toLowerCase().contains(finalSearch) ||
@@ -107,6 +118,10 @@ public class CatalogoServlet extends HttpServlet {
             } else {
                 filteredProducts.sort(Comparator.comparing(ProdottoBean::getTitolo)); // Default Alfabetico
             }
+
+            List<ProdottoBean> bannerProducts = filteredProducts.stream()
+                    .limit(15)
+                    .collect(Collectors.toList());
 
             int totalProducts = filteredProducts.size();
             int totalPages = (int) Math.ceil((double) totalProducts / ITEMS_PER_PAGE);
@@ -123,14 +138,20 @@ public class CatalogoServlet extends HttpServlet {
                 pageProducts = filteredProducts.subList(fromIndex, toIndex);
             }
 
+            request.setAttribute("bannerProducts", bannerProducts);
+            request.setAttribute("currentPage", Integer.valueOf(currentPage));
+            request.setAttribute("totalPages", Integer.valueOf(totalPages));
+
             request.setAttribute("products", pageProducts);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("filterCategory", category);
             request.setAttribute("filterMinPrice", minPrice != null ? String.valueOf(minPrice) : "");
             request.setAttribute("filterMaxPrice", maxPrice != null ? String.valueOf(maxPrice) : "");
+            request.setAttribute("filterAutore", autore != null ? autore : "");
             request.setAttribute("filterSortBy", sortBy);
             request.setAttribute("searchQuery", searchQuery);
+            request.setAttribute("allAuthors", allAuthors);
 
         } catch (SQLException e) {
             System.err.println("Errore nel catalogo: " + e.getMessage());
