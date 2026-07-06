@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Segoe+UI:wght@400;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" type="text/css" href="./stylesheets/auth.css?v=5">
-    <link rel="stylesheet" type="text/css" href="./stylesheets/areaPersonale.css?v=5">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/areaPersonale.css?v=7">
 </head>
 <body>
 
