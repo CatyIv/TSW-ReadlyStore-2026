@@ -45,7 +45,7 @@
                     </button>
                 </div>
             </form>
-            <form action="${pageContext.request.contextPath}/WishlistServlet" method="post" style="margin: 0;" data-loggato="${utenteLoggato}" class="form-wishlist">
+            <form action="${pageContext.request.contextPath}/WishlistServlet" method="post" style="margin: 0;" data-loggato="${not empty sessionScope.utente}" class="form-wishlist">
                 <input type="hidden" name="action" value="aggiungi">
                 <input type="hidden" name="isbn" value="${libro.isbn}">
                 <button type="submit" class="bottone-wishlist" title="Aggiungi alla Wishlist">
