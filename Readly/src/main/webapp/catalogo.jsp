@@ -1,0 +1,161 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Libri - Readly</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/catalogo.css">
+</head>
+<body>
+
+<jsp:include page="header.jsp" />
+
+<c:if test="${currentPage == 1 && not empty bannerProducts}">
+    <div class="banner-slider-container">
+        <button class="slider-arrow next" onclick="moveSlider(1)">&#10095;</button>
+
+        <div class="slider-wrapper" id="sliderWrapper">
+            <c:forEach var="book" items="${bannerProducts}">
+                <a href="DettaglioProdottoServlet?isbn=${book.isbn}" class="slider-card-only-img">
+                    <img src="${pageContext.request.contextPath}/img/copertine/${book.isbn}.jpg" alt="${book.titolo}" title="${book.titolo}">
+                </a>
+            </c:forEach>
+        </div>
+        <button class="slider-arrow prev" onclick="moveSlider(-1)">&#10094;</button>
+    </div>
+</c:if>
+
+<div class="main-container">
+
+    <aside class="filtri-sidebar">
+        <h3>Filtra Catalogo</h3>
+        <form action="CatalogoServlet" method="get">
+            <c:if test="${not empty searchQuery}">
+                <input type="hidden" name="searchQuery" value="${searchQuery}">
+            </c:if>
+
+            <div class="filtro-gruppo">
+                <label for="category">Genere</label>
+                <select name="category" id="category">
+                    <option value="">Tutti i generi</option>
+                    <option value="Classici" ${filterCategory == 'Classici' ? 'selected' : ''}>Classici</option>
+                    <option value="Psicologici" ${filterCategory == 'Psicologici' ? 'selected' : ''}>Psicologici</option>
+                    <option value="Gialli" ${filterCategory == 'Gialli' ? 'selected' : ''}>Gialli</option>
+                    <option value="Fantasy" ${filterCategory == 'Fantasy' ? 'selected' : ''}>Fantasy</option>
+                    <option value="Horror" ${filterCategory == 'Horror' ? 'selected' : ''}>Horror</option>
+                    <option value="Romantici" ${filterCategory == 'Romantici' ? 'selected' : ''}>Romantici</option>
+                </select>
+            </div>
+
+            <div class="filtro-gruppo">
+                <label for="autore">Autore</label>
+                <select name="autore" id="autore">
+                    <option value="">Tutti gli autori</option>
+                    <c:forEach var="auth" items="${allAuthors}">
+                        <option value="${auth}" ${filterAutore == auth ? 'selected' : ''}>${auth}</option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <div class="filtro-gruppo">
+                <label>Prezzo (€)</label>
+                <div class="prezzo-inputs">
+                    <input type="number" name="minPrice" value="${filterMinPrice}" placeholder="Min" min="0" step="0.01">
+                    <input type="number" name="maxPrice" value="${filterMaxPrice}" placeholder="Max" min="0" step="0.01">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-applica-filtri">Applica Filtri</button>
+            <a href="CatalogoServlet" class="btn-reset-filtri">Azzera Filtri</a>
+        </form>
+    </aside>
+    <div class="catalogo-contenuto">
+        <main class="catalogo-grid">
+            <c:choose>
+                <c:when test="${empty products}">
+                    <div class="nessun-risultato">
+                        <span class="material-symbols-outlined">search_off</span>
+                        <p>Nessun libro disponibile al momento con i filtri selezionati.</p>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="product" items="${products}">
+                        <div class="libro-card">
+                            <div class="immagine-box">
+                                <img src="${pageContext.request.contextPath}/img/copertine/${product.isbn}.jpg" alt="${product.titolo}">
+                            </div>
+
+                            <div class="info-box">
+                                <h4 class="titolo" title="${product.titolo}">${product.titolo}</h4>
+                                <p class="autore">${product.autore}</p>
+                                <div class="prezzo">
+                                    € <fmt:formatNumber value="${product.prezzo}" pattern="0.00"/>
+                                </div>
+                            </div>
+
+                            <div class="azioni-box">
+                                <a href="DettaglioProdottoServlet?isbn=${product.isbn}" class="btn-visualizza">
+                                    <span class="material-symbols-outlined">visibility</span> Visualizza
+                                </a>
+
+                                <div class="icon-buttons">
+                                    <form action="CarrelloServlet" method="post">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="isbn" value="${product.isbn}">
+                                        <input type="hidden" name="quantita" value="1">
+                                        <button type="submit" class="btn-icon" title="Aggiungi al Carrello">
+                                            <span class="material-symbols-outlined">shopping_cart</span>
+                                        </button>
+                                    </form>
+
+                                    <form action="WishlistServlet" method="post">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="isbn" value="${product.isbn}">
+                                        <button type="submit" class="btn-icon" title="Aggiungi alla Wishlist">
+                                            <span class="material-symbols-outlined">favorite</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </main>
+
+        <c:if test="${totalPages > 1}">
+            <div class="paginazione">
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <c:choose>
+                        <c:when test="${i == currentPage}">
+                            <span class="page-num attiva">${i}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <c:url var="pageUrl" value="CatalogoServlet">
+                                <c:param name="page" value="${i}" />
+                                <c:if test="${not empty filterCategory}"><c:param name="category" value="${filterCategory}" /></c:if>
+                                <c:if test="${not empty filterMinPrice}"><c:param name="minPrice" value="${filterMinPrice}" /></c:if>
+                                <c:if test="${not empty filterMaxPrice}"><c:param name="maxPrice" value="${filterMaxPrice}" /></c:if>
+                                <c:if test="${not empty filterAutore}"><c:param name="autore" value="${filterAutore}" /></c:if>
+                                <c:if test="${not empty searchQuery}"><c:param name="searchQuery" value="${searchQuery}" /></c:if>
+                            </c:url>
+                            <a href="${pageUrl}" class="page-num">${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        </c:if>
+    </div>
+</div>
+
+<jsp:include page="footer.jsp" />
+
+<script src="${pageContext.request.contextPath}/scripts/catalogo.js"></script>
+
+</body>
+</html>
