@@ -41,7 +41,8 @@
 
     <div class="admin-lista-verticale">
       <div class="admin-box">
-        <form action="<%= request.getContextPath() %>/admin/GestioneProdottiServlet" method="POST" enctype="multipart/form-data" class="admin-form-flusso">
+
+        <form id="formProdottoMain" action="<%= request.getContextPath() %>/admin/GestioneProdottiServlet" method="POST" enctype="multipart/form-data" class="admin-form-flusso">
           <input type="hidden" name="formAction" value="<%= isEdit ? "update" : "insert" %>">
 
           <div class="form-group">
@@ -80,7 +81,7 @@
           </div>
 
           <div class="form-group">
-            <label>Carica Copertina (File dal tuo PC):</label>
+            <label>Carica/Sostituisci Copertina (File dal tuo PC):</label>
             <input type="file" name="fotoCopertina" accept="image/*" class="input-file-admin">
           </div>
 
@@ -94,38 +95,45 @@
                    onerror="this.src='<%= request.getContextPath() %>/img/copertine/default_book.png';">
             </div>
           </div>
-
-          <div class="form-group admin-sezione-storico">
-            <label class="label-anteprima">Ripristina una Copertina Precedente</label>
-
-            <% if (backupImmagini != null && !backupImmagini.isEmpty()) { %>
-            <div class="admin-griglia-backup">
-              <% for (String nomeFileBackup : backupImmagini) { %>
-              <form action="<%= request.getContextPath() %>/admin/GestioneProdottiServlet" method="POST" class="admin-form-miniatura">
-                <input type="hidden" name="formAction" value="restoreBackup">
-                <input type="hidden" name="isbn" value="<%= libro.getIsbn() %>">
-                <input type="hidden" name="nomeFileBackup" value="<%= nomeFileBackup %>">
-
-                <button type="submit" class="admin-btn-miniatura" title="Clicca per ripristinare questa versione">
-                  <img src="<%= request.getContextPath() %>/img/copertine/backup/<%= nomeFileBackup %>?v=<%= cacheBuster %>"
-                       alt="Backup"
-                       class="admin-img-backup"
-                       onerror="this.src='<%= request.getContextPath() %>/img/copertine/default_book.png';">
-                </button>
-              </form>
-              <% } %>
-            </div>
-            <% } else { %>
-            <p class="admin-box-text text-storico-vuoto">Nessuna copertina precedente salvata nell'archivio storico.</p>
-            <% } %>
-          </div>
           <% } %>
 
           <div class="admin-blocco-pulsante-salva">
             <button type="submit" class="btn-auth btn-salva-flusso"><%= isEdit ? "Salva Modifiche e Immagine" : "Inserisci nel Catalogo" %></button>
           </div>
         </form>
+
       </div>
+
+      <% if (isEdit) { %>
+      <div class="admin-box" style="margin-top: 2rem;">
+        <div class="form-group admin-sezione-storico" style="border-top: none; padding-top: 0;">
+          <label class="label-anteprima">Ripristina una Copertina Precedente</label>
+
+          <% if (backupImmagini != null && !backupImmagini.isEmpty()) { %>
+          <div class="admin-griglia-backup">
+            <% for (String nomeBackup : backupImmagini) { %>
+            <button type="button" class="admin-btn-miniatura" title="Ripristina questa versione"
+                    onclick="confermaRipristinoBackup('<%= nomeBackup %>', '<%= libro.getIsbn() %>')">
+              <img src="<%= request.getContextPath() %>/img/copertine/backup/<%= nomeBackup %>?v=<%= cacheBuster %>"
+                   alt="Backup"
+                   class="admin-img-backup"
+                   onerror="this.src='<%= request.getContextPath() %>/img/copertine/default_book.png';">
+            </button>
+            <% } %>
+          </div>
+          <% } else { %>
+          <p class="admin-box-text text-storico-vuoto">Nessuna copertina precedente salvata nell'archivio storico.</p>
+          <% } %>
+        </div>
+      </div>
+
+      <form id="formRestoreBackupHidden" action="<%= request.getContextPath() %>/admin/GestioneProdottiServlet" method="POST" style="display:none;">
+        <input type="hidden" name="formAction" value="restoreBackup">
+        <input type="hidden" id="hiddenRestoreIsbn" name="isbn" value="">
+        <input type="hidden" id="hiddenRestoreFileName" name="nomeFileBackup" value="">
+      </form>
+      <% } %>
+
     </div>
 
     <div class="admin-footer-back">
@@ -136,5 +144,6 @@
 
 <jsp:include page="../footer.jsp" />
 
+<script src="<%= request.getContextPath() %>/javascripts/formProdottoAdmin.js"></script>
 </body>
 </html>

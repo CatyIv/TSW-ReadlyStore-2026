@@ -95,11 +95,13 @@ public class GestioneProdottiServlet extends HttpServlet {
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
         String formAction = request.getParameter("formAction");
+        String actionUrl = request.getParameter("action");
         String isbn = request.getParameter("isbn");
 
-        if ("restoreBackup".equalsIgnoreCase(formAction)) {
+        if ("restoreBackup".equalsIgnoreCase(formAction) || "restoreBackup".equalsIgnoreCase(actionUrl)) {
             String nomeFileBackup = request.getParameter("nomeFileBackup");
-            if (nomeFileBackup != null && isbn != null) {
+
+            if (nomeFileBackup != null && isbn != null && !isbn.trim().isEmpty()) {
                 String srcPath = getSourceCopertinePath();
                 String runPath = getRuntimeCopertinePath();
                 String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -132,15 +134,28 @@ public class GestioneProdottiServlet extends HttpServlet {
                         runBackupScelto.delete();
                     }
                 }
+
+                response.sendRedirect(request.getContextPath() + "/admin/GestioneProdottiServlet?action=edit&isbn=" + isbn);
+                return;
             }
-            response.sendRedirect(request.getContextPath() + "/admin/GestioneProdottiServlet?action=edit&isbn=" + isbn);
-            return;
         }
 
         String titolo = request.getParameter("titolo");
         String autore = request.getParameter("autore");
-        double prezzo = Double.parseDouble(request.getParameter("prezzo"));
-        int disponibilita = Integer.parseInt(request.getParameter("disponibilita"));
+
+        double prezzo = 0.0;
+        int disponibilita = 0;
+
+        String prezzoParam = request.getParameter("prezzo");
+        if (prezzoParam != null && !prezzoParam.trim().isEmpty()) {
+            prezzo = Double.parseDouble(prezzoParam);
+        }
+
+        String dispParam = request.getParameter("disponibilita");
+        if (dispParam != null && !dispParam.trim().isEmpty()) {
+            disponibilita = Integer.parseInt(dispParam);
+        }
+
         String categoria = request.getParameter("categoria");
         String descrizione = request.getParameter("descrizione");
 
