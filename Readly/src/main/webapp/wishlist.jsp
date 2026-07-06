@@ -24,7 +24,7 @@
                 <div class="wishlist-vuota-wrapper">
                     <div class="wishlist-vuota">
                         <h2>La tua wishlist è vuota!</h2>
-                        <p>Non hai ancora salvato nessun libro. Torna al <a href="catalogo.jsp">Catalogo</a> per aggiungerne qualcuno ai tuoi preferiti.</p>
+                        <p>Non hai ancora salvato nessun libro. Torna al <a href="${pageContext.request.contextPath}/CatalogoServlet">Catalogo</a> per aggiungerne qualcuno ai tuoi preferiti.</p>
                     </div>
                 </div>
             </c:when>

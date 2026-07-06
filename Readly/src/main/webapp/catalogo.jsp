@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo Libri - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/catalogo.css?v=5">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/catalogo.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/popup.css">
 </head>
 <body>
 
@@ -105,18 +106,18 @@
 
                                 <div class="icon-buttons">
                                     <form action="CarrelloServlet" method="post">
-                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="action" value="aggiungi">
                                         <input type="hidden" name="isbn" value="${product.isbn}">
                                         <input type="hidden" name="quantita" value="1">
-                                        <button type="submit" class="btn-icon" title="Aggiungi al Carrello">
+                                        <button type="submit" class="btn-icon" title="Aggiungi al Carrello" data-titolo="${product.titolo}">
                                             <span class="material-symbols-outlined">shopping_cart</span>
                                         </button>
                                     </form>
 
-                                    <form action="WishlistServlet" method="post">
-                                        <input type="hidden" name="action" value="add">
+                                    <form action="WishlistServlet" method="post" data-loggato="${not empty sessionScope.utente}">
+                                        <input type="hidden" name="action" value="aggiungi">
                                         <input type="hidden" name="isbn" value="${product.isbn}">
-                                        <button type="submit" class="btn-icon" title="Aggiungi alla Wishlist">
+                                        <button type="submit" class="btn-icon" title="Aggiungi alla Wishlist" data-titolo="${product.titolo}">
                                             <span class="material-symbols-outlined">favorite</span>
                                         </button>
                                     </form>
@@ -153,9 +154,30 @@
     </div>
 </div>
 
+<div id="success-popup-overlay" class="modal-overlay">
+    <div class="modal-box">
+        <h3 id="success-modal-title"></h3>
+        <p id="success-modal-description"></p>
+        <div class="modal-buttons">
+            <button onclick="chiudiPopupSuccesso()" class="btn-modal-conferma">Continua lo shopping</button>
+        </div>
+    </div>
+</div>
+
+<div id="auth-popup-overlay" class="modal-overlay" onclick="chiudiPopupAuth(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <h3>Autenticazione Richiesta</h3>
+        <p>Per salvare il libro nella tua wishlist, accedi al tuo account o creane uno nuovo.</p>
+        <div class="modal-buttons">
+            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-modal-conferma" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Accedi</a>
+            <a href="${pageContext.request.contextPath}/registrazione.jsp" class="btn-modal-annulla" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Registrati</a>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="footer.jsp" />
 
-<script src="${pageContext.request.contextPath}/scripts/catalogo.js"></script>
+<script src="${pageContext.request.contextPath}/javascripts/catalogo.js"></script>
 
 </body>
 </html>
