@@ -195,8 +195,8 @@ body {
 
 .libro-card {
     background-color: #F6F0D7;
-    border-radius: 20px;
-    padding: 22px;
+    border-radius: 15px;
+    padding: 35px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

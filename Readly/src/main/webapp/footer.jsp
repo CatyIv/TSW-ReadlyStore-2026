@@ -23,7 +23,6 @@
         <div class="footer-sezione social">
             <span class="material-symbols-outlined">share</span>
            <span class="material-symbols-outlined">language</span>
-            <a href="profiloUtente.jsp" title="Il mio profilo" aria-label="Profile"><span class="material-symbols-outlined">account_circle</span></a>
         </div>
     </div>
 
