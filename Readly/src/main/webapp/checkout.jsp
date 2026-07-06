@@ -1,42 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.itemcarrello.ItemCarrelloBean" %>
-<%@ page import="model.carrello.CarrelloBean" %>
-<%@ page import="model.immagine.ImmagineDAO" %>
-<%@ page import="model.immagine.ImmagineBean" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Collection" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%
-    List<ItemCarrelloBean> elementiCarrello = (List<ItemCarrelloBean>) request.getAttribute("elementiCarrello");
-    Double totaleCarrello = (Double) request.getAttribute("totaleCarrello");
-
-    if (elementiCarrello == null || elementiCarrello.isEmpty() || totaleCarrello == null || totaleCarrello == 0.0) {
-        CarrelloBean carrelloSessione = (CarrelloBean) session.getAttribute("carrello");
-        if (carrelloSessione != null && carrelloSessione.getItems() != null) {
-            elementiCarrello = new ArrayList<>(carrelloSessione.getItems());
-            totaleCarrello = carrelloSessione.getPrezzoTotaleComplessivo();
-        }
-    }
-
-    if (elementiCarrello == null) {
-        elementiCarrello = new ArrayList<>();
-    }
-    if (totaleCarrello == null) {
-        totaleCarrello = 0.0;
-    }
-
-    int totaleCopie = 0;
-    for (ItemCarrelloBean item : elementiCarrello) {
-        totaleCopie += item.getQuantita();
-    }
-
-    double imponibile = totaleCarrello / 1.22;
-    double quotaIva = totaleCarrello - imponibile;
-
-    ImmagineDAO immagineDao = new ImmagineDAO();
-    String errorMessage = (String) request.getAttribute("errorMessage");
-%>
+<c:if var="requestVuota" test="${empty elementiCarrello or elementiCarrello.size() == 0}">
+    <c:set var="elementiCarrello" value="${sessionScope.carrello.items}" />
+    <c:set var="totaleCarrello" value="${sessionScope.carrello.prezzoTotaleComplessivo}" />
+    <c:set var="imponibile" value="${totaleCarrello / 1.22}" />
+    <c:set var="quotaIva" value="${totaleCarrello - imponibile}" />
+    <c:set var="totaleCopie" value="0" />
+    <c:forEach var="item" items="${elementiCarrello}">
+        <c:set var="totaleCopie" value="${totaleCopie + item.quantita}" />
+    </c:forEach>
+</c:if>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -45,7 +20,7 @@
     <meta charset="UTF-8">
     <title>Checkout - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/checkout.css?v=9">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/checkout.css?v=9">
 </head>
 <body class="page-checkout">
 
@@ -55,47 +30,38 @@
     <div class="checkout-page">
         <h2>Riepilogo e Conferma Ordine</h2>
 
-        <% if (errorMessage != null && !errorMessage.isEmpty()) { %>
-        <div class="error-message"><%= errorMessage %></div>
-        <% } %>
+        <c:if test="${not empty errorMessage}">
+            <div class="error-message">${errorMessage}</div>
+        </c:if>
 
         <form action="ProcessOrderServlet" method="post" id="checkoutForm" novalidate>
 
             <div class="section">
                 <h3>Riepilogo Prodotti:</h3>
                 <div class="riepilogo-prodotti-lista" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
-                    <%
-                        for (ItemCarrelloBean item : elementiCarrello) {
-                            if (item.getProdotto() != null) {
-                                String isbn = item.getProdotto().getIsbn();
-                                String nomeFileImmagine = "no-cover.png";
-
-                                try {
-                                    List<ImmagineBean> listaImmagini = immagineDao.doRetrieveByProdotto(isbn);
-                                    if (listaImmagini != null && !listaImmagini.isEmpty()) {
-                                        nomeFileImmagine = listaImmagini.get(0).getUrl();
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                    %>
-                    <div class="prodotto-checkout-item" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #9BAE73; padding-bottom: 12px;">
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="width: 80px; height: 110px; background-color: #F6F0D7; border: 1px solid #9BAE73; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px;">
-                                <img src="img/copertine/<%= nomeFileImmagine %>" alt="Copertina di <%= item.getProdotto().getTitolo() %>" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <c:forEach var="item" items="${elementiCarrello}">
+                        <c:if test="${not empty item.prodotto}">
+                            <div class="prodotto-checkout-item" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #9BAE73; padding-bottom: 12px;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 80px; height: 110px; background-color: #F6F0D7; border: 1px solid #9BAE73; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px;">
+                                        <c:set var="isbn" value="${item.prodotto.isbn}" />
+                                        <img src="img/copertine/${isbn}.jpg"
+                                             alt="Copertina di ${item.prodotto.titolo}"
+                                             onerror="this.src='img/copertine/no-cover.png';"
+                                             style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                    </div>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <span style="font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: bold; color: #677351;">${item.prodotto.titolo}</span>
+                                        <span style="font-size: 16px; color: #9BAE73; opacity: 0.8;">${item.prodotto.autore}</span>
+                                        <span style="font-size: 16px; color: #677351; font-weight: bold; margin-top: 4px;">Quantità: ${item.quantita}</span>
+                                    </div>
+                                </div>
+                                <span style="font-family: 'Source Sans 3', sans-serif; font-size: 22px; font-weight: bold; color: #677351;">
+                                    <fmt:formatNumber value="${item.prezzoTotale}" type="currency" currencySymbol="€" />
+                                </span>
                             </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <span style="font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: bold; color: #677351;"><%= item.getProdotto().getTitolo() %></span>
-                                <span style="font-size: 16px; color: #9BAE73; opacity: 0.8;"><%= item.getProdotto().getAutore() %></span>
-                                <span style="font-size: 16px; color: #677351; font-weight: bold; margin-top: 4px;">Quantità: <%= item.getQuantita() %></span>
-                            </div>
-                        </div>
-                        <span style="font-family: 'Source Sans 3', sans-serif; font-size: 22px; font-weight: bold; color: #677351;"><%= String.format("%.2f €", item.getPrezzoTotale()) %></span>
-                    </div>
-                    <%
-                            }
-                        }
-                    %>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
 
@@ -104,15 +70,15 @@
                 <div class="checkout-riepilogo-box" style="background-color: #F6F0D7; border: 1px solid #9BAE73; padding: 15px; border-radius: 6px; display: flex; flex-direction: column; gap: 8px;">
                     <div style="display: flex; justify-content: space-between;">
                         <span>Articoli totali:</span>
-                        <span><%= totaleCopie %></span>
+                        <span>${not empty totaleCopie ? totaleCopie : 0}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                         <span>Prezzo (Imponibile):</span>
-                        <span><%= String.format("%.2f €", imponibile) %></span>
+                        <span><fmt:formatNumber value="${not empty imponibile ? imponibile : 0.0}" type="currency" currencySymbol="€" /></span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                         <span>IVA (22%):</span>
-                        <span><%= String.format("%.2f €", quotaIva) %></span>
+                        <span><fmt:formatNumber value="${not empty quotaIva ? quotaIva : 0.0}" type="currency" currencySymbol="€" /></span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                         <span>Spedizione:</span>
@@ -120,7 +86,7 @@
                     </div>
                     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: bold; color: #9BAE73; margin-top: 15px; border-top: 1px dashed #9BAE73; padding-top: 15px; display: flex; justify-content: space-between;">
                         <span>Totale da Pagare:</span>
-                        <span><%= String.format("%.2f €", totaleCarrello) %></span>
+                        <span><fmt:formatNumber value="${not empty totaleCarrello ? totaleCarrello : 0.0}" type="currency" currencySymbol="€" /></span>
                     </div>
                 </div>
             </div>
@@ -204,6 +170,6 @@
 
 <jsp:include page="footer.jsp" />
 
-<script src="<%= request.getContextPath() %>/javascripts/checkout.js"></script>
+<script src="${pageContext.request.contextPath}/javascripts/checkout.js"></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Ordine Confermato - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/checkout.css?v=11">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/checkout.css?v=11">
 </head>
 <body class="page-checkout" style="background-color: #EADFBC;">
 
@@ -26,13 +28,13 @@
             </p>
 
             <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                <a href="<%= request.getContextPath() %>/FatturaServlet?numero_ordine=${param.numero_ordine != null ? param.numero_ordine : sessionScope.ultimoNumeroOrdine}"
+                <a href="${pageContext.request.contextPath}/FatturaServlet?numero_ordine=${not empty param.numero_ordine ? param.numero_ordine : sessionScope.ultimoNumeroOrdine}"
                    class="confirm-order-btn"
                    style="text-decoration: none; display: inline-block; width: auto; padding: 12px 30px; font-size: 16px; font-family: 'Source Sans 3', sans-serif; background-color: #89986D; color: #FFFFFF; font-weight: bold; border: 2px solid #677351; border-radius: 50px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s;">
                     Scarica Fattura PDF
                 </a>
 
-                <a href="<%= request.getContextPath() %>/catalogo.jsp" style="color: #677351; font-weight: bold; text-decoration: none; font-size: 18px; margin-top: 10px;">
+                <a href="${pageContext.request.contextPath}/CatalogoServlet" style="color: #677351; font-weight: bold; text-decoration: none; font-size: 18px; margin-top: 10px;">
                     Torna al <span style="text-decoration: underline;">Catalogo</span> per esplorare altri libri.
                 </a>
             </div>
