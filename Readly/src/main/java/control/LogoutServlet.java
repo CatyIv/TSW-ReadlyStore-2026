@@ -38,7 +38,7 @@ public class LogoutServlet extends HttpServlet {
             logger.info("Logout eseguito con successo per: " + utenteEmail);
         }
 
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        response.sendRedirect(request.getContextPath() + "/CatalogoServlet");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

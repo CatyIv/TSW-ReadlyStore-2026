@@ -1,3 +1,4 @@
+<%@ page import="model.utente.UtenteBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -53,6 +54,10 @@
         <div class="sezione-sinistra">
             <a href="${pageContext.request.contextPath}/CatalogoServlet" class="header-logo">
                 <img src="${pageContext.request.contextPath}/img/logo.png" alt="Readly" class="logo-img">
+            <a href="${pageContext.request.contextPath}/CatalogoServlet" class="header-logo">
+                <img src="${pageContext.request.contextPath}/img/logo.png"
+                     alt="Readly"
+                     class="logo-img">
             </a>
             <div class="contenitore-ricerca">
                 <form action="CatalogoServlet" method="get" id="search-form">
