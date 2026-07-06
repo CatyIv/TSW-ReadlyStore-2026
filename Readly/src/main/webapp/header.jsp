@@ -45,7 +45,7 @@
     </div>
     <div class="barra-navigazione-intestazione">
         <div class="sezione-sinistra">
-            <a href="${pageContext.request.contextPath}//CatalogoServlet" class="header-logo">
+            <a href="${pageContext.request.contextPath}/CatalogoServlet" class="header-logo">
                 <img src="${pageContext.request.contextPath}/img/logo.png"
                      alt="Readly"
                      class="logo-img">
