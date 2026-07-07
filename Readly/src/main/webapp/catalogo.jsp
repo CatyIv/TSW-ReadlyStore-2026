@@ -44,12 +44,11 @@
                 <label for="category">Genere</label>
                 <select name="category" id="category">
                     <option value="">Tutti i generi</option>
-                    <option value="Classici" ${filterCategory == 'Classici' ? 'selected' : ''}>Classici</option>
-                    <option value="Psicologici" ${filterCategory == 'Psicologici' ? 'selected' : ''}>Psicologici</option>
-                    <option value="Gialli" ${filterCategory == 'Gialli' ? 'selected' : ''}>Gialli</option>
-                    <option value="Fantasy" ${filterCategory == 'Fantasy' ? 'selected' : ''}>Fantasy</option>
-                    <option value="Horror" ${filterCategory == 'Horror' ? 'selected' : ''}>Horror</option>
-                    <option value="Romantici" ${filterCategory == 'Romantici' ? 'selected' : ''}>Romantici</option>
+                    <c:forEach var="genere" items="${allCategories}">
+                        <option value="${genere}" ${filterCategory == genere ? 'selected' : ''}>
+                                ${genere}
+                        </option>
+                    </c:forEach>
                 </select>
             </div>
 
@@ -87,22 +86,29 @@
                 <c:otherwise>
                     <c:forEach var="product" items="${products}">
                         <div class="libro-card">
-                            <div class="immagine-box">
+                            <a href="DettaglioProdottoServlet?isbn=${product.isbn}" class="immagine-box">
                                 <img src="${pageContext.request.contextPath}/img/copertine/${product.isbn}.jpg" alt="${product.titolo}">
-                            </div>
+                            </a>
 
                             <div class="info-box">
-                                <h4 class="titolo" title="${product.titolo}">${product.titolo}</h4>
-                                <p class="autore">${product.autore}</p>
+                                <h4 class="titolo">
+                                    <a href="DettaglioProdottoServlet?isbn=${product.isbn}" class="link-titolo-catalogo">
+                                        ${product.titolo}
+                                    </a>
+                                </h4>
+
+                                <p class="autore">
+                                    <a href="${pageContext.request.contextPath}/CatalogoServlet?autore=${product.autore}" class="link-autore-catalogo">
+                                        ${product.autore}
+                                    </a>
+                                </p>
+
                                 <div class="prezzo">
                                     € <fmt:formatNumber value="${product.prezzo}" pattern="0.00"/>
                                 </div>
                             </div>
 
                             <div class="azioni-box">
-                                <a href="DettaglioProdottoServlet?isbn=${product.isbn}" class="btn-visualizza">
-                                    <span class="material-symbols-outlined">visibility</span> Visualizza
-                                </a>
 
                                 <div class="icon-buttons">
                                     <form action="CarrelloServlet" method="post">

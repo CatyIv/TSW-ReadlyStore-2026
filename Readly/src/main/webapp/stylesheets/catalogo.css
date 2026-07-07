@@ -371,3 +371,18 @@ body {
     font-size: 56px;
     margin-bottom: 12px;
 }
+
+.link-titolo-catalogo{
+    text-decoration: none;
+    color: inherit;
+}
+
+.link-autore-catalogo {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link-autore-catalogo:hover {
+    text-decoration: underline;
+    color: #677351;
+}
