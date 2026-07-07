@@ -162,8 +162,8 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(103, 115, 81, 0.2);
-    color: #677351;
+    background: #677351;;
+    color: #ffffff;
     border: none;
     font-size: 24px;
     width: 40px;
@@ -177,10 +177,10 @@ body {
     z-index: 10;
 }
 
-.slider-arrow:hover {
-    background: #677351;
-    color: #ffffff;
-}
+/*.slider-arrow:hover {*/
+/*    background: #677351;;*/
+/*    color: #ffffff;*/
+/*}*/
 
 .slider-arrow.prev { left: 10px; }
 .slider-arrow.next { right: 10px; }
