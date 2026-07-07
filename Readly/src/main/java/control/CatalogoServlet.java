@@ -24,7 +24,7 @@ public class CatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ProdottoDAO prodottoDAO;
-    private static final int ITEMS_PER_PAGE = 16;
+    private static final int ITEMS_PER_PAGE = 15;
 
     @Override
     public void init() throws ServletException {
@@ -93,6 +93,13 @@ public class CatalogoServlet extends HttpServlet {
                     .sorted()
                     .collect(Collectors.toList());
 
+            List<String> allCategories = allProducts.stream()
+                    .map(ProdottoBean::getCategoria)
+                    .filter(cat -> cat != null && !cat.trim().isEmpty())
+                    .distinct()
+                    .sorted()
+                    .collect(Collectors.toList());
+
             final String finalCategory = category;
             final Float finalMinPrice = minPrice;
             final Float finalMaxPrice = maxPrice;
@@ -110,13 +117,12 @@ public class CatalogoServlet extends HttpServlet {
                             p.getIsbn().contains(finalSearch))
                     .collect(Collectors.toList());
 
-            // 6. ORDINAMENTO IN MEMORIA
             if ("priceAsc".equals(sortBy)) {
                 filteredProducts.sort(Comparator.comparingDouble(ProdottoBean::getPrezzo));
             } else if ("priceDesc".equals(sortBy)) {
                 filteredProducts.sort(Comparator.comparingDouble(ProdottoBean::getPrezzo).reversed());
             } else {
-                filteredProducts.sort(Comparator.comparing(ProdottoBean::getTitolo)); // Default Alfabetico
+                filteredProducts.sort(Comparator.comparing(ProdottoBean::getTitolo));
             }
 
             List<ProdottoBean> bannerProducts = filteredProducts.stream()
@@ -152,6 +158,7 @@ public class CatalogoServlet extends HttpServlet {
             request.setAttribute("filterSortBy", sortBy);
             request.setAttribute("searchQuery", searchQuery);
             request.setAttribute("allAuthors", allAuthors);
+            request.setAttribute("allCategories", allCategories);
 
         } catch (SQLException e) {
             System.err.println("Errore nel catalogo: " + e.getMessage());
