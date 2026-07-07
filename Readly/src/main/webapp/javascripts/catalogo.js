@@ -22,9 +22,9 @@ function moveSlider(direction) {
     currentIndex += direction;
 
     if (currentIndex < 0) {
-        currentIndex = 0;
+        currentIndex = maxIndex > 0 ? maxIndex : 0;
     } else if (maxIndex > 0 && currentIndex > maxIndex) {
-        currentIndex = maxIndex;
+        currentIndex = 0;
     } else if (maxIndex <= 0) {
         currentIndex = 0;
     }
