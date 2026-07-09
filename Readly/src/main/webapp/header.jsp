@@ -56,7 +56,7 @@
             </a>
             <div class="contenitore-ricerca">
                 <form action="CatalogoServlet" method="get" id="search-form">
-                    <input type="text" name="search" id="search-box" class="input-ricerca" placeholder="Cerca..." value="${not empty requestScope.searchQuery ? requestScope.searchQuery : ''}">
+                    <input type="text" name="search" id="search-box" class="input-ricerca" placeholder="Cosa stai cercando?" value="${not empty requestScope.searchQuery ? requestScope.searchQuery : ''}">
                     <button type="submit" class="invia-ricerca">
                         <span class="material-symbols-outlined">search</span>
                     </button>
