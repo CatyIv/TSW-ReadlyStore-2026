@@ -126,7 +126,7 @@ public class CatalogoServlet extends HttpServlet {
             }
 
             List<ProdottoBean> bannerProducts = filteredProducts.stream()
-                    .limit(15)
+                    .limit(30)
                     .collect(Collectors.toList());
 
             int totalProducts = filteredProducts.size();
