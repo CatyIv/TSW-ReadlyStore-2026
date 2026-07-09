@@ -96,7 +96,7 @@ public class RegistrazioneServlet extends HttpServlet {
             nuovoUtente.setAdmin(false);
 
             utenteDAO.doSave(nuovoUtente);
-            String success = "Registrazione avvenuca con successo!";
+            String success = "Registrazione avvenuta con successo!";
             response.sendRedirect(request.getContextPath() + "/LoginServlet?email=" + email + "&success=" + success);
 
         } catch (SQLException e) {
