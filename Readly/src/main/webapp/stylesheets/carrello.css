@@ -1,7 +1,7 @@
 .contenitore-principale-carrello,
 .contenitore-principale-carrello *,
 .carrello-vuoto,
-.carrello-vuoto *,
+.carrello-vuoto * ,
 .modal-overlay,
 .modal-overlay * {
     box-sizing: border-box;
@@ -424,11 +424,53 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
     .carrello-vuoto {
         flex-direction: column-reverse;
         padding: 30px;
     }
     .mascotte-vuoto-img {
         max-width: 250px;
+    }
+    .prodotto-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .prodotto-info-lato {
+        width: 100%;
+    }
+    .prodotto-prezzo-lato {
+        align-self: flex-end;
+        font-size: 18px;
+    }
+    .controlli-qta-box {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 28px;
+    }
+    .prodotto-info-lato {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .libro-copertina-placeholder {
+        width: 100%;
+        height: 140px;
+    }
+    .prodotto-dettagli-testo h3 {
+        font-size: 18px;
+    }
+    .riepilogo-titolo {
+        font-size: 24px;
     }
 }

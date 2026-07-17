@@ -7,7 +7,6 @@
     font-family: 'Source Sans 3', sans-serif;
 }
 
-
 .barra-superiore-intestazione{
     background: #677351;
     display: flex;
@@ -17,18 +16,18 @@
     box-sizing: border-box;
 }
 .sinistra-superiore-intestazione{
-    flex: 1 1 25%;
+    flex: 1;
     min-width: 120px;
 }
 .messaggio-intestazione{
-    flex: 1 1 50%;
+    flex: 2;
     text-align: center;
     color: white;
     font-size: 0.9rem;
     font-weight: 600;
 }
 .icone-intestazione{
-    flex: 1 1 25%;
+    flex: 1;
     min-width: 120px;
     display: flex;
     justify-content: flex-end;
@@ -45,9 +44,8 @@
     text-decoration: none;
     color: white;
     position: relative;
-    transition: .2s;
     overflow: visible;
-    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background-color 0.2s ease;
 }
 
 .collegamento-icona:hover{
@@ -88,7 +86,7 @@
 }
 
 .header-logo {
- display:flex;
+    display:flex;
     align-items: center;
 }
 .logo-img {
@@ -112,7 +110,6 @@
     max-width: 450px;
     min-width: 200px;
     z-index: 5;
-
 }
 .contenitore-ricerca form{
     position: relative;
@@ -216,4 +213,70 @@
 
 .contenitore-ricerca.is-open #search-results {
     display: block;
+}
+
+@media (max-width: 1024px) {
+    .barra-navigazione-intestazione {
+        height: auto;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 4%;
+    }
+
+    .sezione-sinistra {
+        max-width: 100%;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .logo-img {
+        height: 100px;
+    }
+
+    .contenitore-ricerca {
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: none;
+        margin: 10px 0;
+        max-width: 100%;
+    }
+
+    .menu-navigazione {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bottone-navigazione {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .barra-superiore-intestazione {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px 4%;
+    }
+
+    .sinistra-superiore-intestazione {
+        display: none;
+    }
+
+    .icone-intestazione {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-navigazione {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .bottone-navigazione {
+        width: 100%;
+    }
 }

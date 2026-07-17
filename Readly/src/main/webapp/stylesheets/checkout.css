@@ -146,16 +146,6 @@ body.page-checkout {
     text-align: center;
 }
 
-@media (max-width: 768px) {
-    .checkout-page {
-        margin: 15px;
-        padding: 15px;
-    }
-    .payment-methods {
-        flex-direction: column;
-        gap: 12px;
-    }
-}
 .input-group-checkout {
     position: relative;
     display: flex;
@@ -175,4 +165,44 @@ body.page-checkout {
 .card-details-group input.input-error {
     border: 2px solid #b93a3a !important;
     background-color: #fdf3f3 !important;
+}
+
+@media (max-width: 768px) {
+    .checkout-page {
+        margin: 15px;
+        padding: 15px;
+    }
+    .checkout-page h2 {
+        font-size: 28px;
+        text-align: center;
+    }
+    .section {
+        padding: 15px;
+    }
+    .payment-methods {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .prodotto-checkout-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-page h2 {
+        font-size: 24px;
+    }
+    .section h3 {
+        font-size: 18px;
+    }
+    .card-details-group {
+        padding: 15px;
+    }
+    .confirm-order-btn {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
 }

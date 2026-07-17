@@ -320,13 +320,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background 0.2s ease, transform 0.2s ease;
     outline: none;
 }
 
 .btn-icon:hover {
     background-color: #677351;
-    transform: translateY(-2px);
 }
 
 /* --- PAGINAZIONE --- */

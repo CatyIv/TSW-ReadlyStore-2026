@@ -105,3 +105,53 @@ body {
 .risposta-faq p {
     margin: 1rem 0 0 0;
 }
+
+@media (max-width: 992px) {
+    .contenitore-faq {
+        width: 90%;
+        padding: 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenitore-faq {
+        width: 95%;
+        margin: 20px auto;
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    .titolo-pagina {
+        font-size: 200%;
+    }
+
+    .domanda-faq {
+        padding: 1.2rem;
+        font-size: 105%;
+    }
+
+    .risposta-faq {
+        padding: 0 1.2rem 1.2rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .titolo-pagina {
+        font-size: 160%;
+    }
+
+    .sottotitolo-pagina {
+        font-size: 100%;
+        margin-bottom: 15px;
+    }
+
+    .domanda-faq {
+        padding: 1rem;
+        font-size: 100%;
+        gap: 10px;
+    }
+
+    .risposta-faq {
+        padding: 0 1rem 1rem 1rem;
+    }
+}

@@ -281,3 +281,57 @@ body {
 .footer-spazio-top {
     margin-top: 2rem;
 }
+
+@media (max-width: 768px) {
+    .admin-box-prodotto {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        background-color: var(--bg-card);
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .admin-azioni-blocco-destro {
+        width: 100%;
+        align-items: flex-start;
+        min-width: auto;
+        border-top: 1px dashed var(--text-secondary);
+        padding-top: 15px;
+    }
+
+    .admin-gruppo-tasti-azione {
+        flex-direction: row;
+    }
+
+    .tasto-modifica-compatto,
+    .tasto-elimina-compatto {
+        flex: 1;
+        padding: 0.6rem 1rem;
+    }
+
+    .admin-grid .btn-auth {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-gruppo-tasti-azione {
+        flex-direction: column;
+    }
+
+    .titolo-prodotto-lista {
+        font-size: 1.2rem !important;
+    }
+
+    .admin-img-backup {
+        width: 65px;
+        height: 100px;
+    }
+
+    .btn-admin-nuovo {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+    }
+}

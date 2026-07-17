@@ -12,6 +12,8 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
     z-index: 1000;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -26,10 +28,13 @@
     border-radius: 20px;
     text-align: center;
     max-width: 520px;
-    width: 90%;
+    width: 100%;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     transform: translateY(-50px);
     transition: transform 0.3s ease;
+    box-sizing: border-box;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-overlay.active .modal-box {
@@ -65,7 +70,9 @@
     cursor: pointer;
     min-width: 120px;
     height: auto;
+    box-sizing: border-box;
 }
+
 .btn-modal-conferma:hover {
     background-color: #677351;
 }
@@ -84,4 +91,31 @@
     background-color: #F6F0D7;
     color: #677351;
     transition: background-color 0.2s;
+}
+
+@media (max-width: 576px) {
+    .modal-box {
+        padding: 30px 20px;
+    }
+
+    .modal-box h3 {
+        font-size: 24px;
+    }
+
+    .modal-box p {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .btn-modal-annulla, .btn-modal-conferma {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
 }
