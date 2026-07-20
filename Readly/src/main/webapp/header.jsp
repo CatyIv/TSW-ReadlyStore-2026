@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/header.css?v=11">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/header.css?v=12">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/evidenziatore.css">
 </head>
 <body>

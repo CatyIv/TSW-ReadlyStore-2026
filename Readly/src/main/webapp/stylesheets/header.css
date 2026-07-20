@@ -137,6 +137,7 @@
     align-items: center;
     flex: 1;
     max-width: 70%;
+    min-width: 0;
 }
 
 .header-logo {
@@ -207,9 +208,9 @@
 
 .menu-navigazione{
     display: flex;
-    gap: 12px;
-    flex: 1;
-    justify-content: flex-end;
+    gap: 8px;
+    flex: 0 1 auto;
+    min-width:0;
     flex-shrink: 0;
 }
 .bottone-navigazione{
@@ -319,10 +320,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        gap: 25px;
-        padding: 15px 4%;
     }
 
+    .sinistra-superiore-intestazione{
+        flex: 1;
+    }
     .sezione-sinistra {
         max-width: none;
         flex: 1;
@@ -332,36 +334,50 @@
     }
 
     .logo-img {
-        height: 80px;
+        height: 120px;
         flex-shrink: 0;
     }
+
 
     .contenitore-ricerca {
         position: relative;
         left: 0;
         top: 0;
         transform: none;
-        margin: 0;
-        width: 100%;
-        flex: 1;
+
+        flex:1 1 auto;
+        min-width:120px;
+        width:auto;
+        max-width:none;
     }
 
     .menu-navigazione {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-        width: auto;
-        justify-content: flex-end;
-        flex: 0 0 auto;
-        flex-shrink: 0;
+        display: none;
     }
 
-    .bottone-navigazione {
-        flex: none;
-        font-size: 0.9rem;
-        padding: 8px 16px;
-        white-space: nowrap;
+    .icone-intestazione {
+        display: none;
     }
+
+
+    .bottone-menu-mobile {
+        display: flex;
+        flex: 1;              
+        justify-content: flex-end;
+        align-items: center;
+
+    }
+
+    .bottone-menu-mobile .material-symbols-outlined {
+        font-size: 32px;
+    }
+
+
+    .messaggio-intestazione{
+        flex: 2;
+        text-align: center;
+    }
+
 }
 
 @media (max-width: 750px) {
