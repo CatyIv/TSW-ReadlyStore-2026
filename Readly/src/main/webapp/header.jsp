@@ -13,7 +13,11 @@
 <body>
 <div class="intestazione-sito">
     <div class="barra-superiore-intestazione">
-        <div class="sinistra-superiore-intestazione"></div>
+        <div class="sinistra-superiore-intestazione">
+            <a href="${pageContext.request.contextPath}/CatalogoServlet" class="mobile-logo-link">
+                <img src="${pageContext.request.contextPath}/img/logo.png" alt="Readly" class="mobile-logo-img">
+            </a>
+        </div>
         <div class="messaggio-intestazione">
             Coltiva la mente, proteggi il pianeta!
         </div>
@@ -49,7 +53,26 @@
                 <span class="material-symbols-outlined">bookmark</span>
             </a>
         </div>
+        <button class="bottone-menu-mobile" onclick="document.querySelector('.tendina-menu-mobile').classList.toggle('aperta')">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
     </div>
+
+    <div class="tendina-menu-mobile">
+        <c:choose>
+            <c:when test="${empty sessionScope.user}">
+                <a href="${pageContext.request.contextPath}/LoginServlet">Profilo</a>
+            </c:when>
+            <c:otherwise>
+                <a href="${pageContext.request.contextPath}/AreaPersonaleServlet">Profilo</a>
+            </c:otherwise>
+        </c:choose>
+        <a href="${pageContext.request.contextPath}/CarrelloServlet">Carrello</a>
+        <a href="${pageContext.request.contextPath}/WishlistServlet">Wishlist</a>
+        <a href="${pageContext.request.contextPath}/paginaChiSiamo.jsp">Chi siamo</a>
+        <a href="${pageContext.request.contextPath}/contatti.jsp">Contatti</a>
+    </div>
+
     <div class="barra-navigazione-intestazione">
         <div class="sezione-sinistra">
             <a href="${pageContext.request.contextPath}/CatalogoServlet" class="header-logo">

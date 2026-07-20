@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Ordine Confermato - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/checkout.css?v=11">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/checkout.css">
 </head>
 <body class="page-checkout" style="background-color: #EADFBC;">
 

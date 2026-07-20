@@ -259,20 +259,83 @@ body {
         aspect-ratio: 2 / 3;
     }
 
-    .riga-bottoni-finali {
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 30px;
+    .sezione-info {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 15px;
+        row-gap: 15px;
     }
 
-    .bottone-carrello,
+    .titolo-libro {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+
+    .autore-editore {
+        grid-column: 1 / span 2;
+        grid-row: 2;
+        margin: 0;
+    }
+
+    .descrizione-libro {
+        grid-column: 1 / span 2;
+        grid-row: 3;
+        margin: 0;
+    }
+
+    .prezzo-libro {
+        grid-column: 1;
+        grid-row: 4;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .selettore-quantita {
+        grid-column: 2;
+        grid-row: 4;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .selettore-quantita input[type="number"] {
+        width: 50px;
+        padding: 6px 4px;
+    }
+
+    .riga-bottoni-finali,
+    .riga-bottoni-finali form,
     .blocco-azioni {
-        width: 100%;
+        display: contents;
     }
 
     .bottone-carrello {
+        grid-column: 1;
+        grid-row: 5;
+        width: 100%;
         justify-content: center;
-        padding: 12px 20px;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 14px;
+        padding: 12px 10px;
+        gap: 6px;
+        box-sizing: border-box;
+    }
+
+    .bottone-wishlist {
+        grid-column: 2;
+        grid-row: 5;
+        width: 44px;
+        height: 44px;
+        box-sizing: border-box;
+    }
+
+    .stato-disponibilita {
+        grid-column: 1 / span 2;
+        grid-row: 6;
+        margin: 0;
+        text-align: left;
     }
 }
 

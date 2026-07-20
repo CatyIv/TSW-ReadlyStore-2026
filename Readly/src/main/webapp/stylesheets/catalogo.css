@@ -688,7 +688,21 @@ body {
     }
 
     .immagine-box {
-        height: 220px;
+        height: auto !important;
+        background: transparent !important;
+        border: none !important;
+        margin-bottom: 12px;
+    }
+
+    .immagine-box img {
+        max-width: 100% !important;
+        max-height: 250px !important;
+        height: 250px !important;
+        object-fit: contain !important;
+        border: 2px solid #677351 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        background-color: #ffffff;
     }
 }
 

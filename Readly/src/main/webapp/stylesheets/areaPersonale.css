@@ -316,11 +316,14 @@
         flex-direction: column;
         gap: 20px;
         margin: 6% 0;
+        width: 100% !important;
     }
 
     .admin-box {
         min-height: auto;
         padding: 25px 20px;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .admin-icon {
@@ -341,15 +344,23 @@
         width: 100%;
     }
 
-    .admin-box .btn-admin {
-        width: 100%;
+    .admin-box .btn-admin,
+    .admin-box a.btn-auth {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
         white-space: normal;
+        display: block !important;
+        text-align: center !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     .admin-footer-back a,
     .btn-logout-profilo {
         width: 100%;
         text-align: center;
+        box-sizing: border-box !important;
     }
 }
 
