@@ -317,18 +317,23 @@
     .barra-navigazione-intestazione {
         height: auto;
         flex-direction: column;
-        gap: 15px;
-        padding: 20px 4%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+        padding: 15px 4%;
     }
 
     .sezione-sinistra {
-        max-width: 100%;
-        justify-content: center;
-        width: 100%;
+        max-width: none;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
     .logo-img {
-        height: 100px;
+        height: 80px;
+        flex-shrink: 0;
     }
 
     .contenitore-ricerca {
@@ -336,18 +341,26 @@
         left: 0;
         top: 0;
         transform: none;
-        margin: 10px 0;
-        max-width: 100%;
+        margin: 0;
+        width: 100%;
+        flex: 1;
     }
 
     .menu-navigazione {
-        width: 100%;
-        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        width: auto;
+        justify-content: flex-end;
+        flex: 0 0 auto;
+        flex-shrink: 0;
     }
 
     .bottone-navigazione {
-        flex: 1;
-        text-align: center;
+        flex: none;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        white-space: nowrap;
     }
 }
 
