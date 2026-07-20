@@ -364,10 +364,12 @@
         justify-content: space-between;
         align-items: center;
         min-height: auto;
+        position:relative;
     }
 
     .sinistra-superiore-intestazione {
-        flex: 1;
+        flex: 0 0 auto;
+        min-width:0;
     }
 
     .mobile-logo-link {
@@ -376,9 +378,15 @@
 
     .messaggio-intestazione {
         display: block;
-        flex: 2;
         text-align: center;
         font-size: 0.85rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 65%;
+        margin: 0;
+        z-index: 2;
     }
 
     .icone-intestazione {
@@ -389,6 +397,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        margin-left: auto;
         background: none;
         border: none;
         color: white;
