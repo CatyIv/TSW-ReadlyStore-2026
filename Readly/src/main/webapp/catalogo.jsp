@@ -53,13 +53,20 @@
             </div>
 
             <div class="filtro-gruppo">
-                <label for="autore">Autore</label>
-                <select name="autore" id="autore">
-                    <option value="">Tutti gli autori</option>
+                <label>Autore</label>
+                <div class="autori-container">
+                    <label class="autore-opzione">
+                        <input type="radio" name="autore" value="" ${empty filterAutore ? 'checked' : ''}>
+                        <span>Tutti gli autori</span>
+                    </label>
+
                     <c:forEach var="auth" items="${allAuthors}">
-                        <option value="${auth}" ${filterAutore == auth ? 'selected' : ''}>${auth}</option>
+                        <label class="autore-opzione">
+                            <input type="radio" name="autore" value="${auth}" ${filterAutore == auth ? 'checked' : ''}>
+                            <span>${auth}</span>
+                        </label>
                     </c:forEach>
-                </select>
+                </div>
             </div>
 
             <div class="filtro-gruppo">

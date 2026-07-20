@@ -422,6 +422,7 @@ body {
     justify-content: space-between;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width:100%;
 }
 
 .libro-card:hover {
@@ -637,16 +638,19 @@ body {
         top: 0;
         transform: none;
         margin: 10px 0;
+        wodth: 100%;
         max-width: 100%;
     }
 
     .menu-navigazione {
         width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
     .bottone-navigazione {
-        flex: 1;
+        flex: 0 1 auto;
         text-align: center;
     }
 }
@@ -659,6 +663,8 @@ body {
 
     .filtri-sidebar {
         width: 100%;
+        max-width: 500px ;
+        margin: 0 auto;
     }
 
     .banner-slider-container {
@@ -709,6 +715,12 @@ body {
 @media (max-width: 576px) {
     .catalogo-grid {
         grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .libro-card {
+        width: 100%;
+        max-width: 350px;
     }
 
     .banner-slider-container {
@@ -741,10 +753,12 @@ body {
 @media (max-width: 480px) {
     .menu-navigazione {
         flex-direction: column;
+        align-items:center;
         width: 100%;
     }
 
     .bottone-navigazione {
         width: 100%;
+        max-width: 260px;
     }
 }
