@@ -95,5 +95,6 @@
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/javascripts/search.js"></script>
+<script src="${pageContext.request.contextPath}/javascripts/transition.js"></script>
 </body>
 </html>

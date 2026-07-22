@@ -50,5 +50,6 @@
 
 <jsp:include page="footer.jsp" />
 
+<script src="${pageContext.request.contextPath}/javascripts/transition.js"></script>
 </body>
 </html>
