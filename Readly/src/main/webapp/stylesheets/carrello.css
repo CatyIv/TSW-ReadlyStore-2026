@@ -296,6 +296,7 @@ h1 {
     gap: 40px;
     flex-grow: 1;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .carrello-vuoto-testo {
@@ -314,6 +315,17 @@ h1 {
 .carrello-vuoto-testo p {
     font-size: 18px;
     margin: 0;
+    color: #9BAE73;
+}
+
+.carrello-vuoto-testo .link-catalogo {
+    color: #677351;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.carrello-vuoto-testo .link-catalogo:hover {
+    color: #89986D;
 }
 
 .carrello-vuoto-immagine-box {

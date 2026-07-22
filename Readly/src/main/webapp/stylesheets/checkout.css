@@ -56,8 +56,13 @@ body.page-checkout {
 }
 
 .checkout-riepilogo-box {
-    background-color: #F6F0D7 !important;
-    border: 1px solid #9BAE73 !important;
+    background-color: #F6F0D7;
+    border: 1px solid #9BAE73;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     color: #9BAE73;
     font-size: 17px;
 }
@@ -166,7 +171,115 @@ body.page-checkout {
     border: 2px solid #b93a3a !important;
     background-color: #fdf3f3 !important;
 }
+.riepilogo-prodotti-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
 
+.checkout-item-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.checkout-item-img-box {
+    width: 80px;
+    height: 110px;
+    background-color: #F6F0D7;
+    border: 1px solid #9BAE73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.checkout-item-img-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.checkout-item-testi {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-item-titolo {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #677351;
+}
+
+.checkout-item-autore {
+    font-size: 16px;
+    color: #9BAE73;
+    opacity: 0.8;
+}
+
+.checkout-item-quantita {
+    font-size: 16px;
+    color: #677351;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.checkout-item-prezzo {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #677351;
+}
+
+.checkout-riga-costo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-gratis {
+    color: #677351;
+    font-weight: bold;
+}
+
+.checkout-totale-riga {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #9BAE73;
+    margin-top: 15px;
+    border-top: 1px dashed #9BAE73;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-row-flex {
+    display: flex;
+    gap: 15px;
+}
+
+.checkout-flex-2 {
+    flex: 2;
+}
+
+.checkout-flex-1 {
+    flex: 1;
+}
+
+.titolo-dettagli-carta {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #677351;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.box-conferma-btn {
+    margin-top: 25px;
+}
 @media (max-width: 768px) {
     html, body {
         overflow-x: hidden !important;

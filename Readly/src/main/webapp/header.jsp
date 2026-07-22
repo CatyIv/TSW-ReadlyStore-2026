@@ -20,7 +20,8 @@
             </a>
         </div>
         <div class="messaggio-intestazione">
-            Coltiva la mente, proteggi il pianeta!
+            Leggi con il cuore, acquista con consapevolezza.
+            <span class="material-symbols-outlined">eco</span>
         </div>
         <div class="icone-intestazione">
             <c:choose>

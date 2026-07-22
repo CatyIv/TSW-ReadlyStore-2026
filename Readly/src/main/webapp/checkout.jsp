@@ -39,25 +39,25 @@
 
             <div class="section">
                 <h3>Riepilogo Prodotti:</h3>
-                <div class="riepilogo-prodotti-lista" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <div class="riepilogo-prodotti-lista">
                     <c:forEach var="item" items="${elementiCarrello}">
                         <c:if test="${not empty item.prodotto}">
-                            <div class="prodotto-checkout-item" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #9BAE73; padding-bottom: 12px;">
-                                <div style="display: flex; align-items: center; gap: 15px;">
-                                    <div style="width: 80px; height: 110px; background-color: #F6F0D7; border: 1px solid #9BAE73; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px;">
+                            <div class="prodotto-checkout-item" >
+                                <div class="checkout-item-info">
+                                    <div class="checkout-item-img-box">
                                         <c:set var="isbn" value="${item.prodotto.isbn}" />
                                         <img src="img/copertine/${isbn}.jpg"
                                              alt="Copertina di ${item.prodotto.titolo}"
                                              onerror="this.src='img/copertine/no-cover.png';"
-                                             style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                            >
                                     </div>
-                                    <div style="display: flex; flex-direction: column;">
-                                        <span style="font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: bold; color: #677351;">${item.prodotto.titolo}</span>
-                                        <span style="font-size: 16px; color: #9BAE73; opacity: 0.8;">${item.prodotto.autore}</span>
-                                        <span style="font-size: 16px; color: #677351; font-weight: bold; margin-top: 4px;">Quantità: ${item.quantita}</span>
+                                    <div class="checkout-item-testi">
+                                        <span>${item.prodotto.titolo}</span>
+                                        <span>${item.prodotto.autore}</span>
+                                        <span>Quantità: ${item.quantita}</span>
                                     </div>
                                 </div>
-                                <span style="font-family: 'Source Sans 3', sans-serif; font-size: 22px; font-weight: bold; color: #677351;">
+                                <span class="checkout-item-prezzo">
                                     <fmt:formatNumber value="${item.prezzoTotale}" type="currency" currencySymbol="€" />
                                 </span>
                             </div>
@@ -68,24 +68,24 @@
 
             <div class="section">
                 <h3>Riepilogo Costi:</h3>
-                <div class="checkout-riepilogo-box" style="background-color: #F6F0D7; border: 1px solid #9BAE73; padding: 15px; border-radius: 6px; display: flex; flex-direction: column; gap: 8px;">
-                    <div style="display: flex; justify-content: space-between;">
+                <div class="checkout-riepilogo-box">
+                    <div class="checkout-riga-costo">
                         <span>Articoli totali:</span>
                         <span>${not empty totaleCopie ? totaleCopie : 0}</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div class="checkout-riga-costo">
                         <span>Prezzo (Imponibile):</span>
                         <span><fmt:formatNumber value="${not empty imponibile ? imponibile : 0.0}" type="currency" currencySymbol="€" /></span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div>
                         <span>IVA (22%):</span>
                         <span><fmt:formatNumber value="${not empty quotaIva ? quotaIva : 0.0}" type="currency" currencySymbol="€" /></span>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
+                    <div class="checkout-riga-costo">
                         <span>Spedizione:</span>
-                        <span style="color: #677351; font-weight: bold;">Gratis</span>
+                        <span>Gratis</span>
                     </div>
-                    <div style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: bold; color: #9BAE73; margin-top: 15px; border-top: 1px dashed #9BAE73; padding-top: 15px; display: flex; justify-content: space-between;">
+                    <div class="checkout-totale-riga">
                         <span>Totale da Pagare:</span>
                         <span><fmt:formatNumber value="${not empty totaleCarrello ? totaleCarrello : 0.0}" type="currency" currencySymbol="€" /></span>
                     </div>
@@ -94,26 +94,26 @@
 
             <div class="section">
                 <h3>Dati di Spedizione:</h3>
-                <div class="card-details-group" style="max-width: 100%;">
-                    <div class="input-group-checkout" style="margin-bottom: 15px;">
+                <div class="card-details-group">
+                    <div class="input-group-checkout">
                         <label for="destinatario">Nome e Cognome Destinatario:</label>
                         <input type="text" id="destinatario" name="destinatario">
                         <span class="error-msg" id="err-destinatario"></span>
                     </div>
 
-                    <div class="input-group-checkout" style="margin-bottom: 15px;">
+                    <div class="input-group-checkout">
                         <label for="via">Indirizzo (Via/Piazza e Civico):</label>
                         <input type="text" id="via" name="via">
                         <span class="error-msg" id="err-via"></span>
                     </div>
 
-                    <div style="display: flex; gap: 15px;">
-                        <div class="input-group-checkout" style="flex: 2;">
+                    <div class="checkout-row-flex">
+                        <div class="input-group-checkout checkout-flex-2" >
                             <label for="citta">Città:</label>
                             <input type="text" id="citta" name="citta">
                             <span class="error-msg" id="err-citta"></span>
                         </div>
-                        <div class="input-group-checkout" style="flex: 1;">
+                        <div class="input-group-checkout checkout-flex-1">
                             <label for="cap">CAP:</label>
                             <input type="text" id="cap" name="cap" maxlength="5">
                             <span class="error-msg" id="err-cap"></span>
@@ -132,28 +132,28 @@
                     <label for="payment_card">Paga con Carta</label>
                 </div>
 
-                <div id="cardDetails" class="card-details-group" style="display: none; margin-top: 15px;">
-                    <h4 style="font-family: 'Source Sans 3', sans-serif; color: #677351; margin-top: 0; margin-bottom: 15px; font-size: 20px;">Dettagli Carta</h4>
+                <div id="cardDetails" class="card-details-group" style="display: none;">
+                    <h4 class="titolo-dettagli-carta">Dettagli Carta</h4>
 
-                    <div class="input-group-checkout" style="margin-bottom: 15px;">
+                    <div class="input-group-checkout">
                         <label for="cardName">Nome Titolare Carta:</label>
                         <input type="text" id="cardName" name="cardName">
                         <span class="error-msg" id="err-cardName"></span>
                     </div>
 
-                    <div class="input-group-checkout" style="margin-bottom: 15px;">
+                    <div class="input-group-checkout">
                         <label for="cardNumber">Numero Carta:</label>
                         <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="16">
                         <span class="error-msg" id="err-cardNumber"></span>
                     </div>
 
-                    <div style="display: flex; gap: 15px;">
-                        <div class="input-group-checkout" style="flex: 1;">
+                    <div class="checkout-row-flex">
+                        <div class="input-group-checkout checkout-flex-1">
                             <label for="expiryDate">Data Scadenza:</label>
                             <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5">
                             <span class="error-msg" id="err-expiryDate"></span>
                         </div>
-                        <div class="input-group-checkout" style="flex: 1;">
+                        <div class="input-group-checkout checkout-flex-1">
                             <label for="cvv">Security Code (CVV):</label>
                             <input type="text" id="cvv" name="cvv" placeholder="XXX" maxlength="3">
                             <span class="error-msg" id="err-cvv"></span>
@@ -162,7 +162,7 @@
                 </div>
             </div>
 
-            <div style="margin-top: 25px;">
+            <div class="box-conferma-btn">
                 <button type="submit" class="confirm-order-btn" id="confirmOrderBtn">Conferma Ordine</button>
             </div>
         </form>

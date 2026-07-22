@@ -30,7 +30,7 @@
         <p class="prezzo-libro">€ ${libro.prezzo}</p>
 
         <div class="riga-bottoni-finali">
-            <form action="${pageContext.request.contextPath}/CarrelloServlet" method="post" style="margin: 0;">
+            <form action="${pageContext.request.contextPath}/CarrelloServlet" method="post">
                 <input type="hidden" name="action" value="aggiungi">
                 <input type="hidden" name="isbn" value="${libro.isbn}">
                 <div class="blocco-azioni">
@@ -47,7 +47,7 @@
                     </button>
                 </div>
             </form>
-            <form action="${pageContext.request.contextPath}/WishlistServlet" method="post" style="margin: 0;" data-loggato="${not empty sessionScope.utente}" class="form-wishlist">
+            <form action="${pageContext.request.contextPath}/WishlistServlet" method="post" data-loggato="${not empty sessionScope.utente}" class="form-wishlist">
                 <input type="hidden" name="action" value="aggiungi">
                 <input type="hidden" name="isbn" value="${libro.isbn}">
                 <button type="submit" class="bottone-wishlist" title="Aggiungi alla Wishlist">
@@ -86,8 +86,8 @@
         <h3>Autenticazione Richiesta</h3>
         <p>Per salvare il libro nella tua wishlist, accedi al tuo account o creane uno nuovo.</p>
         <div class="modal-buttons">
-            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-modal-conferma" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Accedi</a>
-            <a href="${pageContext.request.contextPath}/registrazione.jsp" class="btn-modal-annulla" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Registrati</a>
+            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-modal-conferma">Accedi</a>
+            <a href="${pageContext.request.contextPath}/registrazione.jsp" class="btn-modal-annulla">Registrati</a>
         </div>
     </div>
 </div>
