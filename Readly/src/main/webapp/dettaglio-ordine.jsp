@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Segoe+UI:wght@400;600;700&display=swap" />
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/stylesheets/auth.css">
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/stylesheets/areaPersonale.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
 <body>
 
@@ -87,6 +88,8 @@
 </main>
 
 <jsp:include page="footer.jsp" />
+<jsp:include page="bottone.jsp" />
+<script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>
 
 </body>
 </html>

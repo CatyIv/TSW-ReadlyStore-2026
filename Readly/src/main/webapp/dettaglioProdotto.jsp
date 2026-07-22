@@ -10,6 +10,7 @@
     <title>${libro.titolo} - Readly</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/dettaglioProdotto.css?v=11">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
 
 <body>
@@ -92,7 +93,10 @@
 </div>
 
 <jsp:include page="footer.jsp" />
+<jsp:include page="bottone.jsp" />
 
 <script src="${pageContext.request.contextPath}/javascripts/dettaglioProdotto.js"></script>
+<script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>
+
 </body>
 </html>

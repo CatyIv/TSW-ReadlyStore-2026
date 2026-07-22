@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/catalogo.css?v=3">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
 <body>
 
@@ -189,8 +190,11 @@
 </div>
 
 <jsp:include page="footer.jsp" />
+<jsp:include page="bottone.jsp" />
 
 <script src="${pageContext.request.contextPath}/javascripts/catalogo.js"></script>
+<script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>
+
 
 </body>
 </html>

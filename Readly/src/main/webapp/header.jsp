@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/header.css?v=14">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/evidenziatore.css">
+
 </head>
 <body>
 <div class="intestazione-sito">
@@ -96,5 +97,6 @@
 </div>
 <script src="${pageContext.request.contextPath}/javascripts/search.js"></script>
 <script src="${pageContext.request.contextPath}/javascripts/transition.js"></script>
+
 </body>
 </html>

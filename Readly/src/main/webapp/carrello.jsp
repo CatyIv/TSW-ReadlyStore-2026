@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
@@ -162,7 +163,10 @@
 </div>
 
 <jsp:include page="footer.jsp" />
+<jsp:include page="bottone.jsp" />
 
 <script src="javascripts/carrello.js"></script>
+<script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>
+
 </body>
 </html>
