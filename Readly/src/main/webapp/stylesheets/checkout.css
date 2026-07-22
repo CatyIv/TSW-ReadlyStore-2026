@@ -280,6 +280,99 @@ body.page-checkout {
 .box-conferma-btn {
     margin-top: 25px;
 }
+
+
+
+.main-ordine-confermato {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.box-ordine-confermato {
+    background-color: #F6F0D7;
+    color: #9BAE73;
+    border-radius: 16px;
+    width: 100%;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.conferma-testo-col {
+    flex: 1;
+    text-align: center;
+}
+
+.conferma-testo-col h2 {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #677351;
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.conferma-testo-col p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #9BAE73;
+    line-height: 1.5;
+}
+
+.conferma-azioni-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-fattura-pdf {
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    padding: 12px 30px;
+    font-size: 16px;
+}
+
+.link-torna-catalogo {
+    color: #677351;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.link-torna-catalogo span {
+    text-decoration: underline;
+}
+
+.conferma-img-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conferma-img-col img {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    object-fit: contain;
+}
+
+
+
 @media (max-width: 768px) {
     html, body {
         overflow-x: hidden !important;

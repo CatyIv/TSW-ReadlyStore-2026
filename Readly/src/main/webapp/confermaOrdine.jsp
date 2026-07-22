@@ -11,27 +11,25 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/checkout.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
-<body class="page-checkout" style="background-color: #EADFBC;">
+<body class="page-checkout">
 
 <jsp:include page="header.jsp" />
 
-<main style="display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%;">
+<main class="main-ordine-confermato">
 
-    <div style="background-color: #F6F0D7; color: #9BAE73; border-radius: 16px; width: 100%; padding: 40px 60px; display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; gap: 40px !important; text-align: left !important; box-sizing: border-box;">
+    <div class="box-ordine-confermato">
 
-        <div style="flex: 1 !important; text-align: center !important;">
-            <h2 style="font-family: 'Source Sans 3', sans-serif; color: #677351; font-size: 36px; margin-top: 0; margin-bottom: 15px; font-weight: bold;">
+        <div class="conferma-testo-col">
+            <h2>
                 Grazie per il tuo acquisto!
             </h2>
-            <p style="font-size: 18px; margin-bottom: 30px; color: #9BAE73; line-height: 1.5;">
+            <p>
                 Il tuo ordine è stato ricevuto con successo ed è in fase di elaborazione.
                 Puoi monitorare lo stato della spedizione direttamente dalla tua area personale.
             </p>
 
-            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                <a href="${pageContext.request.contextPath}/FatturaServlet?numero_ordine=${not empty param.numero_ordine ? param.numero_ordine : sessionScope.ultimoNumeroOrdine}"
-                   class="confirm-order-btn"
-                   style="text-decoration: none; display: inline-block; width: auto; padding: 12px 30px; font-size: 16px; font-family: 'Source Sans 3', sans-serif; background-color: #89986D; color: #FFFFFF; font-weight: bold; border: 2px solid #677351; border-radius: 50px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s;">
+            <div class="conferma-azioni-box">
+                <a href="${pageContext.request.contextPath}/FatturaServlet?numero_ordine=${not empty param.numero_ordine ? param.numero_ordine : sessionScope.ultimoNumeroOrdine}" class="confirm-order-btn btn-fattura-pdf">
                     Scarica Fattura PDF
                 </a>
 
