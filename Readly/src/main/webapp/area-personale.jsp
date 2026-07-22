@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Segoe+UI:wght@400;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
     <link rel="stylesheet" type="text/css" href="./stylesheets/auth.css?v=5">
-    <link rel="stylesheet" type="text/css" href="./stylesheets/areaPersonale.css?v=7">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/areaPersonale.css?v=8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
 <body>
@@ -44,9 +44,9 @@
                 String errorMessage = (String) request.getAttribute("errorMessage");
                 if (errorMessage != null) {
             %>
-            <div class="admin-alert-box" style="border-color: #c94c4c; margin-bottom: 20px;">
-                <p class="admin-alert-text" style="color: #c94c4c; margin-bottom: 10px;">Attenzione</p>
-                <p class="admin-box-text" style="color: #c94c4c; margin: 0;"><%= errorMessage %></p>
+            <div class="admin-alert-box admin-alert-error">
+                <p class="admin-alert-text admin-alert-text-error">Attenzione</p>
+                <p class="admin-box-text admin-box-text-error"><%= errorMessage %></p>
             </div>
             <%
                 }
@@ -96,7 +96,7 @@
             <div class="admin-box">
                 <span class="material-symbols-outlined admin-icon">local_shipping</span>
                 <h3 class="admin-box-title">I Miei Ordini</h3>
-                <p class="admin-box-text">Visualizza lo storico degli acquisti e traccia le deine spedizioni</p>
+                <p class="admin-box-text">Visualizza lo storico degli acquisti e traccia le tue spedizioni</p>
                 <a href="<%= request.getContextPath() %>/OrdiniUtenteServlet" class="btn-auth btn-admin">Visualizza</a>
             </div>
 

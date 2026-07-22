@@ -10,9 +10,8 @@
   <title>I Miei Ordini - Readly</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&family=Segoe+UI:wght@400;600;700&display=swap" />
   <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/stylesheets/auth.css">
-  <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/stylesheets/areaPersonale.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
-
+  <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/stylesheets/areaPersonale.css?v=8">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
 <body>
 
@@ -30,32 +29,32 @@
       if (listaOrdini != null && !listaOrdini.isEmpty()) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     %>
-    <div class="admin-grid" style="flex-direction: column; gap: 20px;">
+    <div class="admin-grid ordini-grid-verticale">
       <%
         for (OrdineBean ordine : listaOrdini) {
           String dataFormattata = (ordine.getDataOrdine() != null) ? sdf.format(ordine.getDataOrdine()) : "";
       %>
-      <div class="admin-box" style="flex-direction: row; justify-content: space-between; align-items: center; min-height: auto; padding: 20px; width: 100%;">
-        <div style="text-align: left;">
-          <h3 class="admin-box-title" style="margin-bottom: 5px;">Ordine #<%= ordine.getNumeroOrdine() %></h3>
-          <p class="admin-box-text" style="margin: 0;">
+      <div class="admin-box ordine-card-row">
+        <div class="ordine-info-left">
+          <h3 class="admin-box-title ordine-title-margin">Ordine #<%= ordine.getNumeroOrdine() %></h3>
+          <p class="admin-box-text ordine-text-reset">
             Data: <strong><%= dataFormattata %></strong>
           </p>
-          <p class="admin-box-text" style="margin: 0;">
+          <p class="admin-box-text ordine-text-reset">
             Spedito a: <span><%= ordine.getIndirizzo() %></span>
           </p>
         </div>
 
-        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+        <div class="ordine-dettagli-right">
           <div>
-            <p class="admin-box-title" style="margin-bottom: 5px; color: #677351;">
+            <p class="admin-box-title ordine-prezzo-testo">
               &euro; <%= String.format("%.2f", ordine.getCosto()) %>
             </p>
-            <span class="admin-box-text" style="display: inline-block; padding: 5px 15px; border-radius: 15px; background-color: #EADFBC; font-weight: bold; color: #677351; font-size: 0.85rem;">
+            <span class="ordine-stato-badge">
               <%= ordine.getStatoOrdine() %>
             </span>
           </div>
-          <a href="<%= request.getContextPath() %>/OrdiniUtenteServlet?idOrdine=<%= ordine.getNumeroOrdine() %>" class="btn-admin" style="padding: 6px 16px; font-size: 0.85rem; margin-top: 0;">
+          <a href="<%= request.getContextPath() %>/OrdiniUtenteServlet?idOrdine=<%= ordine.getNumeroOrdine() %>" class="btn-admin btn-dettagli-ordine">
             Vedi Dettagli
           </a>
         </div>
@@ -67,8 +66,8 @@
     <%
     } else {
     %>
-    <div class="admin-box" style="padding: 40px; min-height: auto; margin: 20px 0;">
-      <p class="admin-box-text" style="font-size: 1.1rem; margin: 0;">Non hai ancora effettuato nessun ordine.</p>
+    <div class="admin-box ordini-vuoto-box">
+      <p class="admin-box-text ordini-vuoto-testo">Non hai ancora effettuato nessun ordine.</p>
     </div>
     <%
       }
@@ -85,7 +84,6 @@
 <jsp:include page="footer.jsp" />
 <jsp:include page="bottone.jsp" />
 <script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>
-
 
 </body>
 </html>
