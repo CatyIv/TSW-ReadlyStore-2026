@@ -39,10 +39,10 @@ function chiudiPopup() {
 
 function eseguiAzioneConfermata() {
     if (azioneCorrente === "svuota") {
-        inviaInPost("svuota", null, null);
+        inviaInFetch("svuota", null, null);
         chiudiPopup();
     } else if (azioneCorrente === "elimina") {
-        inviaInPost("rimuovi", isbnDaEliminare, null);
+        inviaInFetch("rimuovi", isbnDaEliminare, null);
         chiudiPopup();
     } else if (azioneCorrente === "errore_stock") {
         chiudiPopup();
@@ -52,45 +52,98 @@ function eseguiAzioneConfermata() {
     }
 }
 
-function aggiornaQuantita(isbn, nuovaQta, titoloProdotto, maxDisponibile) {
+function aggiornaQuantita(isbn, segno, titoloProdotto, maxDisponibile) {
+    const qtaSpan = document.getElementById("qta-" + isbn);
+    if (!qtaSpan) return;
+
+    let qtaAttuale = parseInt(qtaSpan.innerText) || 1;
+    let nuovaQta = qtaAttuale;
+
+    if (segno === '+') {
+        nuovaQta = qtaAttuale + 1;
+    } else if (segno === '-') {
+        nuovaQta = qtaAttuale - 1;
+    }
+
     if (nuovaQta <= 0) {
         chiediConfermaElimina(isbn, titoloProdotto);
     } else if (maxDisponibile !== undefined && maxDisponibile !== null && nuovaQta > maxDisponibile) {
         mostraErroreDisponibilita(maxDisponibile);
     } else {
-        inviaInPost("modifica", isbn, nuovaQta);
+        inviaInFetch("modifica", isbn, nuovaQta);
     }
 }
 
-function inviaInPost(azione, isbn, quantita) {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'CarrelloServlet';
+function inviaInFetch(azione, isbn, quantita) {
+    let urlParams = new URLSearchParams();
+    urlParams.append("action", azione);
+    urlParams.append("ajax", "true");
+    if (isbn) urlParams.append("isbn", isbn);
+    if (quantita !== null && quantita !== undefined) urlParams.append("quantita", quantita);
 
-    const inputAction = document.createElement('input');
-    inputAction.type = 'hidden';
-    inputAction.name = 'action';
-    inputAction.value = azione;
-    form.appendChild(inputAction);
+    let contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
+    let targetUrl = (contextPath ? contextPath : "") + "/CarrelloServlet";
 
-    if (isbn) {
-        const inputIsbn = document.createElement('input');
-        inputIsbn.type = 'hidden';
-        inputIsbn.name = 'isbn';
-        inputIsbn.value = isbn;
-        form.appendChild(inputIsbn);
-    }
+    fetch(targetUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: urlParams.toString()
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Errore di rete");
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === "success") {
+                if (data.isEmpty || azione === "svuota") {
+                    window.location.reload();
+                    return;
+                }
 
-    if (quantita !== null && quantita !== undefined) {
-        const inputQta = document.createElement('input');
-        inputQta.type = 'hidden';
-        inputQta.name = 'quantita';
-        inputQta.value = quantita;
-        form.appendChild(inputQta);
-    }
+                if (azione === "rimuovi" && isbn) {
+                    let elementoCard = document.getElementById("qta-" + isbn)?.closest(".prodotto-card-wish") ||
+                        document.getElementById("prezzo-" + isbn)?.closest(".prodotto-card-wish") ||
+                        document.querySelector(`[id*="${isbn}"]`)?.closest(
+                            ".prodotto-card-wish, .item-carrello, .prodotto-card, tr"
+                        );
 
-    document.body.appendChild(form);
-    form.submit();
+                    if (elementoCard) {
+                        elementoCard.remove();
+                    } else {
+                        window.location.reload();
+                        return;
+                    }
+                }
+
+                let badge = document.getElementById("cart-badge") || document.querySelector(".conteggio-badge");
+                if (badge) badge.innerText = data.cartCount;
+
+                if (azione === "modifica" && isbn && quantita) {
+                    let qtaSpan = document.getElementById("qta-" + isbn);
+                    if (qtaSpan) qtaSpan.innerText = quantita;
+
+                    let prezzoDiv = document.getElementById("prezzo-" + isbn);
+                    if (prezzoDiv) prezzoDiv.innerText = data.itemPrezzoTotale;
+                }
+
+                let articoliSpan = document.querySelector(".riepilogo-articoli span:last-child");
+                if (articoliSpan) articoliSpan.innerText = data.cartCount;
+
+                let imponibileSpan = document.querySelector(".riepilogo-imponibile span:last-child");
+                if (imponibileSpan) imponibileSpan.innerText = data.imponibile;
+
+                let ivaSpan = document.querySelector(".riepilogo-iva span:last-child");
+                if (ivaSpan) ivaSpan.innerText = data.quotaIva;
+
+                let totaleDefinitivoSpan = document.querySelector(".totale-definitivo span:last-child");
+                if (totaleDefinitivoSpan) totaleDefinitivoSpan.innerText = data.totaleDefinitivo;
+            }
+        })
+        .catch(error => {
+            console.error("Errore Fetch:", error);
+        });
 }
 
 function gestisciCheckout(event, giaLoggato) {
@@ -120,21 +173,13 @@ function gestisciCheckout(event, giaLoggato) {
     btnAction.innerText = "Accedi";
     btnAction.onclick = function() {
         chiudiPopup();
-        const linkLogin = document.createElement('a');
-        linkLogin.href = "login.jsp";
-        document.body.appendChild(linkLogin);
-        linkLogin.click();
-        linkLogin.remove();
+        window.location.href = "login.jsp";
     };
 
     btnSecondary.innerText = "Registrati";
     btnSecondary.onclick = function() {
         chiudiPopup();
-        const linkReg = document.createElement('a');
-        linkReg.href = "registrazione.jsp";
-        document.body.appendChild(linkReg);
-        linkReg.click();
-        linkReg.remove();
+        window.location.href = "registrazione.jsp";
     };
 
     overlay.classList.add('active');

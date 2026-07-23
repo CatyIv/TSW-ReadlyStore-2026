@@ -110,6 +110,7 @@ public class CarrelloServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String isbn = request.getParameter("isbn");
+        boolean isAjax = "true".equalsIgnoreCase(request.getParameter("ajax"));
 
         try {
             if (action != null) {
@@ -197,16 +198,46 @@ public class CarrelloServlet extends HttpServlet {
             }
 
             int conteggioBadge = 0;
+            double itemPrezzoTotale = 0.0;
             if (carrello.getItems() != null) {
                 for (ItemCarrelloBean item : carrello.getItems()) {
                     conteggioBadge += item.getQuantita();
+                    if (isbn != null && item.getProdotto().getIsbn().equals(isbn)) {
+                        itemPrezzoTotale = item.getPrezzoTotale();
+                    }
                 }
             }
             session.setAttribute("cartCount", conteggioBadge);
 
+            if (isAjax) {
+                double totaleIvato = carrello.getPrezzoTotaleComplessivo();
+                double imponibile = totaleIvato / 1.22;
+                double quotaIva = totaleIvato - imponibile;
+
+                Map<String, Object> jsonResponse = new HashMap<>();
+                jsonResponse.put("status", "success");
+                jsonResponse.put("cartCount", conteggioBadge);
+                jsonResponse.put("itemPrezzoTotale", String.format("%.2f €", itemPrezzoTotale));
+                jsonResponse.put("imponibile", String.format("%.2f €", imponibile));
+                jsonResponse.put("quotaIva", String.format("%.2f €", quotaIva));
+                jsonResponse.put("totaleDefinitivo", String.format("%.2f €", totaleIvato));
+                jsonResponse.put("isEmpty", carrello.getItems() == null || carrello.getItems().isEmpty());
+
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(gson.toJson(jsonResponse));
+                return;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            if (isAjax) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"status\":\"error\"}");
+            } else {
+                response.sendRedirect("error.jsp");
+            }
             return;
         }
 

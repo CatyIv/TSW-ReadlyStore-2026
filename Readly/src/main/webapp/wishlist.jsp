@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/wishlist.css?v=4">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/stylesheets/popup.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
-
 </head>
 <body>
 
@@ -35,7 +34,8 @@
                 <div class="wishlist-griglia-prodotti">
 
                     <c:forEach var="prodotto" items="${prodottiWishlist}">
-                        <div class="prodotto-card-wish">
+                        <!-- Aggiunto data-isbn per facilitare la rimozione dinamica del DOM via JS -->
+                        <div class="prodotto-card-wish" data-isbn="${prodotto.isbn}">
 
                             <div class="libro-copertina-placeholder">
                                 <a href="${pageContext.request.contextPath}/DettaglioProdottoServlet?isbn=${prodotto.isbn}">
@@ -114,7 +114,6 @@
 
 <jsp:include page="footer.jsp" />
 <jsp:include page="bottone.jsp" />
-
 
 <script src="${pageContext.request.contextPath}/javascripts/wishlist.js"></script>
 <script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>

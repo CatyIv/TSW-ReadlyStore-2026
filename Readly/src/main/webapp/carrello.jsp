@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.carrello.CarrelloBean" %>
-<%@ page import="model.itemcarrello.ItemCarrelloBean" %>
-<%@ page import="model.immagine.ImmagineDAO" %>
-<%@ page import="model.immagine.ImmagineBean" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -23,132 +19,111 @@
 <div class="contenitore-principale-carrello">
     <h1>Carrello</h1>
 
-    <%
-        CarrelloBean carrello = (CarrelloBean) session.getAttribute("carrello");
-        Collection<ItemCarrelloBean> items = (carrello != null) ? carrello.getItems() : null;
+    <c:choose>
+        <c:when test="${empty sessionScope.carrello or empty sessionScope.carrello.items}">
+            <div class="carrello-vuoto">
+                <div class="carrello-vuoto-testo">
+                    <h2>Il tuo carrello è attualmente vuoto!</h2>
+                    <p>Torna al <a href="CatalogoServlet" class="link-catalogo">Catalogo</a> per esplorare i nostri libri.</p>
+                </div>
+                <div class="carrello-vuoto-immagine-box">
+                    <img src="img/cartVuoto.png" alt="Mascotte Carrello Vuoto" class="mascotte-vuoto-img">
+                </div>
+            </div>
+        </c:when>
 
-        if (items == null || items.isEmpty()) {
-    %>
-    <div class="carrello-vuoto">
-        <div class="carrello-vuoto-testo">
-            <h2>Il tuo carrello è attualmente vuoto!</h2>
-            <p>Torna al <a href="CatalogoServlet" class="link-catalogo">Catalogo</a> per esplorare i nostri libri.</p>
-        </div>
-        <div class="carrello-vuoto-immagine-box">
-            <img src="img/cartVuoto.png" alt="Mascotte Carrello Vuoto" class="mascotte-vuoto-img">
-        </div>
-    </div>
-    <%
-    } else {
-        int totaleCopie = 0;
-        for (ItemCarrelloBean item : items) {
-            totaleCopie += item.getQuantita();
-        }
+        <c:otherwise>
+            <c:set var="giaLoggato" value="${not empty sessionScope.utente or not empty sessionScope.user}" />
 
-        ImmagineDAO immagineDao = new ImmagineDAO();
-        boolean giaLoggato = (session.getAttribute("utente") != null || session.getAttribute("user") != null);
-    %>
+            <c:set var="totaleCopie" value="0" />
+            <c:forEach var="item" items="${sessionScope.carrello.items}">
+                <c:set var="totaleCopie" value="${totaleCopie + item.quantita}" />
+            </c:forEach>
 
-    <div class="carrello-layout">
+            <div class="carrello-layout">
 
-        <div class="libri-lista-container">
-            <%
-                for (ItemCarrelloBean item : items) {
-                    String isbn = item.getProdotto().getIsbn();
-                    String nomeFileImmagine = "no-cover.png";
+                <div class="libri-lista-container">
+                    <c:forEach var="item" items="${sessionScope.carrello.items}">
+                        <div class="prodotto-card">
+                            <div class="prodotto-info-lato">
+                                <div class="libro-copertina-placeholder">
+                                    <img src="img/copertine/${item.prodotto.isbn}.jpg"
+                                         onerror="this.onerror=null; this.src='img/copertine/no-cover.png';"
+                                         alt="Copertina di ${item.prodotto.titolo}">
+                                </div>
 
-                    try {
-                        List<ImmagineBean> listaImmagini = immagineDao.doRetrieveByProdotto(isbn);
-                        if (listaImmagini != null && !listaImmagini.isEmpty()) {
-                            nomeFileImmagine = listaImmagini.get(0).getUrl();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-            %>
-            <div class="prodotto-card">
-                <div class="prodotto-info-lato">
-                    <div class="libro-copertina-placeholder">
-                        <img src="img/copertine/<%= nomeFileImmagine %>" alt="Copertina di <%= item.getProdotto().getTitolo() %>">
-                    </div>
+                                <div class="prodotto-dettagli-testo">
+                                    <h3><c:out value="${item.prodotto.titolo}" /></h3>
+                                    <p><c:out value="${item.prodotto.autore}" /></p>
 
-                    <div class="prodotto-dettagli-testo">
-                        <h3><%= item.getProdotto().getTitolo() %></h3>
-                        <p><%= item.getProdotto().getAutore() %></p>
+                                    <div class="controlli-qta-box">
+                                        <button class="btn-qta" onclick="aggiornaQuantita('${item.prodotto.isbn}', '-', '${item.prodotto.titolo}', ${item.prodotto.disponibilita})">-</button>
+                                        <span class="qta-valore" id="qta-${item.prodotto.isbn}">${item.quantita}</span>
+                                        <button class="btn-qta" onclick="aggiornaQuantita('${item.prodotto.isbn}', '+', '${item.prodotto.titolo}', ${item.prodotto.disponibilita})">+</button>
 
-                        <div class="controlli-qta-box">
-                            <button class="btn-qta" onclick="aggiornaQuantita('<%= isbn %>', <%= item.getQuantita() - 1 %>, '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>', <%= item.getProdotto().getDisponibilita() %>)">-</button>
-                            <span class="qta-valore"><%= item.getQuantita() %></span>
-                            <button class="btn-qta" onclick="aggiornaQuantita('<%= isbn %>', <%= item.getQuantita() + 1 %>, '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>', <%= item.getProdotto().getDisponibilita() %>)">+</button>
+                                        <button class="btn-cestino" onclick="chiediConfermaElimina('${item.prodotto.isbn}', '${item.prodotto.titolo}')" title="Rimuovi elemento">
+                                            <img src="img/cestino.png" alt="cestino" class="btn-trash-icon">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <button class="btn-cestino" onclick="chiediConfermaElimina('<%= isbn %>', '<%= item.getProdotto().getTitolo().replace("'", "\\'") %>')" title="Rimuovi elemento">
-                                <img src="img/cestino.png" alt="cestino" class="btn-trash-icon">
-                            </button>
+                            <div class="prodotto-prezzo-lato" id="prezzo-${item.prodotto.isbn}">
+                                <fmt:formatNumber value="${item.prezzoTotale}" type="currency" currencySymbol="€" />
+                            </div>
                         </div>
+                    </c:forEach>
+                </div>
+
+                <div class="riepilogo-container">
+                    <h2 class="riepilogo-titolo">Riepilogo ordine</h2>
+
+                    <div class="riepilogo-riga riepilogo-articoli">
+                        <span>Articoli inseriti:</span>
+                        <span><c:out value="${totaleCopie}" /></span>
+                    </div>
+
+                    <c:set var="totaleIvato" value="${sessionScope.carrello.prezzoTotaleComplessivo}" />
+                    <c:set var="imponibile" value="${totaleIvato / 1.22}" />
+                    <c:set var="quotaIva" value="${totaleIvato - imponibile}" />
+
+                    <div class="riepilogo-riga riepilogo-imponibile">
+                        <span>Prezzo (Imponibile):</span>
+                        <span><fmt:formatNumber value="${imponibile}" type="currency" currencySymbol="€" /></span>
+                    </div>
+
+                    <div class="riepilogo-riga riepilogo-iva">
+                        <span>IVA (22%):</span>
+                        <span><fmt:formatNumber value="${quotaIva}" type="currency" currencySymbol="€" /></span>
+                    </div>
+
+                    <div class="riepilogo-riga">
+                        <span>Spedizione:</span>
+                        <span>Gratis</span>
+                    </div>
+
+                    <div class="riepilogo-riga totale-definitivo">
+                        <span>Totale:</span>
+                        <span><fmt:formatNumber value="${totaleIvato}" type="currency" currencySymbol="€" /></span>
+                    </div>
+
+                    <div class="riepilogo-azioni-box">
+                        <a href="checkout.jsp" class="btn-checkout-blocco" onclick="gestisciCheckout(event, ${giaLoggato})">
+                            Procedi al Checkout
+                            <img src="img/shopbag.png" alt="Bag" class="btn-checkout-icon">
+                        </a>
+
+                        <button onclick="chiediConfermaSvuota()" class="btn-svuota-link">Svuota intero carrello</button>
+                    </div>
+
+                    <div class="riepilogo-mascotte-sotto">
+                        <img src="img/cartPieno.png" alt="Mascotte Carrello Pieno" class="mascotte-pieno-sotto-img">
                     </div>
                 </div>
 
-                <div class="prodotto-prezzo-lato">
-                    <%= String.format("%.2f €", item.getPrezzoTotale()) %>
-                </div>
             </div>
-            <%
-                }
-            %>
-        </div>
-
-        <div class="riepilogo-container">
-            <h2 class="riepilogo-titolo">Riepilogo ordine</h2>
-
-            <div class="riepilogo-riga">
-                <span>Articoli inseriti:</span>
-                <span><%= totaleCopie %></span>
-            </div>
-
-            <%
-                double totaleIvato = carrello.getPrezzoTotaleComplessivo();
-                double imponibile = totaleIvato / 1.22;
-                double quotaIva = totaleIvato - imponibile;
-            %>
-
-            <div class="riepilogo-riga riepilogo-imponibile">
-                <span>Prezzo (Imponibile):</span>
-                <span><%= String.format("%.2f €", imponibile) %></span>
-            </div>
-
-            <div class="riepilogo-riga riepilogo-iva">
-                <span>IVA (22%):</span>
-                <span><%= String.format("%.2f €", quotaIva) %></span>
-            </div>
-
-            <div class="riepilogo-riga">
-                <span>Spedizione:</span>
-                <span>Gratis</span>
-            </div>
-
-            <div class="riepilogo-riga totale-definitivo">
-                <span>Totale:</span>
-                <span><%= String.format("%.2f €", totaleIvato) %></span>
-            </div>
-
-            <div class="riepilogo-azioni-box">
-                <a href="checkout.jsp" class="btn-checkout-blocco" onclick="gestisciCheckout(event, <%= giaLoggato %>)">
-                    Procedi al Checkout
-                    <img src="img/shopbag.png" alt="Bag" class="btn-checkout-icon">
-                </a>
-
-                <button onclick="chiediConfermaSvuota()" class="btn-svuota-link">Svuota intero carrello</button>
-            </div>
-
-            <div class="riepilogo-mascotte-sotto">
-                <img src="img/cartPieno.png" alt="Mascotte Carrello Pieno" class="mascotte-pieno-sotto-img">
-            </div>
-        </div>
-
-    </div>
-    <%
-        }
-    %>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <div id="custom-confirm-overlay" class="modal-overlay">

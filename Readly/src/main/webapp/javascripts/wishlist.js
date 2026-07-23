@@ -36,45 +36,65 @@ function eseguiAzioneAjax(form, isAggiuntaCarrello) {
     const url = form.getAttribute("action");
     const formData = new FormData(form);
 
+    formData.append("ajax", "true");
+
     fetch(url, {
         method: "POST",
         body: new URLSearchParams(formData)
     })
         .then(response => {
-            if (response.ok) {
-                if (isAggiuntaCarrello) {
-                    const titolo = form.closest(".prodotto-card-wish").querySelector(".prodotto-dettagli-testo h3 a").innerText;
-                    mostraPopupNotifica("Aggiunto al Carrello!", `Il libro <strong>'${titolo}'</strong> è stato inserito nel carrello con successo.`);
+            if (!response.ok) {
+                throw new Error("Errore di rete");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (isAggiuntaCarrello) {
+                const titolo = form.closest(".prodotto-card-wish").querySelector(".prodotto-dettagli-testo h3 a").innerText;
+                mostraPopupNotifica("Aggiunto al Carrello!", `Il libro <strong>'${titolo}'</strong> è stato inserito nel carrello con successo.`);
 
-                    let badge = document.querySelector(".conteggio-badge");
-                    const quantitaInput = form.querySelector("input[name='quantita']");
-                    const quantitaAggiunta = quantitaInput ? parseInt(quantitaInput.value) : 1;
+                let badge = document.querySelector(".conteggio-badge");
+                const quantitaInput = form.querySelector("input[name='quantita']");
+                const quantitaAggiunta = quantitaInput ? parseInt(quantitaInput.value) : 1;
 
-                    if (badge) {
-                        let conteggioAttuale = parseInt(badge.textContent) || 0;
-                        badge.textContent = conteggioAttuale + quantitaAggiunta;
-                    } else {
-                        const iconeHeader = document.querySelectorAll(".collegamento-icona");
-                        let linkCarrello = null;
-
-                        iconeHeader.forEach(icona => {
-                            if (icona.innerHTML.includes("shopping_cart")) {
-                                linkCarrello = icona;
-                            }
-                        });
-
-                        if (linkCarrello) {
-                            const nuovoBadge = document.createElement("span");
-                            nuovoBadge.className = "conteggio-badge";
-                            nuovoBadge.textContent = quantitaAggiunta;
-                            linkCarrello.appendChild(nuovoBadge);
-                        }
-                    }
+                if (badge) {
+                    let conteggioAttuale = parseInt(badge.textContent) || 0;
+                    badge.textContent = conteggioAttuale + quantitaAggiunta;
                 } else {
-                    window.location.reload();
+                    const iconeHeader = document.querySelectorAll(".collegamento-icona");
+                    let linkCarrello = null;
+
+                    iconeHeader.forEach(icona => {
+                        if (icona.innerHTML.includes("shopping_cart")) {
+                            linkCarrello = icona;
+                        }
+                    });
+
+                    if (linkCarrello) {
+                        const nuovoBadge = document.createElement("span");
+                        nuovoBadge.className = "conteggio-badge";
+                        nuovoBadge.textContent = quantitaAggiunta;
+                        linkCarrello.appendChild(nuovoBadge);
+                    }
                 }
             } else {
-                alert("Si è verificato un errore sul server (Codice: " + response.status + ").");
+                if (data.status === "success") {
+                    if (data.action === "rimuovi") {
+                        const cardElement = document.querySelector(`.prodotto-card-wish[data-isbn='${data.isbn}']`);
+                        if (cardElement) {
+                            cardElement.remove();
+                        }
+
+                        const rimanenti = document.querySelectorAll(".prodotto-card-wish");
+                        if (rimanenti.length === 0) {
+                            window.location.reload();
+                        }
+                    } else if (data.action === "svuota") {
+                        window.location.reload();
+                    }
+                } else {
+                    alert("Errore durante l'operazione: " + (data.message || "riprova più tardi."));
+                }
             }
         })
         .catch(error => {

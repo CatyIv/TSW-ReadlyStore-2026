@@ -72,7 +72,15 @@ public class WishlistServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UtenteBean utenteLoggato = (UtenteBean) session.getAttribute("utente");
 
+        String isAjax = request.getParameter("ajax");
+
         if (utenteLoggato == null) {
+            if ("true".equalsIgnoreCase(isAjax)) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"status\":\"error\",\"message\":\"Non autenticato\"}");
+                return;
+            }
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
@@ -86,7 +94,6 @@ public class WishlistServlet extends HttpServlet {
 
                 if (action.equalsIgnoreCase("aggiungi")) {
                     if (isbn != null && !isbn.trim().isEmpty()) {
-
                         ProdottoBean prodotto = ProdottoDao.doRetrieveByKey(isbn);
 
                         if (prodotto != null) {
@@ -104,23 +111,38 @@ public class WishlistServlet extends HttpServlet {
                             }
                         }
                     }
-                }
-
-                else if (action.equalsIgnoreCase("rimuovi")) {
+                } else if (action.equalsIgnoreCase("rimuovi")) {
                     if (isbn != null && !isbn.trim().isEmpty()) {
                         WishlistDao.doDelete(emailUtente, isbn);
                     }
-                }
-
-                else if (action.equalsIgnoreCase("svuota")) {
+                    if ("true".equalsIgnoreCase(isAjax)) {
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write("{\"status\":\"success\",\"action\":\"rimuovi\",\"isbn\":\"" + isbn + "\"}");
+                        return;
+                    }
+                } else if (action.equalsIgnoreCase("svuota")) {
                     List<WishlistBean> lista = WishlistDao.doRetrieveByUtente(emailUtente);
                     for (WishlistBean item : lista) {
                         WishlistDao.doDelete(emailUtente, item.getIsbnProdotto());
+                    }
+                    if ("true".equalsIgnoreCase(isAjax)) {
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write("{\"status\":\"success\",\"action\":\"svuota\"}");
+                        return;
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            if ("true".equalsIgnoreCase(isAjax)) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write("{\"status\":\"error\",\"message\":\"Errore database\"}");
+                return;
+            }
             response.sendRedirect(request.getContextPath() + "/error.jsp");
             return;
         }
