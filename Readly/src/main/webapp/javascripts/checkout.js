@@ -152,6 +152,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (!isValid) {
                 event.preventDefault();
+            } else {
+                event.preventDefault();
+                document.body.classList.add("page-leaving");
+                setTimeout(function() {
+                    form.submit();
+                }, 350);
             }
         });
     }

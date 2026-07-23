@@ -46,6 +46,9 @@ function eseguiAzioneConfermata() {
         chiudiPopup();
     } else if (azioneCorrente === "errore_stock") {
         chiudiPopup();
+    } else if (azioneCorrente === "richiedi_autenticazione") {
+        chiudiPopup();
+        window.location.href = "login.jsp";
     }
 }
 
@@ -96,6 +99,10 @@ function gestisciCheckout(event, giaLoggato) {
     }
 
     event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    azioneCorrente = "richiedi_autenticazione";
 
     const overlay = document.getElementById('custom-confirm-overlay');
     const title = document.getElementById('modal-title');
@@ -112,12 +119,22 @@ function gestisciCheckout(event, giaLoggato) {
 
     btnAction.innerText = "Accedi";
     btnAction.onclick = function() {
-        window.location.href = "login.jsp";
+        chiudiPopup();
+        const linkLogin = document.createElement('a');
+        linkLogin.href = "login.jsp";
+        document.body.appendChild(linkLogin);
+        linkLogin.click();
+        linkLogin.remove();
     };
 
     btnSecondary.innerText = "Registrati";
     btnSecondary.onclick = function() {
-        window.location.href = "registrazione.jsp";
+        chiudiPopup();
+        const linkReg = document.createElement('a');
+        linkReg.href = "registrazione.jsp";
+        document.body.appendChild(linkReg);
+        linkReg.click();
+        linkReg.remove();
     };
 
     overlay.classList.add('active');

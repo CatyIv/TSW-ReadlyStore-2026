@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo Libri - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/catalogo.css?v=3">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/catalogo.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/popup.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
@@ -101,13 +101,13 @@
                             <div class="info-box">
                                 <h4 class="titolo">
                                     <a href="DettaglioProdottoServlet?isbn=${product.isbn}" class="link-titolo-catalogo">
-                                        ${product.titolo}
+                                            ${product.titolo}
                                     </a>
                                 </h4>
 
                                 <p class="autore">
                                     <a href="${pageContext.request.contextPath}/CatalogoServlet?autore=${product.autore}" class="link-autore-catalogo">
-                                        ${product.autore}
+                                            ${product.autore}
                                     </a>
                                 </p>
 
@@ -183,8 +183,8 @@
         <h3>Autenticazione Richiesta</h3>
         <p>Per salvare il libro nella tua wishlist, accedi al tuo account o creane uno nuovo.</p>
         <div class="modal-buttons">
-            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-modal-conferma" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Accedi</a>
-            <a href="${pageContext.request.contextPath}/registrazione.jsp" class="btn-modal-annulla" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Registrati</a>
+            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-modal-conferma">Accedi</a>
+            <a href="${pageContext.request.contextPath}/registrazione.jsp" class="btn-modal-annulla">Registrati</a>
         </div>
     </div>
 </div>
@@ -194,7 +194,6 @@
 
 <script src="${pageContext.request.contextPath}/javascripts/catalogo.js"></script>
 <script src="${pageContext.request.contextPath}/javascripts/bottone.js"></script>
-
 
 </body>
 </html>

@@ -607,6 +607,47 @@ body {
     color: #677351;
 }
 
+/* Classi per bottoni popup integrate per eliminare style inline */
+.btn-modal-conferma {
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: #89986D;
+    color: #FFFFFF;
+    font-weight: bold;
+    border: 1px solid #677351;
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-modal-conferma:hover {
+    background-color: #677351;
+}
+
+.btn-modal-annulla {
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: #F6F0D7;
+    color: #677351;
+    font-weight: bold;
+    border: 1px solid #677351;
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-modal-annulla:hover {
+    background-color: #EADFBC;
+}
+
 @media (max-width: 1200px) {
     .catalogo-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -638,7 +679,7 @@ body {
         top: 0;
         transform: none;
         margin: 10px 0;
-        wodth: 100%;
+        width: 100%;
         max-width: 100%;
     }
 
@@ -693,20 +734,20 @@ body {
         padding: 20px;
     }
 
-    .immagine-box {
-        height: auto !important;
-        background: transparent !important;
-        border: none !important;
+    .catalogo-grid .immagine-box {
+        height: auto;
+        background: transparent;
+        border: none;
         margin-bottom: 12px;
     }
 
-    .immagine-box img {
-        max-width: 100% !important;
-        max-height: 250px !important;
-        height: 250px !important;
-        object-fit: contain !important;
-        border: 2px solid #677351 !important;
-        border-radius: 12px !important;
+    .catalogo-grid .immagine-box img {
+        max-width: 100%;
+        max-height: 250px;
+        height: 250px;
+        object-fit: contain;
+        border: 2px solid #677351;
+        border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         background-color: #ffffff;
     }

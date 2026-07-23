@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Il Tuo Carrello - Readly</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css?v=2">
+    <link rel="stylesheet" type="text/css" href="stylesheets/carrello.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/popup.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/bottone.css">
 </head>
@@ -69,7 +69,7 @@
             <div class="prodotto-card">
                 <div class="prodotto-info-lato">
                     <div class="libro-copertina-placeholder">
-                        <img src="img/copertine/<%= nomeFileImmagine %>" alt="Copertina di <%= item.getProdotto().getTitolo() %>" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                        <img src="img/copertine/<%= nomeFileImmagine %>" alt="Copertina di <%= item.getProdotto().getTitolo() %>">
                     </div>
 
                     <div class="prodotto-dettagli-testo">
